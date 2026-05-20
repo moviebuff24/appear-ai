@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appear AI — AI-First SEO for Dental Practices</title>
+  <meta name="description" content="When your patients ask ChatGPT or Google AI for a recommendation, does your practice come up? Appear AI helps dental and orthodontic practices get found in AI-powered search." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111827;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: #f97316; }
+
+    .nav-cta {
+      background: #f97316;
+      color: #ffffff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .nav-cta:hover { background: #ea6c00; }
+
+    /* HERO */
+    .hero {
+      padding: 80px 24px 72px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .pill {
+      display: inline-block;
+      background: #fff7ed;
+      color: #f97316;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: #111827;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span { color: #f97316; }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: #6b7280;
+      max-width: 540px;
+      margin: 0 auto 36px;
+    }
+
+    /* EMAIL CAPTURE FORM */
+    .capture-form {
+      display: flex;
+      gap: 8px;
+      max-width: 460px;
+      margin: 0 auto 12px;
+    }
+
+    .capture-form input[type="email"] {
+      flex: 1;
+      padding: 13px 16px;
+      font-size: 0.9375rem;
+      font-family: 'Inter', sans-serif;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      background: #f9fafb;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .capture-form input[type="email"]:focus {
+      border-color: #f97316;
+      background: #fff;
+    }
+
+    .capture-form input[type="email"]::placeholder { color: #9ca3af; }
+
+    .capture-form button {
+      background: #f97316;
+      color: #ffffff;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      padding: 13px 22px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .capture-form button:hover { background: #ea6c00; }
+
+    .form-sub {
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+
+    /* FEATURES */
+    .features {
+      background: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 52px 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .feature h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .feature p {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    /* SECONDARY CTA */
+    .secondary-cta {
+      padding: 72px 24px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .secondary-cta p {
+      font-size: 1.0625rem;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .secondary-cta a {
+      display: inline-block;
+      background: #111827;
+      color: #ffffff;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .secondary-cta a:hover { background: #1f2937; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 24px;
+      text-align: center;
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+
+    /* SUCCESS MESSAGE */
+    .success-msg {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 13px 20px;
+      border-radius: 6px;
+      max-width: 460px;
+      margin: 0 auto 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      .capture-form { flex-direction: column; }
+      .capture-form input[type="email"],
+      .capture-form button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Appear<span>AI</span></div>
+    <a class="nav-cta" href="https://calendly.com/kazztechholdings/30min" target="_blank" rel="noopener">Book a Free Call</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="pill">AI-First SEO for Dental Practices</div>
+    <h1>Your patients are asking AI for a recommendation.<br><span>Does your practice come up?</span></h1>
+    <p>We help dental and orthodontic practices get found in ChatGPT, Perplexity, and Google AI — not just Google Search.</p>
+
+    <form
+      class="capture-form"
+      action="https://formspree.io/f/mjgzyekd"
+      method="POST"
+      id="lead-form"
+    >
+      <input type="email" name="email" placeholder="your@email.com" required />
+      <input type="hidden" name="_subject" value="New Appear AI lead" />
+      <input type="hidden" name="_next" value="" />
+      <button type="submit">Get Free Audit →</button>
+    </form>
+    <div class="success-msg" id="success-msg">
+      ✓ Got it — we'll send your free AI Visibility Snapshot within 48 hours.
+    </div>
+    <p class="form-sub">Free AI Visibility Snapshot — delivered within 48 hours. No sales pitch.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">🔍</div>
+        <h3>AI Search Audit</h3>
+        <p>See exactly how your practice appears when patients ask ChatGPT, Perplexity, or Google AI for a recommendation.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <h3>Full SEO Coverage</h3>
+        <p>Google rankings and AI visibility, handled together. One agency, not two — built AI-first from day one.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🦷</div>
+        <h3>Built for Dental</h3>
+        <p>We work exclusively with dental and orthodontic practices. No generic playbooks — just what works for your market.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECONDARY CTA -->
+  <section class="secondary-cta">
+    <p>Not sure if AI search matters for your practice? Let's look at your numbers together — no commitment required.</p>
+    <a href="https://calendly.com/kazztechholdings/30min" target="_blank" rel="noopener">Book a Free 30-Min Call</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Appear AI is a brand of Kaz Tech Holdings LLC &nbsp;·&nbsp; hello@appearai.co</p>
+  </footer>
+
+  <script>
+    // Show success message on form submit instead of redirecting
+    const form = document.getElementById('lead-form');
+    const successMsg = document.getElementById('success-msg');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          alert('Something went wrong — please try again or email hello@appearai.co directly.');
+        }
+      } catch {
+        alert('Something went wrong — please try again or email hello@appearai.co directly.');
+      }
+    });
+  </script>
+
+</body>
+</html>
