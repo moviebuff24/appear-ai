@@ -622,13 +622,65 @@
       .report-meta { text-align: left; }
     }
 
+    /* ── SAMPLE BANNER ── */
+    .sample-banner {
+      background: #fefce8;
+      border: 1.5px solid #fde047;
+      border-radius: 10px;
+      padding: 12px 20px;
+      margin: 0 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sample-banner-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .sample-banner p {
+      font-size: 0.8125rem;
+      color: #854d0e;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .sample-banner strong {
+      font-weight: 700;
+    }
+
+    .sample-pill {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(253,224,71,0.25);
+      color: #a16207;
+      border: 1px solid rgba(253,224,71,0.6);
+      vertical-align: middle;
+      margin-left: 8px;
+      position: relative;
+      top: -1px;
+    }
+
     @media print {
       body { background: #fff; }
       .report { margin: 0; box-shadow: none; border: none; border-radius: 0; }
+      .sample-banner { display: none; }
     }
   </style>
 </head>
 <body>
+
+<div class="sample-banner">
+  <span class="sample-banner-icon">⚠</span>
+  <p><strong>Sample Report — Illustrative Data Only.</strong> Maple Street Dental is a fictional practice. All scores, competitor names, review counts, and platform results shown here are examples of what a real audit looks like. Your actual report will reflect your practice and your market. <a href="https://appearai.co" style="color:#92400e; font-weight:600;">Get your free report →</a></p>
+</div>
 
 <div class="report">
 
@@ -642,7 +694,7 @@
     </div>
     <div class="report-meta">
       <p>AI Visibility Snapshot</p>
-      <div class="practice-name">Maple Street Dental</div>
+      <div class="practice-name">Maple Street Dental<span class="sample-pill">Sample</span></div>
       <p>Royal Oak, MI &nbsp;·&nbsp; Audit date: May 21, 2026</p>
     </div>
   </div>
