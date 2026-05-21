@@ -201,7 +201,7 @@
     /* ── PLATFORM GRID ── */
     .platform-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
 
@@ -675,6 +675,24 @@
         </div>
       </div>
 
+      <div class="platform-card">
+        <div class="platform-card-header">
+          <span class="platform-name">Claude</span>
+          <span class="platform-status status-not-found">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Not Found
+          </span>
+        </div>
+        <div class="platform-card-body">
+          <div class="platform-query">"recommend a dentist in Royal Oak MI"</div>
+          <div class="platform-finding">
+            <strong>Top Result</strong>
+            <span class="competitor-appeared">Birmingham Dental Associates</span>
+            <br/>Claude surfaced 3 practices and cited Google reviews and the practice websites directly. Maple Street Dental's website lacked sufficient location and service-specific content to be indexed.
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -692,6 +710,7 @@
           <th>ChatGPT</th>
           <th>Perplexity</th>
           <th>Google AI</th>
+          <th>Claude</th>
           <th>Reviews</th>
           <th>Score</th>
         </tr>
@@ -701,6 +720,11 @@
           <td class="practice-cell">
             Birmingham Dental Associates
             <span class="practice-sub">Birmingham, MI (2.1 mi)</span>
+          </td>
+          <td class="cell-center">
+            <span class="dot-found">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
           </td>
           <td class="cell-center">
             <span class="dot-found">
@@ -740,6 +764,11 @@
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
           </td>
+          <td class="cell-center">
+            <span class="dot-not">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+          </td>
           <td class="cell-center">187 · 4.8★</td>
           <td class="cell-center"><span class="score-pill score-mid">6/10</span></td>
         </tr>
@@ -763,6 +792,11 @@
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
           </td>
+          <td class="cell-center">
+            <span class="dot-found">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+          </td>
           <td class="cell-center">408 · 4.7★</td>
           <td class="cell-center"><span class="score-pill score-mid">7/10</span></td>
         </tr>
@@ -770,6 +804,11 @@
           <td class="practice-cell">
             Maple Street Dental
             <span class="practice-sub">Royal Oak, MI · You</span>
+          </td>
+          <td class="cell-center">
+            <span class="dot-not">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
           </td>
           <td class="cell-center">
             <span class="dot-not">
@@ -866,7 +905,7 @@
       </div>
       <div class="method-item">
         <h4>Platforms audited</h4>
-        <p>ChatGPT (GPT-4o), Perplexity AI, and Google AI Overview. All queries run from a cleared browser session in the Royal Oak, MI geographic area.</p>
+        <p>ChatGPT (GPT-4o), Perplexity AI, Google AI Overview, and Claude (claude.ai). All queries run from a cleared browser session in the Royal Oak, MI geographic area.</p>
       </div>
       <div class="method-item">
         <h4>Competitor set</h4>
