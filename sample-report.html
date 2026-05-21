@@ -382,6 +382,20 @@
       color: var(--gray-400);
     }
 
+    .dot-partial {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(217,119,6,0.1);
+      color: var(--amber);
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
     .score-pill {
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
@@ -812,9 +826,7 @@
             </span>
           </td>
           <td class="cell-center">
-            <span class="dot-found">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
+            <span class="dot-partial">–</span>
           </td>
           <td class="cell-center">
             <span class="dot-found">
@@ -878,9 +890,7 @@
             </span>
           </td>
           <td class="cell-center">
-            <span class="dot-found">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
+            <span class="dot-partial">–</span>
           </td>
           <td class="cell-center">408 · 4.7★</td>
           <td class="cell-center"><span class="score-pill score-mid">7/10</span></td>
@@ -916,6 +926,21 @@
       </tbody>
     </table>
 
+    <div class="reviews-note" style="margin-bottom:12px; display:flex; gap:20px; flex-wrap:wrap; align-items:center;">
+      <strong style="color:var(--gray-700); font-size:0.8125rem;">Key:</strong>
+      <span style="display:inline-flex;align-items:center;gap:7px;font-size:0.8rem;color:var(--gray-500);">
+        <span class="dot-found" style="flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        Appears consistently
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:7px;font-size:0.8rem;color:var(--gray-500);">
+        <span class="dot-partial" style="flex-shrink:0">–</span>
+        Appears on some queries
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:7px;font-size:0.8rem;color:var(--gray-500);">
+        <span class="dot-not" style="flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>
+        Does not appear
+      </span>
+    </div>
     <div class="reviews-note">
       <strong>Note on review volume:</strong> All three competitors appearing in AI results have 187–408 Google reviews with consistent recent activity (last review within 2 weeks). Maple Street Dental has 47 reviews; the most recent is 6 months old. AI platforms weight recency and volume heavily when surfacing local recommendations.
     </div>
