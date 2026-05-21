@@ -198,33 +198,88 @@
       padding: 2px 7px;
     }
 
-    /* ── PLATFORM GRID ── */
-    .platform-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+    /* ── QUERY MATRIX ── */
+    .query-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
     }
 
-    .platform-card {
-      border: 1px solid var(--gray-200);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .platform-card-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .query-matrix thead th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      padding: 10px 14px;
+      text-align: center;
+      border-bottom: 2px solid var(--gray-200);
       background: var(--gray-50);
     }
 
-    .platform-name {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      color: var(--gray-900);
+    .query-matrix thead th.query-col {
+      text-align: left;
+      width: 34%;
+    }
+
+    .query-matrix tbody tr {
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .query-matrix tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .query-matrix tbody tr:hover {
+      background: var(--gray-50);
+    }
+
+    .query-matrix td {
+      padding: 14px 14px;
+      vertical-align: middle;
+    }
+
+    .query-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem;
+      color: var(--gray-700);
+      line-height: 1.5;
+    }
+
+    .matrix-cell {
+      text-align: center;
+    }
+
+    .matrix-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .badge-not-found {
+      background: rgba(220,38,38,0.08);
+      color: var(--red);
+      border: 1px solid rgba(220,38,38,0.18);
+    }
+
+    .badge-found {
+      background: rgba(22,163,74,0.1);
+      color: var(--green);
+      border: 1px solid rgba(22,163,74,0.2);
+    }
+
+    .matrix-competitor {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.7rem;
+      color: var(--gray-400);
+      line-height: 1.4;
     }
 
     .platform-status {
@@ -247,41 +302,6 @@
       background: rgba(220,38,38,0.08);
       color: var(--red);
       border: 1px solid rgba(220,38,38,0.18);
-    }
-
-    .platform-card-body { padding: 14px 16px; }
-
-    .platform-query {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.73rem;
-      color: var(--gray-500);
-      background: var(--gray-100);
-      border-radius: 5px;
-      padding: 7px 10px;
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .platform-finding {
-      font-size: 0.8125rem;
-      color: var(--gray-700);
-      line-height: 1.55;
-    }
-
-    .platform-finding strong {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--gray-400);
-      margin-bottom: 4px;
-    }
-
-    .competitor-appeared {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      color: var(--gray-900);
     }
 
     /* ── COMPETITOR TABLE ── */
@@ -564,7 +584,10 @@
     @media (max-width: 640px) {
       .report { margin: 0; border-radius: 0; }
       .report-header, .score-band, .section, .report-footer { padding-left: 20px; padding-right: 20px; }
-      .platform-grid { grid-template-columns: 1fr; }
+      .query-matrix thead th, .query-matrix td { padding: 10px 8px; }
+      .query-text { font-size: 0.67rem; }
+      .matrix-badge { font-size: 0.62rem; padding: 2px 6px; }
+      .matrix-competitor { font-size: 0.63rem; }
       .method-grid { grid-template-columns: 1fr; }
       .score-band { flex-direction: column; gap: 20px; }
       .report-header { flex-direction: column; }
@@ -619,81 +642,143 @@
       <span class="section-num">01</span>
       <h2>Platform Results</h2>
     </div>
-    <div class="platform-grid">
-
-      <div class="platform-card">
-        <div class="platform-card-header">
-          <span class="platform-name">ChatGPT</span>
-          <span class="platform-status status-not-found">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Not Found
-          </span>
-        </div>
-        <div class="platform-card-body">
-          <div class="platform-query">"best dentist in Royal Oak MI"</div>
-          <div class="platform-finding">
-            <strong>Top Result</strong>
-            <span class="competitor-appeared">Birmingham Dental Associates</span>
-            <br/>Maple Street Dental did not appear in the top 5 recommendations. ChatGPT cited Google reviews and Healthgrades as primary sources.
-          </div>
-        </div>
-      </div>
-
-      <div class="platform-card">
-        <div class="platform-card-header">
-          <span class="platform-name">Perplexity</span>
-          <span class="platform-status status-not-found">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Not Found
-          </span>
-        </div>
-        <div class="platform-card-body">
-          <div class="platform-query">"dentist near Royal Oak MI accepting new patients"</div>
-          <div class="platform-finding">
-            <strong>Top Result</strong>
-            <span class="competitor-appeared">Royal Oak Smiles</span>
-            <br/>Perplexity pulled 4 results, citing ZocDoc, Zocdoc, and Yelp listings. Maple Street Dental has no ZocDoc profile.
-          </div>
-        </div>
-      </div>
-
-      <div class="platform-card">
-        <div class="platform-card-header">
-          <span class="platform-name">Google AI Overview</span>
-          <span class="platform-status status-not-found">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Not Found
-          </span>
-        </div>
-        <div class="platform-card-body">
-          <div class="platform-query">"dentist Royal Oak MI"</div>
-          <div class="platform-finding">
-            <strong>Top Result</strong>
-            <span class="competitor-appeared">Great Expressions Dental</span>
-            <br/>Google's AI Overview surfaced 3 practices. Maple Street Dental appeared in the Maps pack below the fold but was excluded from the AI-generated summary.
-          </div>
-        </div>
-      </div>
-
-      <div class="platform-card">
-        <div class="platform-card-header">
-          <span class="platform-name">Claude</span>
-          <span class="platform-status status-not-found">
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Not Found
-          </span>
-        </div>
-        <div class="platform-card-body">
-          <div class="platform-query">"recommend a dentist in Royal Oak MI"</div>
-          <div class="platform-finding">
-            <strong>Top Result</strong>
-            <span class="competitor-appeared">Birmingham Dental Associates</span>
-            <br/>Claude surfaced 3 practices and cited Google reviews and the practice websites directly. Maple Street Dental's website lacked sufficient location and service-specific content to be indexed.
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <table class="query-matrix">
+      <thead>
+        <tr>
+          <th class="query-col">Query</th>
+          <th>ChatGPT</th>
+          <th>Perplexity</th>
+          <th>Google AI</th>
+          <th>Claude</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="query-text">"best dentist in Royal Oak MI"</td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Royal Oak Smiles</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Great Expressions</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="query-text">"dentist near Royal Oak MI accepting new patients"</td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Royal Oak Smiles</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Royal Oak Smiles</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Great Expressions</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="query-text">"recommend a dentist in Royal Oak MI"</td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Great Expressions</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Royal Oak Smiles</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="query-text">"top rated dental office Royal Oak"</td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Royal Oak Smiles</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Birmingham Dental</span>
+          </td>
+          <td class="matrix-cell">
+            <span class="matrix-badge badge-not-found">
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Not Found
+            </span>
+            <span class="matrix-competitor">→ Great Expressions</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- SECTION 2: COMPETITOR ANALYSIS -->
