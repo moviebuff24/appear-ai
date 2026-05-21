@@ -51,6 +51,15 @@
       font-weight: 800;
       color: var(--white);
       letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-tooth {
+      color: var(--orange);
+      display: flex;
+      align-items: center;
     }
 
     .logo span { color: var(--orange); }
@@ -75,8 +84,7 @@
     /* ── HERO ── */
     .hero {
       background: linear-gradient(160deg, var(--navy) 0%, #162847 55%, #1e3a5f 100%);
-      padding: 96px 24px 88px;
-      text-align: center;
+      padding: 80px 40px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -85,14 +93,38 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.12) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 60% at 30% 20%, rgba(249,115,22,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Ghost tooth watermark */
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      bottom: -80px;
+      width: 420px;
+      height: 420px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2C9.5 2 7.5 4.3 7.5 7c0 1.2.4 2.3 1 3.2L10.5 20h3l2-9.8c.6-.9 1-2 1-3.2C16.5 4.3 14.5 2 12 2z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.03;
       pointer-events: none;
     }
 
     .hero-inner {
       position: relative;
-      max-width: 720px;
+      max-width: 1100px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .hero-copy {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
     }
 
     .pill {
@@ -111,7 +143,7 @@
 
     .hero h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -1px;
@@ -121,19 +153,19 @@
 
     .hero h1 span { color: var(--orange); }
 
-    .hero > .hero-inner > p {
-      font-size: 1.125rem;
-      color: rgba(255,255,255,0.65);
-      max-width: 520px;
-      margin: 0 auto 44px;
+    .hero-copy > p {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.62);
+      max-width: 480px;
+      margin-bottom: 40px;
     }
 
     /* ── EMAIL CAPTURE ── */
     .capture-form {
       display: flex;
       gap: 8px;
-      max-width: 460px;
-      margin: 0 auto 12px;
+      max-width: 440px;
+      margin-bottom: 12px;
     }
 
     .capture-form input[type="email"] {
@@ -162,7 +194,7 @@
       font-size: 0.9375rem;
       font-weight: 700;
       font-family: 'Inter', sans-serif;
-      padding: 14px 24px;
+      padding: 14px 22px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -177,7 +209,7 @@
 
     .form-sub {
       font-size: 0.8125rem;
-      color: rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.38);
     }
 
     .success-msg {
@@ -189,9 +221,204 @@
       font-weight: 500;
       padding: 14px 20px;
       border-radius: 8px;
-      max-width: 460px;
-      margin: 0 auto 12px;
-      text-align: center;
+      max-width: 440px;
+      margin-bottom: 12px;
+    }
+
+    /* ── HERO VISUAL (AI mockup) ── */
+    .hero-visual {
+      flex: 0 0 340px;
+      position: relative;
+    }
+
+    .mock-interface {
+      background: rgba(10, 22, 44, 0.85);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+    }
+
+    .mock-topbar {
+      background: rgba(0,0,0,0.35);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .mock-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .mock-dot.r { background: #ff5f57; }
+    .mock-dot.y { background: #febc2e; }
+    .mock-dot.g { background: #28c840; }
+
+    .mock-url-bar {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 5px;
+      padding: 4px 10px;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mock-body { padding: 16px; }
+
+    .mock-prompt {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 11px 14px;
+      margin-bottom: 14px;
+    }
+
+    .mock-prompt small {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      margin-bottom: 5px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mock-prompt p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+
+    /* Competitor result card */
+    .mock-result {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .mock-result-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .mock-result-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .mock-result-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 3px;
+    }
+
+    .mock-result-stars {
+      font-size: 0.68rem;
+      color: #fbbf24;
+      line-height: 1;
+    }
+
+    .mock-result-stars span {
+      color: rgba(255,255,255,0.32);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mock-lines { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+
+    .mock-line {
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .mock-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.25);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #fba863;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* "Your practice not found" row */
+    .mock-not-found {
+      background: rgba(255,255,255,0.02);
+      border: 1px dashed rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mock-nf-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+
+    .mock-nf-text {
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.28);
+      font-family: 'Inter', sans-serif;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    /* Platform pills */
+    .platform-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .platform-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mock-footer {
+      padding: 10px 16px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.18);
+      font-family: 'Inter', sans-serif;
     }
 
     /* ── TRUST BAR ── */
@@ -246,9 +473,7 @@
     }
 
     /* ── FEATURES ── */
-    .features {
-      padding: 80px 24px;
-    }
+    .features { padding: 80px 24px; }
 
     .features-grid {
       display: grid;
@@ -347,9 +572,7 @@
     }
 
     /* ── AUDIT PREVIEW ── */
-    .what-you-get {
-      padding: 80px 24px;
-    }
+    .what-you-get { padding: 80px 24px; }
 
     .audit-card {
       max-width: 600px;
@@ -369,10 +592,7 @@
       gap: 12px;
     }
 
-    .audit-dots {
-      display: flex;
-      gap: 6px;
-    }
+    .audit-dots { display: flex; gap: 6px; }
 
     .audit-dots i {
       width: 10px;
@@ -487,6 +707,17 @@
 
     footer a:hover { color: rgba(255,255,255,0.85); }
 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { padding: 64px 24px; }
+      .hero-inner { flex-direction: column; gap: 48px; }
+      .hero-copy { text-align: center; }
+      .hero-copy > p { max-width: 100%; margin-left: auto; margin-right: auto; }
+      .capture-form { margin-left: auto; margin-right: auto; }
+      .success-msg { margin-left: auto; margin-right: auto; }
+      .hero-visual { width: 100%; max-width: 360px; margin: 0 auto; }
+    }
+
     @media (max-width: 520px) {
       .capture-form { flex-direction: column; }
       .capture-form input[type="email"],
@@ -499,27 +730,101 @@
 
   <!-- NAV -->
   <nav>
-    <div class="logo">Appear<span>AI</span></div>
+    <div class="logo">
+      <span class="logo-tooth">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C9.5 2 7.5 4.3 7.5 7c0 1.2.4 2.3 1 3.2L10.5 20h3l2-9.8c.6-.9 1-2 1-3.2C16.5 4.3 14.5 2 12 2z"/>
+        </svg>
+      </span>
+      Appear<span>AI</span>
+    </div>
     <a class="nav-cta" href="https://calendly.com/kazztechholdings/30min" target="_blank" rel="noopener">Book a Free Call</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="pill">AI-First SEO for Dental Practices</div>
-      <h1>Your patients are asking AI for a recommendation.<br><span>Does your practice come up?</span></h1>
-      <p>We help dental and orthodontic practices get found in ChatGPT, Perplexity, and Google AI — not just Google Search.</p>
 
-      <form class="capture-form" action="https://formspree.io/f/mjgzyekd" method="POST" id="lead-form">
-        <input type="email" name="email" placeholder="your@email.com" required />
-        <input type="hidden" name="_subject" value="New Appear AI lead" />
-        <input type="hidden" name="_next" value="" />
-        <button type="submit">Get Free Audit →</button>
-      </form>
-      <div class="success-msg" id="success-msg">
-        ✓ Got it — we'll send your free AI Visibility Snapshot within 48 hours.
+      <!-- LEFT: Copy + form -->
+      <div class="hero-copy">
+        <div class="pill">AI-First SEO for Dental Practices</div>
+        <h1>Your patients are asking AI for a recommendation.<br><span>Does your practice come up?</span></h1>
+        <p>We help dental and orthodontic practices get found in ChatGPT, Perplexity, and Google AI — not just Google Search.</p>
+
+        <form class="capture-form" action="https://formspree.io/f/mjgzyekd" method="POST" id="lead-form">
+          <input type="email" name="email" placeholder="your@email.com" required />
+          <input type="hidden" name="_subject" value="New Appear AI lead" />
+          <input type="hidden" name="_next" value="" />
+          <button type="submit">Get Free Audit →</button>
+        </form>
+        <div class="success-msg" id="success-msg">
+          ✓ Got it — we'll send your free AI Visibility Snapshot within 48 hours.
+        </div>
+        <p class="form-sub">Free AI Visibility Snapshot — delivered within 48 hours. No sales pitch.</p>
       </div>
-      <p class="form-sub">Free AI Visibility Snapshot — delivered within 48 hours. No sales pitch.</p>
+
+      <!-- RIGHT: AI search mockup -->
+      <div class="hero-visual">
+        <div class="mock-interface">
+          <div class="mock-topbar">
+            <div class="mock-dot r"></div>
+            <div class="mock-dot y"></div>
+            <div class="mock-dot g"></div>
+            <div class="mock-url-bar">chatgpt.com</div>
+          </div>
+          <div class="mock-body">
+
+            <!-- User query -->
+            <div class="mock-prompt">
+              <small>You asked</small>
+              <p>"Best dentist near downtown Chicago?"</p>
+            </div>
+
+            <!-- Competitor showing up -->
+            <div class="mock-result">
+              <div class="mock-result-header">
+                <div class="mock-result-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2C9.5 2 7.5 4.3 7.5 7c0 1.2.4 2.3 1 3.2L10.5 20h3l2-9.8c.6-.9 1-2 1-3.2C16.5 4.3 14.5 2 12 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="mock-result-name">Lakeview Dental Group</div>
+                  <div class="mock-result-stars">★★★★★ <span>4.9 · 214 reviews</span></div>
+                </div>
+              </div>
+              <div class="mock-lines">
+                <div class="mock-line" style="width:100%"></div>
+                <div class="mock-line" style="width:83%"></div>
+                <div class="mock-line" style="width:61%"></div>
+              </div>
+              <span class="mock-badge">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Recommended by ChatGPT
+              </span>
+            </div>
+
+            <!-- Your practice: not found -->
+            <div class="mock-not-found">
+              <div class="mock-nf-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </div>
+              <div class="mock-nf-text">Your practice didn't appear in this result.</div>
+            </div>
+
+            <!-- Platform pills -->
+            <div class="platform-pills">
+              <div class="platform-pill">ChatGPT</div>
+              <div class="platform-pill">Perplexity</div>
+              <div class="platform-pill">Google AI</div>
+            </div>
+          </div>
+          <div class="mock-footer">AI Visibility Snapshot · Appear AI</div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -576,10 +881,7 @@
       <div class="feature">
         <div class="feature-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
-            <rect x="9" y="1" width="6" height="4" rx="1" ry="1"/>
-            <line x1="9" y1="12" x2="15" y2="12"/>
-            <line x1="9" y1="16" x2="13" y2="16"/>
+            <path d="M12 2C9.5 2 7.5 4.3 7.5 7c0 1.2.4 2.3 1 3.2L10.5 20h3l2-9.8c.6-.9 1-2 1-3.2C16.5 4.3 14.5 2 12 2z"/>
           </svg>
         </div>
         <h3>Built for Dental</h3>
