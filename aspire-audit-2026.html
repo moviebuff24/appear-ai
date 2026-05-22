@@ -332,14 +332,27 @@
     @media (max-width: 640px) {
       .report { margin: 0; border-radius: 0; }
       .report-header, .score-band, .section, .report-footer { padding-left: 20px; padding-right: 20px; }
+
+      /* Score band — keep as row, left-align, scale down number */
+      .score-band { align-items: flex-start; gap: 20px; }
+      .score-value { font-size: 3rem; }
+      .score-denom { font-size: 1.25rem; }
+
+      /* Scrollable table wrappers */
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+      .comp-table { min-width: 540px; }
+      .query-matrix { min-width: 460px; }
       .query-matrix thead th, .query-matrix td { padding: 10px 8px; }
       .query-text { font-size: 0.67rem; }
       .rank-badge { font-size: 0.62rem; padding: 2px 6px; }
+      .matrix-note { font-size: 0.62rem; }
+
       .method-grid { grid-template-columns: 1fr; }
-      .score-band { flex-direction: column; gap: 20px; }
       .report-header { flex-direction: column; }
       .report-meta { text-align: left; }
       .cta-box { padding: 20px; }
+      .cta-btn { display: block; text-align: center; }
+      .report-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
     }
 
     @media print {
@@ -389,6 +402,7 @@
       <h2>Competitor Gap Analysis</h2>
     </div>
 
+    <div class="table-wrap">
     <table class="comp-table">
       <thead>
         <tr>
@@ -502,6 +516,7 @@
         </tr>
       </tbody>
     </table>
+    </div><!-- /.table-wrap -->
 
     <div class="reviews-note" style="margin-top:16px; margin-bottom:10px; display:flex; gap:20px; flex-wrap:wrap; align-items:center;">
       <strong style="color:var(--gray-700); font-size:0.8125rem;">Key:</strong>
@@ -539,6 +554,7 @@
     <p style="font-size:0.8125rem; color:var(--gray-500); margin-bottom:20px; line-height:1.55;">
       Aspire appeared in results on all four platforms across all four queries — 16 of 16. The table below shows your ranking position on each platform. <strong style="color:var(--gray-700);">Green = #1 recommendation. Amber = #2. Red = #3 or higher.</strong>
     </p>
+    <div class="table-wrap">
     <table class="query-matrix">
       <thead>
         <tr>
@@ -660,6 +676,7 @@
         </tr>
       </tbody>
     </table>
+    </div><!-- /.table-wrap -->
 
     <div class="reviews-note" style="margin-top:16px;">
       <strong class="note-title">Platform Pattern</strong>
