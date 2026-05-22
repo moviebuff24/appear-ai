@@ -212,32 +212,39 @@
     .matrix-note em { font-style: normal; font-weight: 600; color: var(--gray-700); }
 
     /* ── QUICK WINS ── */
+    .section-navy {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .section-navy .section-heading h2 { color: #fff; }
+    .section-navy .section-num { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
     .wins-list { display: flex; flex-direction: column; gap: 16px; }
     .win-card {
-      border: 1px solid var(--gray-200); border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      background: rgba(255,255,255,0.05);
       padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
     }
     .win-num {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.5rem; font-weight: 800;
-      color: var(--orange); opacity: 0.35;
+      color: var(--orange); opacity: 0.5;
       line-height: 1; flex-shrink: 0; min-width: 28px;
     }
     .win-content h3 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 0.9375rem; font-weight: 700;
-      color: var(--gray-900); margin-bottom: 6px;
+      color: #fff; margin-bottom: 6px;
     }
-    .win-content p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.6; }
-    .win-content p strong { color: var(--gray-700); font-weight: 600; }
+    .win-content p { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+    .win-content p strong { color: rgba(255,255,255,0.85); font-weight: 600; }
     .win-tag {
       display: inline-block; margin-top: 10px;
       font-size: 0.7rem; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       padding: 3px 9px; border-radius: 4px;
     }
-    .tag-high { background: rgba(22,163,74,0.1); color: var(--green); }
-    .tag-mid  { background: rgba(217,119,6,0.1);  color: var(--amber); }
+    .tag-high { background: rgba(22,163,74,0.15); color: #4ade80; }
+    .tag-mid  { background: rgba(217,119,6,0.15);  color: #fbbf24; }
 
     /* ── REVIEWS NOTE / CALLOUT ── */
     .reviews-note {
@@ -523,26 +530,6 @@
     </div>
   </div>
 
-  <!-- STAT STRIP -->
-  <div class="stat-strip">
-    <div class="stat-strip-item">
-      <div class="stat-strip-num stat-amber">16<sub>/16</sub></div>
-      <div class="stat-strip-label">Queries with Aspire appearing</div>
-    </div>
-    <div class="stat-strip-item">
-      <div class="stat-strip-num">4</div>
-      <div class="stat-strip-label">AI platforms tested</div>
-    </div>
-    <div class="stat-strip-item">
-      <div class="stat-strip-num stat-amber">148</div>
-      <div class="stat-strip-label">Google reviews · 5.0★</div>
-    </div>
-    <div class="stat-strip-item">
-      <div class="stat-strip-num">44</div>
-      <div class="stat-strip-label">Reviews from the #1 spot</div>
-    </div>
-  </div>
-
   <!-- SECTION 02: YOUR AI RANKINGS -->
   <div class="section">
     <div class="section-heading">
@@ -685,7 +672,7 @@
   </div>
 
   <!-- SECTION 03: TOP 3 QUICK WINS -->
-  <div class="section">
+  <div class="section section-navy">
     <div class="section-heading">
       <span class="section-num">03</span>
       <h2>Top 3 Quick Wins</h2>
