@@ -109,7 +109,7 @@
       height: 100%; border-radius: 4px;
       background: var(--amber); width: 70%;
     }
-    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; max-width: 480px; }
+    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
     .score-context strong { color: rgba(255,255,255,0.8); font-weight: 600; }
 
     /* ── SECTION LAYOUT ── */
@@ -248,6 +248,28 @@
     }
     .reviews-note strong { color: var(--gray-700); }
     .reviews-note.flag { border-left: 3px solid var(--amber); background: rgba(217,119,6,0.04); }
+    .note-title {
+      display: block; font-weight: 700;
+      color: var(--gray-700); font-size: 0.84rem;
+      margin-bottom: 5px;
+    }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: var(--navy);
+      padding: 24px 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-strip-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; }
+    .stat-strip-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .stat-strip-num sub { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.35); vertical-align: baseline; }
+    .stat-strip-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.35; }
+    .stat-amber { color: var(--amber); }
 
     /* ── METHODOLOGY ── */
     .method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -491,11 +513,33 @@
     </div>
 
     <div class="reviews-note">
-      <strong>Note on review volume:</strong> Nakisher's 192 reviews at 5.0★ earns the #1 spot on ChatGPT and Perplexity for general queries. Aspire's 148 reviews at 5.0★ is the highest rating in the market — the gap is volume, not quality. Profound Orthodontics in Bingham Farms has 591 reviews; while farther away, their volume shows what the ceiling looks like for dedicated orthodontic specialists in this region.
+      <strong class="note-title">Note on Review Volume</strong>
+      Nakisher's 192 reviews at 5.0★ earns the #1 spot on ChatGPT and Perplexity for general queries. Aspire's 148 reviews at 5.0★ is the highest rating in the market — the gap is volume, not quality. Profound Orthodontics in Bingham Farms has 591 reviews; while farther away, their volume shows what the ceiling looks like for dedicated orthodontic specialists in this region.
     </div>
 
     <div class="reviews-note flag" style="margin-top:10px;">
-      <strong>Name consistency note:</strong> All AI platforms display this practice as "Aspire Orthodontics &amp; Airway" — different from "Aspire Orthodontics" on aspire-ortho.com. Consistent naming across your website, GBP, and directories (NAP consistency) helps AI platforms reliably match your listings. Updating the website name to match the GBP name is a quick win.
+      <strong class="note-title">Name Consistency Note</strong>
+      All AI platforms display this practice as "Aspire Orthodontics &amp; Airway" — different from "Aspire Orthodontics" on aspire-ortho.com. Consistent naming across your website, GBP, and directories (NAP consistency) helps AI platforms reliably match your listings. Updating the website name to match the GBP name is a quick win.
+    </div>
+  </div>
+
+  <!-- STAT STRIP -->
+  <div class="stat-strip">
+    <div class="stat-strip-item">
+      <div class="stat-strip-num stat-amber">16<sub>/16</sub></div>
+      <div class="stat-strip-label">Queries with Aspire appearing</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">4</div>
+      <div class="stat-strip-label">AI platforms tested</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num stat-amber">148</div>
+      <div class="stat-strip-label">Google reviews · 5.0★</div>
+    </div>
+    <div class="stat-strip-item">
+      <div class="stat-strip-num">44</div>
+      <div class="stat-strip-label">Reviews from the #1 spot</div>
     </div>
   </div>
 
@@ -631,10 +675,12 @@
     </table>
 
     <div class="reviews-note" style="margin-top:16px;">
-      <strong>Platform pattern:</strong> Aspire leads on Google AI Mode and Claude — both platforms heavily weight Google Business Profile signals, where your 148 reviews at 5.0★ are strongest in the market. ChatGPT and Perplexity weight review directory sources (Yelp, Healthgrades) more heavily, where Nakisher's volume advantage shows up. The Invisalign query is where Aspire's airway specialization creates a genuine #1 signal across platforms.
+      <strong class="note-title">Platform Pattern</strong>
+      Aspire leads on Google AI Mode and Claude — both platforms heavily weight Google Business Profile signals, where your 148 reviews at 5.0★ are strongest in the market. ChatGPT and Perplexity weight review directory sources (Yelp, Healthgrades) more heavily, where Nakisher's volume advantage shows up. The Invisalign query is where Aspire's airway specialization creates a genuine #1 signal across platforms.
     </div>
     <div class="reviews-note flag" style="margin-top:10px;">
-      <strong>Perplexity data gap:</strong> Perplexity's listing showed only 12 reviews for Aspire — compared to 148 on Google. This indicates Perplexity is pulling from a third-party directory rather than your GBP. Adding JSON-LD schema markup to your website (see Quick Win #2) directly fixes this by giving Perplexity an authoritative source for your review data.
+      <strong class="note-title">Perplexity Data Gap</strong>
+      Perplexity's listing showed only 12 reviews for Aspire — compared to 148 on Google. This indicates Perplexity is pulling from a third-party directory rather than your GBP. Adding JSON-LD schema markup to your website (see Quick Win #2) directly fixes this by giving Perplexity an authoritative source for your review data.
     </div>
   </div>
 
