@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monthly Report — [PRACTICE_NAME] — [MONTH_YEAR]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1F3D;
+      --navy-mid:   #162a42;
+      --orange:     #f97316;
+      --green:      #16a34a;
+      --green-light:#34d399;
+      --blue:       #60a5fa;
+      --purple:     #a78bfa;
+      --amber:      #d97706;
+      --red:        #dc2626;
+      --gray-50:    #f8fafc;
+      --gray-100:   #f1f5f9;
+      --gray-200:   #e2e8f0;
+      --gray-400:   #94a3b8;
+      --gray-500:   #64748b;
+      --gray-700:   #334155;
+      --gray-900:   #0f172a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+      font-size: 0.9375rem;
+    }
+
+    a { color: var(--orange); text-decoration: none; }
+
+    .report {
+      max-width: 860px;
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(15,31,61,0.08);
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: var(--navy);
+      padding: 28px 36px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .header-left .label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .header-left .practice-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -0.3px;
+    }
+    .header-left .meta {
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+    .score-badge {
+      background: var(--orange);
+      border-radius: 12px;
+      padding: 12px 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .score-badge .num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .score-badge .lbl {
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 3px;
+    }
+
+    /* ── SCORECARD ── */
+    .scorecard {
+      background: var(--navy-mid);
+      padding: 16px 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .metric {
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .metric .val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .metric .delta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: 3px;
+    }
+    .metric .lbl {
+      font-size: 0.625rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+    .up   { color: var(--green-light); }
+    .down { color: #f87171; }
+    .flat { color: var(--gray-400); }
+
+    /* ── EXEC SUMMARY ── */
+    .exec-summary {
+      background: #fff;
+      border-left: 4px solid var(--orange);
+      padding: 18px 24px;
+      margin: 20px 24px;
+      border-radius: 0 8px 8px 0;
+    }
+    .exec-summary .sec-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .exec-summary p {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      line-height: 1.8;
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      margin: 0 24px 20px;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .section-header {
+      background: var(--navy);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .section-delta {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .section-body {
+      padding: 20px;
+      background: #fff;
+    }
+
+    /* ── CHART ROW ── */
+    .chart-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .chart-box {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .chart-box .chart-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    /* ── TABLES ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8125rem;
+    }
+    .data-table th {
+      background: var(--navy);
+      color: var(--gray-400);
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .data-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-700);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr.client-row td {
+      background: #fff7ed;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    /* rank badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-1   { background: #dcfce7; color: #166534; }
+    .badge-2   { background: #dbeafe; color: #1e40af; }
+    .badge-3   { background: #ede9fe; color: #5b21b6; }
+    .badge-low { background: var(--gray-100); color: var(--gray-500); }
+    .badge-miss { background: #fee2e2; color: #991b1b; }
+
+    /* volume bar in competitor table */
+    .vol-wrap {
+      display: inline-block;
+      width: 80px;
+      height: 5px;
+      background: var(--gray-200);
+      border-radius: 3px;
+      vertical-align: middle;
+    }
+    .vol-fill {
+      display: block;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--gray-400);
+    }
+    .vol-fill.client { background: var(--orange); }
+
+    /* impression bar in query table */
+    .imp-bar {
+      display: block;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--blue);
+      margin-top: 4px;
+    }
+
+    /* ── SEARCH METRICS ── */
+    .search-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .search-metric {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .search-metric .val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.2;
+    }
+    .search-metric .lbl {
+      font-size: 0.625rem;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+
+    /* ── CALLOUTS ── */
+    .callout {
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .callout-icon {
+      font-size: 1rem;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+    .callout-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+    .callout-text {
+      font-size: 0.8125rem;
+      line-height: 1.7;
+    }
+    .callout-win {
+      background: #f0fdf4;
+      border-left: 3px solid var(--green);
+    }
+    .callout-win .callout-label { color: #15803d; }
+    .callout-win .callout-text  { color: #166534; }
+    .callout-flag {
+      background: #fefce8;
+      border-left: 3px solid var(--amber);
+    }
+    .callout-flag .callout-label { color: #b45309; }
+    .callout-flag .callout-text  { color: #92400e; }
+
+    /* ── CONDITIONAL SECTION LABEL ── */
+    .cond-note {
+      font-size: 0.6875rem;
+      color: var(--gray-400);
+      text-align: center;
+      padding: 6px 0 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CHECKLIST (quarterly) ── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 0.8125rem;
+      color: var(--gray-700);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-icon { color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .checklist .group-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 12px 0 4px;
+      border-bottom: none;
+    }
+
+    /* ── PRIORITIES ── */
+    .priority-list { list-style: none; counter-reset: priority; }
+    .priority-list li {
+      counter-increment: priority;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .priority-list li:last-child { border-bottom: none; }
+    .priority-num {
+      width: 26px;
+      height: 26px;
+      background: var(--navy);
+      color: var(--orange);
+      border-radius: 50%;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .priority-body strong {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--gray-900);
+      margin-bottom: 2px;
+    }
+    .priority-body span {
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+    }
+
+    .needs-box {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+    .needs-box .needs-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .needs-box ul { list-style: none; }
+    .needs-box ul li {
+      font-size: 0.8125rem;
+      color: var(--gray-700);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      gap: 8px;
+    }
+    .needs-box ul li:last-child { border-bottom: none; }
+    .needs-box ul li::before { content: "→"; color: var(--orange); font-weight: 700; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--navy);
+      padding: 18px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+    .footer-cta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .report { margin: 0; border-radius: 0; }
+      .report-header { padding: 20px; flex-direction: column; gap: 14px; }
+      .scorecard { grid-template-columns: repeat(2, 1fr); padding: 14px 20px; }
+      .chart-row { grid-template-columns: 1fr; }
+      .search-metrics { grid-template-columns: repeat(2, 1fr); }
+      .section { margin: 0 12px 16px; }
+      .exec-summary { margin: 16px 12px; }
+      .section-body { padding: 14px; overflow-x: auto; }
+      .data-table { min-width: 480px; }
+      .report-footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+<div class="report">
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+       Update: practice name, month/year, AI score
+  ═══════════════════════════════════════════ -->
+  <div class="report-header">
+    <div class="header-left">
+      <div class="label">Appear AI · Monthly Report</div>
+      <div class="practice-name">[PRACTICE_NAME]</div>
+      <div class="meta">[MONTH_YEAR] · Prepared by Joe Kasper, Appear AI</div>
+    </div>
+    <div class="score-badge">
+      <div class="num">[AI_SCORE]</div>
+      <div class="lbl">AI Score</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCORECARD
+       Update: all four metric values and deltas
+       Delta format: "↑15" or "↓3" or "—"
+  ═══════════════════════════════════════════ -->
+  <div class="scorecard">
+    <div class="metric">
+      <div class="val">[REVIEWS] <span class="delta up">[REVIEWS_DELTA]</span></div>
+      <div class="lbl">Google Reviews</div>
+    </div>
+    <div class="metric">
+      <div class="val">[QUERIES]/16 <span class="delta up">[QUERIES_DELTA]</span></div>
+      <div class="lbl">AI Queries Found</div>
+    </div>
+    <div class="metric">
+      <div class="val">[RATING]<span class="delta flat">★</span></div>
+      <div class="lbl">Avg Star Rating</div>
+    </div>
+    <div class="metric">
+      <div class="val">[AI_SCORE] <span class="delta up">[SCORE_DELTA]</span></div>
+      <div class="lbl">AI Score vs Last Month</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       EXECUTIVE SUMMARY
+       Write 2–4 plain-English sentences covering:
+       what moved, the headline win, one thing to fix
+  ═══════════════════════════════════════════ -->
+  <div class="exec-summary">
+    <div class="sec-label">Executive Summary</div>
+    <p>[Write 2–4 sentences summarizing this month. Cover the headline metric movement, the biggest win, and the one remaining gap to address next month. Keep it direct — practice owner reads this in 30 seconds.]</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 01 — AI VISIBILITY
+       Always included. Update chart arrays in the
+       script block below, then update query matrix.
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">01 · AI Visibility Score</div>
+      <div class="section-delta up">[SCORE_DELTA] vs last month</div>
+    </div>
+    <div class="section-body">
+
+      <div class="chart-row">
+        <div class="chart-box">
+          <div class="chart-label">AI Score — 6-Month Trend</div>
+          <canvas id="aiScoreChart" height="130"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-label">AI Queries Found (of 16)</div>
+          <canvas id="queriesChart" height="130"></canvas>
+        </div>
+      </div>
+
+      <!-- Query Matrix — update badges per cell
+           Badge options: badge-1 (#1), badge-2 (#2), badge-3 (#3), badge-miss (Not Found)
+      -->
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Search Query</th>
+              <th>ChatGPT</th>
+              <th>Perplexity</th>
+              <th>Google AI</th>
+              <th>Claude</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>[Query 1 — e.g. "Orthodontist [City]"]</td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+            </tr>
+            <tr>
+              <td>[Query 2 — e.g. "Invisalign [City]"]</td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-2">#2</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-2">#2</span></td>
+            </tr>
+            <tr>
+              <td>[Query 3 — e.g. "Best orthodontist near me"]</td>
+              <td><span class="badge badge-2">#2</span></td>
+              <td><span class="badge badge-miss">Not Found</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+            </tr>
+            <tr>
+              <td>[Query 4 — e.g. "Braces for adults [City]"]</td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-miss">Not Found</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+              <td><span class="badge badge-1">#1</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Callouts — include 0–2, delete blocks you don't need -->
+      <div class="callout callout-win">
+        <div class="callout-icon">✓</div>
+        <div>
+          <div class="callout-label">Key Win This Month</div>
+          <div class="callout-text">[Describe the biggest AI visibility win this month — a score jump, new platform appearing, competitor gap closed, etc.]</div>
+        </div>
+      </div>
+
+      <!-- DELETE this block if no watch item this month
+      <div class="callout callout-flag">
+        <div class="callout-icon">⚑</div>
+        <div>
+          <div class="callout-label">Watch This</div>
+          <div class="callout-text">[Describe a gap, competitor movement, or trend to monitor. Keep it specific.]</div>
+        </div>
+      </div>
+      -->
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 02 — REVIEWS & REPUTATION
+       Always included. Update chart arrays in script,
+       update competitor table rows below.
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">02 · Reviews &amp; Reputation</div>
+      <div class="section-delta up">[NEW_REVIEWS_DELTA] new reviews this month</div>
+    </div>
+    <div class="section-body">
+
+      <div class="chart-row">
+        <div class="chart-box">
+          <div class="chart-label">Google Review Count — 6-Month Trend</div>
+          <canvas id="reviewCountChart" height="130"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-label">New Reviews Per Month</div>
+          <canvas id="newReviewsChart" height="130"></canvas>
+        </div>
+      </div>
+
+      <!-- Competitor table
+           VOL_PCT: set each bar width as a % of the highest review count competitor (= 100%)
+           e.g. if top competitor has 600 reviews, a practice with 163 reviews = 27%
+      -->
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Practice</th>
+              <th>Reviews</th>
+              <th>Volume</th>
+              <th>Rating</th>
+              <th>This Month</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- CLIENT ROW — keep class="client-row" -->
+            <tr class="client-row">
+              <td>[PRACTICE_NAME] ★</td>
+              <td>[REVIEWS]</td>
+              <td><span class="vol-wrap"><span class="vol-fill client" style="width:[VOL_PCT]%"></span></span></td>
+              <td>[RATING]★</td>
+              <td><span class="up">+[NEW_REVIEWS]</span></td>
+            </tr>
+            <!-- COMPETITOR ROWS — add/remove as needed -->
+            <tr>
+              <td>[Competitor 1]</td>
+              <td>[COMP1_REVIEWS]</td>
+              <td><span class="vol-wrap"><span class="vol-fill" style="width:[COMP1_PCT]%"></span></span></td>
+              <td>[COMP1_RATING]★</td>
+              <td>+[COMP1_NEW]</td>
+            </tr>
+            <tr>
+              <td>[Competitor 2]</td>
+              <td>[COMP2_REVIEWS]</td>
+              <td><span class="vol-wrap"><span class="vol-fill" style="width:[COMP2_PCT]%"></span></span></td>
+              <td>[COMP2_RATING]★</td>
+              <td>+[COMP2_NEW]</td>
+            </tr>
+            <tr>
+              <td>[Competitor 3]</td>
+              <td>[COMP3_REVIEWS]</td>
+              <td><span class="vol-wrap"><span class="vol-fill" style="width:[COMP3_PCT]%"></span></span></td>
+              <td>[COMP3_RATING]★</td>
+              <td>+[COMP3_NEW]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Callouts — include 0–2 -->
+      <!-- DELETE if no win this month
+      <div class="callout callout-win">
+        <div class="callout-icon">✓</div>
+        <div>
+          <div class="callout-label">Key Win This Month</div>
+          <div class="callout-text">[Review milestone hit, review ask program result, new platform activated, etc.]</div>
+        </div>
+      </div>
+      -->
+
+      <div class="callout callout-flag">
+        <div class="callout-icon">⚑</div>
+        <div>
+          <div class="callout-label">Watch This</div>
+          <div class="callout-text">[Competitor review count movement, gap to close, platform with low counts to improve, etc.]</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 03 — GOOGLE SEARCH PERFORMANCE
+       Always included. Data pulled from Google
+       Search Console (GSC). Update chart arrays
+       in script block and table rows below.
+  ═══════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">03 · Google Search Performance</div>
+      <div class="section-delta up">[IMPRESSIONS_DELTA] impressions vs last month</div>
+    </div>
+    <div class="section-body">
+
+      <div class="search-metrics">
+        <div class="search-metric">
+          <div class="val">[IMPRESSIONS] <span class="delta up" style="font-size:0.75rem;">[IMPRESSIONS_DELTA]</span></div>
+          <div class="lbl">Impressions</div>
+        </div>
+        <div class="search-metric">
+          <div class="val">[CLICKS] <span class="delta up" style="font-size:0.75rem;">[CLICKS_DELTA]</span></div>
+          <div class="lbl">Clicks</div>
+        </div>
+        <div class="search-metric">
+          <div class="val">[CTR]%</div>
+          <div class="lbl">Click-Through Rate</div>
+        </div>
+        <div class="search-metric">
+          <div class="val">[AVG_POSITION]</div>
+          <div class="lbl">Avg Position</div>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-box">
+          <div class="chart-label">Impressions — 6-Month Trend</div>
+          <canvas id="impressionsChart" height="130"></canvas>
+        </div>
+        <div class="chart-box">
+          <div class="chart-label">Organic Clicks — 6-Month Trend</div>
+          <canvas id="clicksChart" height="130"></canvas>
+        </div>
+      </div>
+
+      <!-- Top queries from GSC
+           IMP_PCT: width % relative to highest impression query (= 100%)
+           Position badges: badge-1 (#1–1.9), badge-2 (#2–2.9), badge-3 (#3–3.9), badge-low (#4+)
+      -->
+      <div style="font-size:0.625rem;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Top Queries — Google Search Console</div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Query</th>
+              <th>Impressions</th>
+              <th>Clicks</th>
+              <th>Avg Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>[top query 1]</td>
+              <td>[IMP1]<span class="imp-bar" style="width:[IMP1_PCT]%"></span></td>
+              <td>[CLK1]</td>
+              <td><span class="badge badge-1">#[POS1]</span></td>
+            </tr>
+            <tr>
+              <td>[top query 2]</td>
+              <td>[IMP2]<span class="imp-bar" style="width:[IMP2_PCT]%"></span></td>
+              <td>[CLK2]</td>
+              <td><span class="badge badge-1">#[POS2]</span></td>
+            </tr>
+            <tr>
+              <td>[top query 3]</td>
+              <td>[IMP3]<span class="imp-bar" style="width:[IMP3_PCT]%"></span></td>
+              <td>[CLK3]</td>
+              <td><span class="badge badge-2">#[POS3]</span></td>
+            </tr>
+            <tr>
+              <td>[top query 4]</td>
+              <td>[IMP4]<span class="imp-bar" style="width:[IMP4_PCT]%"></span></td>
+              <td>[CLK4]</td>
+              <td><span class="badge badge-2">#[POS4]</span></td>
+            </tr>
+            <tr>
+              <td>[top query 5]</td>
+              <td>[IMP5]<span class="imp-bar" style="width:[IMP5_PCT]%"></span></td>
+              <td>[CLK5]</td>
+              <td><span class="badge badge-3">#[POS5]</span></td>
+            </tr>
+            <tr>
+              <td>[top query 6]</td>
+              <td>[IMP6]<span class="imp-bar" style="width:[IMP6_PCT]%"></span></td>
+              <td>[CLK6]</td>
+              <td><span class="badge badge-low">#[POS6]</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Callouts — include 0–2 -->
+      <div class="callout callout-win">
+        <div class="callout-icon">✓</div>
+        <div>
+          <div class="callout-label">Key Win This Month</div>
+          <div class="callout-text">[Impressions increase, position improvement, new query ranking, CTR improvement, etc.]</div>
+        </div>
+      </div>
+
+      <!-- DELETE if no watch item
+      <div class="callout callout-flag">
+        <div class="callout-icon">⚑</div>
+        <div>
+          <div class="callout-label">Watch This</div>
+          <div class="callout-text">[Query with declining position, high impressions / low CTR opportunity, competitor movement, etc.]</div>
+        </div>
+      </div>
+      -->
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONDITIONAL SECTIONS 04–07
+       Include only when you did work in that area.
+       Delete the entire <div class="section">…</div>
+       block if not relevant this month.
+  ═══════════════════════════════════════════ -->
+
+  <!-- ── 04 · GOOGLE BUSINESS PROFILE ────────── -->
+  <!-- DELETE this section if no GBP work this month
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">04 · Google Business Profile</div>
+      <div class="section-delta up">Updated this month</div>
+    </div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Profile Element</th><th>Status</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Business name / NAP</td><td><span class="badge badge-1">✓ Consistent</span></td><td>[note or —]</td></tr>
+            <tr><td>Categories</td><td><span class="badge badge-1">✓ Optimized</span></td><td>[note or —]</td></tr>
+            <tr><td>Photos (count)</td><td><span class="badge badge-2">[COUNT] photos</span></td><td>[note or —]</td></tr>
+            <tr><td>Business hours</td><td><span class="badge badge-1">✓ Current</span></td><td>[note or —]</td></tr>
+            <tr><td>Services listed</td><td><span class="badge badge-1">✓ Complete</span></td><td>[note or —]</td></tr>
+            <tr><td>GBP Posts</td><td><span class="badge badge-2">[COUNT] this month</span></td><td>[note or —]</td></tr>
+            <tr><td>Q&A section</td><td><span class="badge badge-1">✓ Monitored</span></td><td>[note or —]</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout callout-win" style="margin-top:16px;">
+        <div class="callout-icon">✓</div>
+        <div>
+          <div class="callout-label">Updates This Month</div>
+          <div class="callout-text">[Describe what was changed or added to GBP this month.]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- ── 05 · CITATIONS & DIRECTORIES ────────── -->
+  <!-- DELETE this section if no citation work this month
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">05 · Citations &amp; Directories</div>
+      <div class="section-delta up">Updated this month</div>
+    </div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Directory</th><th>Status</th><th>Action Taken</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Google Business Profile</td><td><span class="badge badge-1">✓ Live</span></td><td>[action or —]</td></tr>
+            <tr><td>Yelp</td><td><span class="badge badge-1">✓ Live</span></td><td>[action or —]</td></tr>
+            <tr><td>Healthgrades</td><td><span class="badge badge-1">✓ Claimed</span></td><td>[action or —]</td></tr>
+            <tr><td>ZocDoc</td><td><span class="badge badge-2">Pending</span></td><td>[action or —]</td></tr>
+            <tr><td>WebMD</td><td><span class="badge badge-miss">Not Listed</span></td><td>[action or —]</td></tr>
+            <tr><td>Vitals.com</td><td><span class="badge badge-miss">Not Listed</span></td><td>[action or —]</td></tr>
+            <tr><td>Apple Maps</td><td><span class="badge badge-1">✓ Live</span></td><td>[action or —]</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- ── 06 · CONTENT & ON-PAGE ───────────────── -->
+  <!-- DELETE this section if no content work this month
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">06 · Content &amp; On-Page Work</div>
+      <div class="section-delta up">Published this month</div>
+    </div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Item</th><th>Type</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>[Page or post title]</td><td>Blog post</td><td><span class="badge badge-1">✓ Published</span></td></tr>
+            <tr><td>[Page or post title]</td><td>Service page</td><td><span class="badge badge-1">✓ Updated</span></td></tr>
+            <tr><td>[Schema type — e.g. FAQ Schema]</td><td>Schema markup</td><td><span class="badge badge-1">✓ Deployed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-win" style="margin-top:16px;">
+        <div class="callout-icon">✓</div>
+        <div>
+          <div class="callout-label">Key Win This Month</div>
+          <div class="callout-text">[Most impactful content item published — what it targets, why it matters.]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- ── 07 · TECHNICAL SEO ───────────────────── -->
+  <!-- DELETE this section if no technical issues this month
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">07 · Technical SEO</div>
+      <div class="section-delta flat">Issues flagged</div>
+    </div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr><th>Item</th><th>Status</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Core Web Vitals</td><td><span class="badge badge-1">✓ Passing</span></td><td>[note or —]</td></tr>
+            <tr><td>Crawl errors</td><td><span class="badge badge-1">✓ None</span></td><td>[note or —]</td></tr>
+            <tr><td>Schema validation</td><td><span class="badge badge-1">✓ Valid</span></td><td>[note or —]</td></tr>
+            <tr><td>Mobile usability</td><td><span class="badge badge-1">✓ Passing</span></td><td>[note or —]</td></tr>
+            <tr><td>[Issue if any]</td><td><span class="badge badge-miss">⚑ Flagged</span></td><td>[what it is and what was done]</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <div class="report-footer">
+    <div class="footer-brand">Appear AI · hello@appearai.co · appearai.co</div>
+    <div class="footer-cta">Questions? <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up" style="color:var(--orange);">Book a call →</a></div>
+  </div>
+
+</div><!-- /report -->
+
+<script>
+// ================================================================
+//  CHART DATA — Update these arrays each month before publishing
+//  Add newest month to the END of each array, remove the oldest
+// ================================================================
+
+// Month labels (6 months, oldest → current)
+const MONTHS = ['[M-5]', '[M-4]', '[M-3]', '[M-2]', '[M-1]', '[MONTH]'];
+//               e.g. 'Dec',  'Jan',  'Feb',  'Mar',  'Apr',  'May'
+
+// AI Score trend (out of 10)
+const AI_SCORES = [0, 0, 0, 0, 0, 0];
+// e.g.           [5.5, 6.0, 6.5, 6.8, 7.0, 8.5]
+
+// AI Queries found (out of 16)
+const QUERIES_FOUND = [0, 0, 0, 0, 0, 0];
+// e.g.               [9, 10, 11, 12, 12, 14]
+
+// Google review count (cumulative)
+const REVIEW_COUNTS = [0, 0, 0, 0, 0, 0];
+// e.g.                [120, 128, 135, 141, 148, 163]
+
+// New reviews per month
+const NEW_REVIEWS = [0, 0, 0, 0, 0, 0];
+// e.g.             [4, 8, 7, 6, 7, 15]
+
+// Google Search Console — monthly impressions
+const IMPRESSIONS = [0, 0, 0, 0, 0, 0];
+// e.g.             [1820, 1950, 2100, 2280, 2500, 2840]
+
+// Google Search Console — organic clicks
+const CLICKS_DATA = [0, 0, 0, 0, 0, 0];
+// e.g.             [118, 130, 145, 158, 165, 187]
+
+// ================================================================
+//  CHART RENDERING — no edits needed below this line
+// ================================================================
+
+const chartBase = {
+  responsive: true,
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { grid: { display: false }, ticks: { font: { size: 9 }, color: '#94a3b8' } },
+    y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 9 }, color: '#94a3b8' } }
+  }
+};
+
+// AI Score line chart
+new Chart(document.getElementById('aiScoreChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: AI_SCORES,
+      borderColor: '#f97316',
+      backgroundColor: 'rgba(249,115,22,.1)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#f97316'
+    }]
+  },
+  options: { ...chartBase, scales: { ...chartBase.scales, y: { ...chartBase.scales.y, min: 0, max: 10 } } }
+});
+
+// AI Queries found bar chart
+new Chart(document.getElementById('queriesChart'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: QUERIES_FOUND,
+      backgroundColor: QUERIES_FOUND.map((v, i) => i === QUERIES_FOUND.length - 1 ? '#34d399' : '#60a5fa'),
+      borderRadius: 4
+    }]
+  },
+  options: { ...chartBase, scales: { ...chartBase.scales, y: { ...chartBase.scales.y, min: 0, max: 16 } } }
+});
+
+// Review count line chart
+new Chart(document.getElementById('reviewCountChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: REVIEW_COUNTS,
+      borderColor: '#34d399',
+      backgroundColor: 'rgba(52,211,153,.1)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#34d399'
+    }]
+  },
+  options: chartBase
+});
+
+// New reviews per month bar chart
+new Chart(document.getElementById('newReviewsChart'), {
+  type: 'bar',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: NEW_REVIEWS,
+      backgroundColor: NEW_REVIEWS.map((v, i) => i === NEW_REVIEWS.length - 1 ? '#34d399' : '#94a3b8'),
+      borderRadius: 4
+    }]
+  },
+  options: chartBase
+});
+
+// Impressions line chart
+new Chart(document.getElementById('impressionsChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: IMPRESSIONS,
+      borderColor: '#a78bfa',
+      backgroundColor: 'rgba(167,139,250,.1)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#a78bfa'
+    }]
+  },
+  options: chartBase
+});
+
+// Clicks line chart
+new Chart(document.getElementById('clicksChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [{
+      data: CLICKS_DATA,
+      borderColor: '#60a5fa',
+      backgroundColor: 'rgba(96,165,250,.1)',
+      fill: true, tension: 0.4, pointRadius: 3,
+      pointBackgroundColor: '#60a5fa'
+    }]
+  },
+  options: chartBase
+});
+</script>
+</body>
+</html>
