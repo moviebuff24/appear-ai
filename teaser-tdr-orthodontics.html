@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Visibility Snapshot — TDR Orthodontics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1F3D;
+      --navy-mid:   #1a2f52;
+      --orange:     #f97316;
+      --orange-dk:  #ea580c;
+      --red:        #dc2626;
+      --amber:      #d97706;
+      --green:      #16a34a;
+      --gray-50:    #f9fafb;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-500:   #6b7280;
+      --gray-700:   #374151;
+      --gray-900:   #111827;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+      font-size: 0.9375rem;
+    }
+
+    a { color: var(--orange); }
+
+    .report {
+      max-width: 860px;
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(15,31,61,0.08);
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: var(--navy);
+      padding: 28px 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .report-brand { display: flex; flex-direction: column; gap: 8px; }
+    .report-brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      color: #fff; letter-spacing: -0.4px; line-height: 1.2;
+    }
+    .report-brand-title span { color: var(--orange); }
+    .report-brand-logo {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.45);
+    }
+    .report-meta { text-align: right; }
+    .report-meta p { font-size: 0.8125rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .report-meta .practice-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: #fff; margin-bottom: 2px;
+    }
+    .preview-pill {
+      display: inline-block; margin-top: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--orange);
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 4px; padding: 3px 8px;
+    }
+
+    /* ── SCORE BAND ── */
+    .score-band {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 40px;
+      display: flex; align-items: center; gap: 48px;
+    }
+    .score-block { display: flex; align-items: baseline; gap: 6px; flex-shrink: 0; }
+    .score-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 4.5rem; font-weight: 800; line-height: 1;
+      color: var(--amber);           /* FILL: swap to var(--red) for low scores */
+    }
+    .score-denom {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.25);
+    }
+    .score-detail { flex: 1; }
+    .score-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 10px;
+    }
+    .score-bar-track {
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden; margin-bottom: 10px;
+    }
+    .score-bar-fill {
+      height: 100%; border-radius: 4px;
+      background: var(--amber);       /* FILL: swap to var(--red) for low scores */
+      width: 60%;
+    }
+    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .score-context strong { color: rgba(255,255,255,0.8); font-weight: 600; }
+
+    /* ── STAT STRIP (the clear, real-data hook) ── */
+    .stat-strip {
+      background: var(--navy);
+      padding: 24px 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-strip-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; }
+    .stat-strip-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .stat-strip-num sub { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.35); vertical-align: baseline; }
+    .stat-strip-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.35; }
+    .stat-amber { color: var(--amber); }
+    .stat-red   { color: #f87171; }
+    .stat-green { color: #4ade80; }
+
+    /* ── AI PLATFORM VISIBILITY (clear — the AI snapshot, 3 tiles) ── */
+    .platform-band {
+      background: var(--navy);
+      padding: 26px 40px 28px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .platform-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 8px;
+    }
+    .platform-intro {
+      font-size: 0.85rem; color: rgba(255,255,255,0.55);
+      line-height: 1.5; margin-bottom: 20px;
+    }
+    .platform-intro strong { color: #fff; font-weight: 600; }
+    .snap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .snap-tile {
+      border-radius: 10px; padding: 20px 18px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04);
+      display: flex; flex-direction: column; align-items: center; gap: 9px;
+    }
+    .snap-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.1rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .snap-value .snap-denom { font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.3); }
+    .snap-value.small { font-size: 1.5rem; }
+    .snap-value.alert { color: #f87171; }   /* red — use for a bad number */
+    .snap-value.warn  { color: var(--amber); }
+    .snap-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.35; }
+    @media (max-width: 640px) {
+      .platform-band { padding-left: 20px; padding-right: 20px; }
+      .snap-grid { grid-template-columns: 1fr; gap: 10px; }
+    }
+
+    /* ── SECTION LAYOUT ── */
+    .section { padding: 36px 40px; border-bottom: 1px solid var(--gray-200); }
+    .section:last-child { border-bottom: none; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .section-heading h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gray-900);
+    }
+    .section-heading .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .section-intro { font-size: 0.8125rem; color: var(--gray-500); margin-bottom: 20px; line-height: 1.55; }
+    .section-intro strong { color: var(--gray-700); }
+
+    /* ── CRITERIA CHIPS (clear — what the scorecard compares) ── */
+    .criteria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .criteria-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 0.75rem; font-weight: 600; color: var(--gray-700);
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 20px; padding: 6px 13px;
+    }
+    .criteria-chip::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gray-400); flex-shrink: 0;
+    }
+
+    /* ── LOCKED / BLUR MECHANISM ── */
+    .locked { position: relative; border-radius: 12px; overflow: hidden; }
+    .locked-content {
+      filter: blur(6px);
+      opacity: 0.55;
+      user-select: none;
+      pointer-events: none;
+    }
+    .locked-overlay {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; text-align: center; padding: 24px;
+      background: rgba(255,255,255,0.35);
+    }
+    .locked-overlay.on-navy { background: rgba(15,31,61,0.45); }
+    .lock-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--orange); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(249,115,22,0.35);
+    }
+    .lock-copy {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 700;
+      color: var(--gray-900); max-width: 380px; line-height: 1.4;
+    }
+    .locked-overlay.on-navy .lock-copy { color: #fff; }
+    .unlock-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--orange); color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 700;
+      padding: 10px 20px; border-radius: 8px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .unlock-btn:hover { background: var(--orange-dk); color: #fff; }
+
+    /* ── COMPETITOR TABLE (blurred filler) ── */
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .comp-table th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--gray-400); padding: 10px 16px;
+      text-align: left; border-bottom: 2px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .comp-table th:not(:first-child) { text-align: center; }
+    .comp-table td { padding: 13px 16px; border-bottom: 1px solid var(--gray-200); vertical-align: middle; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .practice-cell { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: var(--gray-900); }
+    .practice-sub { display: block; font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 400; color: var(--gray-400); margin-top: 1px; }
+    .cell-center { text-align: center; }
+    .dot-found {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(22,163,74,0.1); color: var(--green);
+    }
+    .dot-not {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--gray-100); color: var(--gray-400);
+    }
+    .score-pill {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .score-high { background: rgba(22,163,74,0.1); color: var(--green); }
+    .score-mid  { background: rgba(217,119,6,0.1);  color: var(--amber); }
+
+    /* ── RANK MATRIX (blurred filler) ── */
+    .query-matrix { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .query-matrix thead th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--gray-400); padding: 10px 14px;
+      text-align: center; border-bottom: 2px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .query-matrix thead th.query-col { text-align: left; width: 34%; }
+    .query-matrix tbody tr { border-bottom: 1px solid var(--gray-200); }
+    .query-matrix tbody tr:last-child { border-bottom: none; }
+    .query-matrix td { padding: 14px; vertical-align: middle; }
+    .query-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; color: var(--gray-700); line-height: 1.5;
+    }
+    .matrix-cell { text-align: center; vertical-align: middle; }
+    .rank-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 600;
+      padding: 3px 9px; border-radius: 20px; white-space: nowrap;
+    }
+    .rank-1 { background: rgba(22,163,74,0.1); color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
+    .rank-2 { background: rgba(217,119,6,0.1); color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+    .rank-3 { background: rgba(220,38,38,0.08); color: var(--red); border: 1px solid rgba(220,38,38,0.18); }
+
+    /* ── QUICK WINS (blurred filler, navy) ── */
+    .section-navy {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .section-navy .section-heading h2 { color: #fff; }
+    .section-navy .section-num { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
+    .wins-list { display: flex; flex-direction: column; gap: 16px; }
+    .win-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+    }
+    .win-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--orange); opacity: 0.5;
+      line-height: 1; flex-shrink: 0; min-width: 28px;
+    }
+    .win-content h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9375rem; font-weight: 700;
+      color: #fff; margin-bottom: 6px;
+    }
+    .win-content p { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── METHODOLOGY (clear) ── */
+    .method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .method-item {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 8px; padding: 14px 16px;
+    }
+    .method-item h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--gray-900); margin-bottom: 4px;
+    }
+    .method-item p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.5; }
+
+    /* ── CTA / WHAT'S NEXT (clear) ── */
+    .cta-box {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 12px; padding: 28px 32px;
+    }
+    .cta-box h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      color: var(--gray-900); margin-bottom: 14px; line-height: 1.35;
+    }
+    .cta-box p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 14px; }
+    .cta-box p:last-of-type { margin-bottom: 20px; }
+    .cta-box p strong { color: var(--gray-700); font-weight: 600; }
+    .cta-list { list-style: none; margin: 0 0 20px; padding: 0; }
+    .cta-list li {
+      font-size: 0.875rem; color: var(--gray-700); line-height: 1.5;
+      padding: 6px 0 6px 26px; position: relative;
+    }
+    .cta-list li::before {
+      content: "→"; position: absolute; left: 0; top: 6px;
+      color: var(--orange); font-weight: 700;
+    }
+    .cta-btn {
+      display: inline-block; background: var(--orange); color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      padding: 12px 24px; border-radius: 8px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .cta-btn:hover { background: var(--orange-dk); color: white; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--navy); padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .report-footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .report-footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .report-footer a:hover { color: #fff; }
+    .report-footer .footer-brand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .report-footer .footer-brand span { color: var(--orange); }
+
+    @media (max-width: 640px) {
+      .report { margin: 0; border-radius: 0; }
+      .report-header, .score-band, .stat-strip, .section, .report-footer { padding-left: 20px; padding-right: 20px; }
+      .score-band { align-items: flex-start; gap: 20px; }
+      .score-value { font-size: 3rem; }
+      .score-denom { font-size: 1.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 20px 16px; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+      .comp-table { min-width: 540px; }
+      .query-matrix { min-width: 460px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .report-header { flex-direction: column; }
+      .report-meta { text-align: left; }
+      .cta-box { padding: 20px; }
+      .cta-btn { display: block; text-align: center; }
+      .report-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .report { margin: 0; box-shadow: none; border: none; border-radius: 0; }
+      /* Keep blur in printed/PDF exports so locked content stays locked */
+      .locked-content { filter: blur(6px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="report">
+
+  <div class="report-header">
+    <div class="report-brand">
+      <div class="report-brand-title">AI Visibility <span>Snapshot</span></div>
+      <div class="report-brand-logo">by Appear AI</div>
+    </div>
+    <div class="report-meta">
+      <div class="practice-name">TDR Orthodontics</div>
+      <p>Rochester Hills, MI &nbsp;·&nbsp; July 29, 2026</p>
+      <span class="preview-pill">Preview · Preliminary</span>
+    </div>
+  </div>
+
+  <div class="score-band">
+    <div class="score-block">
+      <div class="score-value">6</div>
+      <div class="score-denom">/10</div>
+    </div>
+    <div class="score-detail">
+      <div class="score-label">Preliminary AI Visibility Score</div>
+      <div class="score-bar-track">
+        <div class="score-bar-fill"></div>
+      </div>
+      <p class="score-context">
+        <strong>TDR Orthodontics is being outranked by 3 nearby practices in AI search results.</strong>
+        When someone asks ChatGPT, Perplexity, Google AI, or Claude for the best orthodontist in Rochester Hills, MI, they're hearing other names first. Dr. Groth is a recognized name in orthodontics — the opportunity is translating that authority into signals AI can actually read. The full breakdown — who, where, and why — is below.
+      </p>
+    </div>
+  </div>
+
+  <div class="platform-band">
+    <div class="platform-label">AI Platform Visibility</div>
+    <div class="platform-intro">
+      When someone asks ChatGPT, Perplexity, Google AI, or Claude to <strong>recommend an orthodontist in Rochester Hills, MI</strong>, here's where you stand today.
+    </div>
+    <div class="snap-grid">
+      
+      <div class="snap-tile">
+        <div class="snap-value warn">2<span class="snap-denom"> / 4</span></div>
+        <div class="snap-label">patient searches you<br>surface in</div>
+      </div>
+      <div class="snap-tile">
+        <div class="snap-value warn">3</div>
+        <div class="snap-label">Local practices<br>outranking you</div>
+      </div>
+      <div class="snap-tile">
+        <div class="snap-value warn small">Incomplete</div>
+        <div class="snap-label">Website AI<br>signals</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>Competitor Gap Analysis</h2>
+    </div>
+
+    <p class="section-intro">
+      We benchmarked your practice against the top-appearing orthodontic practices in Rochester Hills, MI, scored across every factor an AI model weighs before it recommends an orthodontist:
+    </p>
+    <div class="criteria">
+      <span class="criteria-chip">ChatGPT</span>
+      <span class="criteria-chip">Perplexity</span>
+      <span class="criteria-chip">Google AI</span>
+      <span class="criteria-chip">Claude</span>
+      <span class="criteria-chip">Overall AI Score</span>
+    </div>
+
+    <div class="locked">
+      <div class="locked-content" aria-hidden="true">
+        <div class="table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Practice</th>
+              <th>ChatGPT</th>
+              <th>Perplexity</th>
+              <th>Google AI</th>
+              <th>Claude</th>
+              <th>Reviews</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="practice-cell">Leading Practice One<span class="practice-sub">Nearby · 0.4 mi</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center">340 · 5.0★</td>
+              <td class="cell-center"><span class="score-pill score-high">9/10</span></td>
+            </tr>
+            <tr>
+              <td class="practice-cell">Leading Practice Two<span class="practice-sub">Nearby · 1.8 mi</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center">211 · 4.9★</td>
+              <td class="cell-center"><span class="score-pill score-high">8/10</span></td>
+            </tr>
+            <tr>
+              <td class="practice-cell">Leading Practice Three<span class="practice-sub">Nearby · 2.6 mi</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center">156 · 4.8★</td>
+              <td class="cell-center"><span class="score-pill score-mid">6/10</span></td>
+            </tr>
+            <tr>
+              <td class="practice-cell">Your Practice<span class="practice-sub">You</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center"><span class="dot-found">✓</span></td>
+              <td class="cell-center"><span class="dot-not">✕</span></td>
+              <td class="cell-center">88 · 5.0★</td>
+              <td class="cell-center"><span class="score-pill score-mid">4/10</span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="locked-overlay">
+        <span class="lock-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <div class="lock-copy">See exactly which practices are beating you — and on which AI platforms.</div>
+        <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up" class="unlock-btn">Book a call to unlock →</a>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>Your AI Rankings by Query</h2>
+    </div>
+    <p class="section-intro">
+      We tested the real questions your future patients are asking AI across <strong>four platforms and four queries</strong>. Here's where you land on each — and who's landing above you.
+    </p>
+
+    <div class="locked">
+      <div class="locked-content" aria-hidden="true">
+        <div class="table-wrap">
+        <table class="query-matrix">
+          <thead>
+            <tr>
+              <th class="query-col">Query</th>
+              <th>ChatGPT</th>
+              <th>Perplexity</th>
+              <th>Google AI</th>
+              <th>Claude</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="query-text">"best orthodontist in [city]"</td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-2">#2</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">#4</span></td>
+            </tr>
+            <tr>
+              <td class="query-text">"best Invisalign provider near me"</td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">#5</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-2">#3</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+            </tr>
+            <tr>
+              <td class="query-text">"orthodontist accepting new patients"</td>
+              <td class="matrix-cell"><span class="rank-badge rank-2">#3</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-1">#1</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-2">#3</span></td>
+            </tr>
+            <tr>
+              <td class="query-text">"braces for teens near me"</td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">not found</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-2">#2</span></td>
+              <td class="matrix-cell"><span class="rank-badge rank-3">#4</span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="locked-overlay">
+        <span class="lock-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <div class="lock-copy">See your exact rank on every platform — and the queries where you're invisible.</div>
+        <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up" class="unlock-btn">Book a call to unlock →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-navy">
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>Your Top 3 Quick Wins</h2>
+    </div>
+
+    <div class="locked">
+      <div class="locked-content" aria-hidden="true">
+        <div class="wins-list">
+          <div class="win-card">
+            <div class="win-num">1</div>
+            <div class="win-content">
+              <h3>Review strategy</h3>
+              <p>A specific, systematized way to close the review gap and match the local leader within 90 days — the single highest-leverage move available to you.</p>
+            </div>
+          </div>
+          <div class="win-card">
+            <div class="win-num">2</div>
+            <div class="win-content">
+              <h3>Website signals</h3>
+              <p>The exact structured-data fix that tells every AI platform who you are, what you do, and why you should be recommended — a short, one-time developer task.</p>
+            </div>
+          </div>
+          <div class="win-card">
+            <div class="win-num">3</div>
+            <div class="win-content">
+              <h3>Directory presence</h3>
+              <p>The healthcare directories the AI models trust most — where you're currently missing, and the free profiles that move you from invisible to cited.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="locked-overlay on-navy">
+        <span class="lock-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </span>
+        <div class="lock-copy">Your 3 fastest wins — the exact what, how, and in what order.</div>
+        <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up" class="unlock-btn">Book a call to unlock →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>How We Measured This</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-item">
+        <h4>Platforms audited</h4>
+        <p>ChatGPT, Perplexity AI, Google AI Mode, and Claude — the four AI tools your patients increasingly use to find and vet providers.</p>
+      </div>
+      <div class="method-item">
+        <h4>Queries tested</h4>
+        <p>The real prompts prospective patients type: "best orthodontist," "best Invisalign provider," "braces for teens," and "accepting new patients" — localized to your location.</p>
+      </div>
+      <div class="method-item">
+        <h4>Competitor set</h4>
+        <p>The practices appearing most often across AI platforms in your area — determined by frequency of appearance, not hand-picked.</p>
+      </div>
+      <div class="method-item">
+        <h4>Score basis</h4>
+        <p>A preliminary estimate weighted across platform appearances, ranking position, and review authority. The full audit confirms every data point.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>What's Next</h2>
+    </div>
+    <div class="cta-box">
+      <h3>This is a preview. The full audit hands you everything above — unlocked.</h3>
+      <p>
+        On a free 15-minute call, we'll walk through your complete AI Visibility Audit for TDR Orthodontics. You'll leave with:
+      </p>
+      <ul class="cta-list">
+        <li>Every competitor named — and the exact platforms where they beat you</li>
+        <li>Your real ranking on all four AI platforms, query by query</li>
+        <li>Your three fastest wins, in priority order, with the how</li>
+      </ul>
+      <p>
+        <strong>No pitch, no obligation.</strong> Even if we never work together, you'll know exactly where you stand in AI search — and what to fix first.
+      </p>
+      <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up" class="cta-btn">Book your free 15-minute call →</a>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <div class="footer-brand">Appear<span>AI</span></div>
+    <p>Questions? <a href="mailto:hello@appearai.co">hello@appearai.co</a> &nbsp;·&nbsp; <a href="https://appearai.co">appearai.co</a></p>
+    <p>Preliminary preview · Prepared for TDR Orthodontics</p>
+  </div>
+
+</div>
+
+</body>
+</html>
