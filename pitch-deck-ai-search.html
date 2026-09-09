@@ -1,0 +1,632 @@
+<title>The Search Shift</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<!--
+================================================================================
+APPEAR AI — PITCH DECK: THE SEARCH SHIFT
+================================================================================
+Purpose: 10-15 min prospect-facing deck on why AI visibility matters for a
+practice. Workstream #4 from the Jul 24 2026 pre-launch plan.
+
+No per-prospect fill required. This deck is fully evergreen: it argues the
+category, not one practice. The prospect's own audit is a separate leave-behind
+(teaser-report-template.html), shown after this deck, not inside it.
+
+Platform collection method (3 automated, Google manual) is deliberately NOT
+shown to the client. That is an internal implementation detail.
+
+NAV: arrow keys / space / click. Press P or use browser print for PDF.
+================================================================================
+-->
+
+<style>
+:root{
+  /* Appear AI brand — matches appearai.co, teasers, audit reports */
+  --navy:#0F1F3D; --navy-mid:#1a2f52; --navy-deep:#0a1629;
+  --orange:#f97316; --orange-dk:#ea580c;
+  --paper:#f7f7f5; --sheet:#ffffff; --field:#eef0ee;
+  --hair:#dcdfdc; --hair-2:#c4c9c5;
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#8a918c;
+  --on-navy:#eef2f8; --on-navy-2:#9fb0ca; --on-navy-3:#6b7f9e;
+  --pos:#16a34a; --neg:#dc2626; --warn:#d97706;
+
+  --disp:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --text:"Inter","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",monospace;
+  --r:8px; --r-sm:4px; --r-pill:999px;
+}
+
+/* ============================================================
+   EIGHT ROLES, EIGHT SIZES. Per .claude/composition-rules.md §2.
+   The only font-size declarations in this file live in the block
+   marked "the eight roles" below. Never add a font-size anywhere
+   else, and never inline one on an element. Audit with:
+     grep -o "font-size:[^;}\"]*" FILE | sort -u | wc -l
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy-deep);color:var(--ink);font-family:var(--text);
+     font-size:1rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* ---------- deck mechanics ---------- */
+.deck{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory}
+.deck::-webkit-scrollbar{display:none}
+.deck{scrollbar-width:none}
+
+.slide{min-height:100vh;scroll-snap-align:start;scroll-snap-stop:always;
+       display:flex;flex-direction:column;justify-content:center;
+       padding:64px 7vw;position:relative;background:var(--paper)}
+.slide.dark{background:var(--navy);color:var(--on-navy)}
+.slide.dark .eyebrow{color:var(--on-navy-3)}
+.slide.dark .lede,.slide.dark p{color:var(--on-navy-2)}
+.slide.dark .micro{color:var(--on-navy-3)}
+
+.inner{width:100%;max-width:1180px;margin:0 auto}
+
+/* ---------- the eight roles ---------- */
+/* 1 · micro — .7rem mono. Labels, provenance, chrome. */
+.eyebrow,.micro,.src,.chip,.tier,.counter,.hint,.brandmark,th{font-size:.7rem}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;
+         letter-spacing:.16em;color:var(--ink-3);font-weight:600}
+.micro{font-family:var(--mono);color:var(--ink-3);line-height:1.55}
+
+/* 2 · data — .84rem tabular. Table cells, dense rows, figure annotations. */
+.data,td,.srclist div,.arc{font-size:.84rem;font-variant-numeric:tabular-nums}
+
+/* 3 · body — 1rem. Prose read in sentences, measured at 68ch. */
+p,.pts li,.cap{font-size:1rem}
+p{line-height:1.68;color:var(--ink-2);max-width:68ch}
+
+/* 4 · lede — 1.25rem, measured at 62ch. */
+.lede{font-size:1.25rem;line-height:1.6;color:var(--ink-2);max-width:62ch;margin-top:22px}
+
+/* 5 · section-sm — 1.2rem. Subheads inside a card or column. */
+.section-sm{font-family:var(--disp);font-size:1.2rem;font-weight:700;
+            letter-spacing:-.016em;color:var(--ink)}
+.slide.dark .section-sm{color:var(--on-navy)}
+
+/* 6 · section — 1.7rem. A real change of subject. */
+.section{font-family:var(--disp);font-size:1.7rem;font-weight:700;
+         letter-spacing:-.022em;text-wrap:balance}
+
+/* 7 · display — the first read. One per slide, nothing competes. */
+.display{font-family:var(--disp);font-size:clamp(2.2rem,4.7vw,3.5rem);font-weight:800;
+         line-height:1.04;letter-spacing:-.034em;text-wrap:balance;margin-top:18px}
+
+/* 8 · metric — the number the slide exists for. */
+.metric{font-family:var(--disp);font-size:clamp(2.8rem,6.6vw,5rem);font-weight:800;
+        line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+
+/* ---------- components ---------- */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:46px}
+.stat{border-top:2px solid var(--hair-2);padding-top:20px}
+.slide.dark .stat{border-top-color:var(--navy-mid)}
+.stat .metric{display:block}
+.cap{text-wrap:balance}
+.stat .cap{color:var(--ink-2);margin-top:12px;line-height:1.5;max-width:30ch}
+.slide.dark .stat .cap{color:var(--on-navy-2)}
+.stat .src{margin-top:10px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:44px}
+.step{border-top:2px solid var(--orange);padding-top:18px}
+.step .section-sm{display:block;margin:0 0 9px}
+.step .cap{display:block;color:var(--on-navy-2);line-height:1.6;max-width:34ch}
+.contact{margin-top:38px;letter-spacing:.03em}
+
+.big{display:flex;align-items:baseline;gap:28px;flex-wrap:wrap;margin-top:34px}
+.big .metric{color:var(--orange)}
+.arc{font-family:var(--mono);color:var(--ink-3);
+     letter-spacing:.04em;padding-bottom:10px}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:52px;margin-top:40px;align-items:start}
+.cols.narrow{grid-template-columns:1fr 1.15fr}
+
+.pts{list-style:none;margin-top:8px}
+.pts li{position:relative;padding:15px 0 15px 30px;border-bottom:1px solid var(--hair);
+        line-height:1.6;color:var(--ink-2)}
+.slide.dark .pts li{border-bottom-color:var(--navy-mid);color:var(--on-navy-2)}
+.pts li:last-child{border-bottom:0}
+.pts li::before{content:"";position:absolute;left:0;top:23px;width:12px;height:2px;
+                background:var(--hair-2)}
+.slide.dark .pts li::before{background:var(--on-navy-3)}
+.pts li b{color:var(--ink);font-weight:600}
+.slide.dark .pts li b{color:var(--on-navy)}
+.pts li.hi::before{background:var(--orange);height:3px;top:22px}
+
+.callout{background:var(--sheet);border:1px solid var(--hair);border-left:3px solid var(--orange);
+         border-radius:var(--r);padding:26px 30px;margin-top:34px}
+.slide.dark .callout{background:var(--navy-mid);border-color:var(--navy-mid);
+                     border-left-color:var(--orange)}
+.callout .section-sm{display:block;margin-bottom:10px}
+.callout p{font-size:1rem}
+
+.wide{overflow-x:auto;margin-top:34px}
+table{border-collapse:collapse;width:100%}
+th{font-family:var(--mono);text-transform:uppercase;letter-spacing:.13em;
+   color:var(--ink-3);font-weight:600;text-align:center;padding:0 10px 12px;
+   border-bottom:1px solid var(--hair-2);white-space:nowrap}
+th:first-child{text-align:left;padding-left:0}
+td{text-align:center;padding:14px 10px;border-bottom:1px solid var(--hair);
+   color:var(--ink-2);font-variant-numeric:tabular-nums}
+td:first-child{text-align:left;color:var(--ink);font-weight:600;padding-left:0;
+               max-width:34ch}
+.slide.dark th{color:var(--on-navy-3);border-bottom-color:var(--navy-mid)}
+.slide.dark td{border-bottom-color:var(--navy-mid);color:var(--on-navy-2)}
+.slide.dark td:first-child{color:var(--on-navy)}
+
+
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.chip{font-family:var(--mono);letter-spacing:.05em;padding:7px 14px;
+      border:1px solid var(--hair-2);border-radius:var(--r-pill);color:var(--ink-2);
+      background:var(--sheet)}
+.slide.dark .chip{border-color:var(--navy-mid);color:var(--on-navy-2);background:transparent}
+
+.rule{height:2px;background:var(--ink);width:72px;margin-top:34px}
+.slide.dark .rule{background:var(--orange)}
+
+
+.src{font-family:var(--mono);color:var(--ink-3);letter-spacing:.02em;
+     line-height:1.6}
+.slide.dark .src{color:var(--on-navy-3)}
+.footnote{margin-top:38px;padding-top:18px;border-top:1px solid var(--hair);max-width:88ch}
+.slide.dark .footnote{border-top-color:var(--navy-mid)}
+
+/* sources slide */
+.srclist{display:grid;grid-template-columns:1fr 1fr;gap:12px 44px;margin-top:30px}
+.srclist div{line-height:1.6;color:var(--ink-2);padding:9px 0;
+             border-bottom:1px solid var(--hair)}
+.srclist b{color:var(--ink);font-weight:600}
+.tier{font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+      padding:2px 7px;border-radius:var(--r-sm);margin-right:8px;white-space:nowrap}
+.tier.a{background:#e6f4ec;color:#136b38}
+.tier.b{background:var(--field);color:var(--ink-2)}
+
+/* chrome */
+.counter{position:fixed;right:26px;bottom:22px;font-family:var(--mono);font-size:.7rem;
+         letter-spacing:.1em;color:var(--ink-3);background:rgba(255,255,255,.82);
+         padding:7px 13px;border-radius:var(--r-pill);z-index:50;backdrop-filter:blur(6px);
+         border:1px solid var(--hair)}
+.brandmark{position:fixed;left:26px;bottom:22px;font-family:var(--disp);font-weight:800;
+           letter-spacing:-.01em;color:var(--ink-3);z-index:50}
+.brandmark span{color:var(--orange)}
+.hint{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;font-family:var(--mono);
+      letter-spacing:.1em;color:var(--ink-3);z-index:50;opacity:.75}
+
+@media (max-width:860px){
+  .slide{padding:52px 26px}
+  .stat-row,.steps{grid-template-columns:1fr;gap:22px}
+  .cols,.cols.narrow{grid-template-columns:1fr;gap:32px}
+  .srclist{grid-template-columns:1fr}
+  .hint{display:none}
+}
+
+@media print{
+  @page{size:landscape;margin:0}
+  html,body{background:#fff}
+  .deck{height:auto;overflow:visible}
+  .slide{min-height:auto;height:100vh;page-break-after:always;break-after:page;padding:48px 60px}
+  .counter,.hint,.brandmark{display:none}
+  .slide.dark{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tier{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+
+<div class="deck" id="deck">
+
+<!-- 01 COVER -->
+<section class="slide dark">
+  <div class="inner">
+    <p class="eyebrow">Appear AI</p>
+    <h1 class="display">Your next patient is<br>asking an AI.</h1>
+    <p class="lede">How people find a dentist changed in about eighteen months. Most
+      practices have not checked what the machines say about them, even once.</p>
+    <div class="rule"></div>
+    <p class="micro" style="margin-top:26px">A 12-minute briefing on AI search, what the
+      data actually supports, and what it means for one practice.</p>
+  </div>
+</section>
+
+<!-- 02 THE QUESTION -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">01 · The question</p>
+    <h2 class="display">Where does the search<br>actually happen now?</h2>
+    <p class="lede">For twenty years the answer was simple. Someone typed "dentist near me,"
+      scanned a page of links, and picked from what they saw. Your marketing budget was
+      built for that page.</p>
+    <p style="margin-top:22px">That page still exists. It is just no longer the only place
+      the decision gets made, and increasingly it is not even the first one.</p>
+  </div>
+</section>
+
+<!-- 03 SCALE -->
+<section class="slide dark">
+  <div class="inner">
+    <p class="eyebrow">02 · Scale</p>
+    <h2 class="display">AI assistants stopped being
+      a novelty somewhere around last year.</h2>
+    <div class="stat-row">
+      <div class="stat">
+        <span class="metric" style="color:var(--orange)">900M</span>
+        <div class="cap">weekly active users on ChatGPT, roughly double the year prior.</div>
+        <div class="src">OpenAI, reported Feb 2026</div>
+      </div>
+      <div class="stat">
+        <span class="metric">2.5B</span>
+        <div class="cap">monthly users see Google AI Overviews, the answer box above the links.</div>
+        <div class="src">Google I/O, Jun 2026</div>
+      </div>
+      <div class="stat">
+        <span class="metric">1B</span>
+        <div class="cap">monthly users on Google's AI Mode, its full conversational search tab.</div>
+        <div class="src">Google I/O, Jun 2026</div>
+      </div>
+    </div>
+    <div class="footnote">
+      <p class="src">These are platform-reported figures for total usage of any kind, not
+        searches for local businesses. That narrower number is the next slide, and it is the
+        one that matters here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 THE LOCAL NUMBER -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">03 · The number that matters</p>
+    <h2 class="lede">
+      Consumers who use ChatGPT or similar AI tools to get a local business recommendation</h2>
+    <div class="big">
+      <span class="metric">45%</span>
+      <span class="arc">UP FROM 6% ONE YEAR EARLIER</span>
+    </div>
+    <p class="lede" style="margin-top:26px">That is a sevenfold jump in twelve months. It moves
+      AI into third place among all sources people use to find a local business, behind Google
+      and Facebook and ahead of everything else.</p>
+    <ul class="pts" style="margin-top:26px;max-width:74ch">
+      <li class="hi"><b>Trust is already there.</b> More consumers say they trust AI results
+        for local searches (40%) than say they do not (32%).</li>
+      <li><b>It is treated like a review.</b> 42% trust an AI recommendation as much as they
+        trust traditional reviews.</li>
+    </ul>
+    <div class="footnote">
+      <p class="src">BrightLocal, Local Consumer Review Survey 2026. Representative panel of
+        1,002 US adult consumers via SurveyMonkey. Figures are across all local business
+        categories; the survey does not publish a dental-specific cut.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 GOOGLE ISN'T DEAD, IT CHANGED SHAPE -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">04 · The honest version</p>
+    <h2 class="display">Google is not dead. The front
+      door changed shape.</h2>
+    <div class="cols" style="margin-top:36px">
+      <div>
+        <ul class="pts">
+          <li><b>Google still holds roughly 90%</b> of search traffic. This is not a pitch to
+            abandon it, and anyone telling you to is selling something.</li>
+          <li class="hi"><b>But Google itself became an answer engine.</b> 2.5 billion people a
+            month now meet it through an AI Overview, and AI answers appear on close to half of
+            all queries.</li>
+          <li><b>So the question was never ChatGPT versus Google.</b> Both hand your patient a
+            generated answer. The only thing that varies is whether your practice is in it.</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <div class="section-sm">Why waiting is the expensive choice</div>
+        <p>Six percent to 45% in twelve months. Wherever the ceiling turns out to be, the
+          direction is not ambiguous, and the practices being named in these answers today are
+          simply the ones that got measured first.</p>
+        <p style="margin-top:14px">These answers lean on a small set of sources. A practice with
+          clean, consistent, well-structured information gets picked up out of proportion to its
+          size right now, because almost nobody in dentistry has given the models anything to
+          work with. That advantage narrows as the field fills in.</p>
+      </div>
+    </div>
+    <div class="footnote">
+      <p class="src">Statcounter via industry reporting, Mar 2026 · Google I/O, Jun 2026 ·
+        BrightLocal 2026. One caution worth keeping in mind: chatbot usage, AI referral traffic,
+        and share of searches showing an AI answer are three different measurements, and they
+        get quoted interchangeably in the trade press.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06 THE MECHANIC -->
+<section class="slide dark">
+  <div class="inner">
+    <p class="eyebrow">05 · The mechanic that changed</p>
+    <h2 class="display">Search increasingly answers
+      the question instead of handing it off.</h2>
+    <div class="stat-row" style="margin-top:40px">
+      <div class="stat">
+        <span class="metric" style="color:var(--orange)">68%</span>
+        <div class="cap">of US Google searches now end without a single click anywhere.</div>
+        <div class="src">SparkToro / Similarweb, early 2026</div>
+      </div>
+      <div class="stat">
+        <span class="metric">276</span>
+        <div class="cap">of every 1,000 searches reach the open web, down from 374 in 2024.</div>
+        <div class="src">SparkToro, 2026 vs Datos 2024</div>
+      </div>
+      <div class="stat">
+        <span class="metric">~58%</span>
+        <div class="cap">lower click rate for the top result when an AI Overview sits above it.</div>
+        <div class="src">Industry study, Dec 2025</div>
+      </div>
+    </div>
+    <p style="margin-top:34px;max-width:76ch">Pew Research measured the same effect
+      independently and more conservatively: when an AI Overview appears, 8% of users click a
+      traditional result, against 15% when it does not. Different methods, same direction.</p>
+    <div class="footnote">
+      <p class="src">Note on comparability: the long-run zero-click series uses three different
+        measurement panels across the years quoted (Jumpshot, Datos, Similarweb). The trend is
+        well supported. The precise year-over-year deltas are softer than they look.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 07 RANK DOES NOT TRANSFER -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">06 · The part that surprises people</p>
+    <h2 class="display">Ranking well on Google does
+      not mean the AI recommends you.</h2>
+    <p class="lede">These are two different systems making two different selections. A practice
+      can sit in the Google map pack and be entirely absent from the answer a patient actually
+      reads.</p>
+    <ul class="pts" style="margin-top:30px;max-width:78ch">
+      <li class="hi"><b>Roughly 45% overlap</b> between businesses that rank well in traditional
+        local search and businesses that appear in AI recommendations. Fewer than half carry over.</li>
+      <li><b>65% of AI Overview citations do not rank</b> in Google's top 10 for the same query.
+        The AI is citing sources the blue links never showed you.</li>
+      <li><b>AI recommendation behaves as binary, not incremental.</b> On Google you climb from
+        eleventh to seventh to fourth. In an AI answer you are named or you are not.</li>
+      <li><b>The quality bar sits higher.</b> ChatGPT has been observed recommending practices
+        averaging about 4.3 stars and up. Google Maps still surfaces businesses in the 3.5 to
+        4.0 range.</li>
+    </ul>
+    <div class="footnote">
+      <p class="src">These four are vendor and agency studies (Local Falcon, Whitespark and
+        others), not peer-reviewed work. Treat them as directional. They are consistent with
+        each other and with what we see running audits, which is why they are here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 TRAFFIC QUALITY -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">07 · The upside</p>
+    <h2 class="display">The visitors AI does send
+      are worth more.</h2>
+    <p class="lede">AI acts as a filter. It answers the browsing questions itself and passes
+      along the people who have already decided to act.</p>
+    <div class="wide">
+      <table>
+        <thead>
+          <tr><th>Measurement</th><th>Finding</th><th>Source</th><th>Period</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Signup conversion vs organic</td><td>23x higher (0.5% of traffic drove 12.1%
+            of signups)</td><td>Ahrefs</td><td>2026</td></tr>
+          <tr><td>Average conversion advantage</td><td>4.4x across industries</td>
+            <td>Semrush</td><td>2026</td></tr>
+          <tr><td>Ecommerce conversion</td><td>42% better, 37% higher revenue per visit</td>
+            <td>Adobe Analytics</td><td>Apr 2026</td></tr>
+          <tr><td>Session conversion vs organic</td><td>~50% higher on product pages</td>
+            <td>Shopify</td><td>May 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:30px;max-width:76ch">The retail figures do not transfer cleanly to a
+      dental practice and nobody should pretend otherwise. The underlying pattern does: fewer
+      visitors arrive from AI, and a much higher share of them are ready to book.</p>
+  </div>
+</section>
+
+<!-- 09 THE ASYMMETRY -->
+<section class="slide dark">
+  <div class="inner">
+    <p class="eyebrow">08 · The gap</p>
+    <h2 class="display">Patients moved. Practices
+      have not.</h2>
+    <div class="cols" style="margin-top:42px">
+      <div>
+        <span class="metric" style="color:var(--orange)">45%</span>
+        <div class="cap" style="color:var(--on-navy-2);margin-top:14px;max-width:34ch">
+          of consumers now ask an AI for a local recommendation.</div>
+      </div>
+      <div>
+        <span class="metric">?</span>
+        <div class="cap" style="color:var(--on-navy-2);margin-top:14px;max-width:38ch">
+          How many practices are adapting to the shift?</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:44px">
+      <div class="section-sm">This is the whole argument</div>
+      <p>Every practice already knows its Google ranking. Almost none know whether they appear
+        when a patient asks ChatGPT for an orthodontist in their city, what name the model uses
+        for them, which sources it is reading, or which competitor it names instead. That is a
+        measurable thing, and almost nobody is measuring it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 METHOD: THE QUESTIONS AND WHAT WE CAPTURE -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">09 · How we measure it</p>
+    <h2 class="display">We ask the machines what
+      your patients ask them.</h2>
+    <p class="lede">A set of real questions, run against every major assistant, scored the same
+      way each time. Your set is built around the procedures you actually want to be found for.</p>
+    <div class="cols narrow" style="margin-top:34px">
+      <div>
+        <h3 class="section-sm" style="margin-bottom:4px">The questions</h3>
+        <ul class="pts">
+          <li>Best dentist in your city</li>
+          <li>Dentist accepting new patients near me</li>
+          <li>Who does Invisalign in your city</li>
+          <li>Emergency dentist, open now</li>
+          <li>Best pediatric dentist nearby</li>
+          <li>Plus the procedures that carry your margin</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="section-sm" style="margin-bottom:4px">What we capture on every answer</h3>
+        <ul class="pts">
+          <li class="hi"><b>Whether you appear at all.</b> The first and bluntest question.</li>
+          <li><b>Where you land.</b> Named first, or eighth in a list nobody finishes reading.</li>
+          <li><b>What it read to decide.</b> The specific sources behind the recommendation.</li>
+          <li><b>What name it used for you.</b> Entity confusion is common and quietly costly.</li>
+          <li><b>The reason it gave.</b> Models explain their picks, which tells you what to fix.</li>
+          <li><b>Who it named instead.</b> Your real competitive set here, often not the one you
+            assume.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip">ChatGPT</span>
+      <span class="chip">Google AI</span>
+      <span class="chip">Perplexity</span>
+      <span class="chip">Claude</span>
+    </div>
+    <div class="footnote">
+      <p class="src">The same questions, scored the same way, every run. A re-audit after changes
+        is a real before and after rather than an anecdote.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 NEXT STEP -->
+<section class="slide dark">
+  <div class="inner">
+    <p class="eyebrow">10 · Next step</p>
+    <h2 class="display">Start by finding out where<br>you actually stand.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="section-sm">Your visibility baseline</span>
+        <span class="cap">Where you show up across every major assistant, on the questions
+          that actually bring patients through the door. A number to measure against later.</span>
+      </div>
+      <div class="step">
+        <span class="section-sm">Who gets named instead</span>
+        <span class="cap">The practices these models put forward in your place, and what they
+          have in common. Usually not the competitors you would have guessed.</span>
+      </div>
+      <div class="step">
+        <span class="section-sm">What to fix, in order</span>
+        <span class="cap">The specific gaps behind those results, ranked by what would move
+          you fastest. Concrete work, not a list of best practices.</span>
+      </div>
+    </div>
+    <p class="lede">If it turns out you are already well represented, that is genuinely worth
+      knowing and we stop there.</p>
+    <p class="micro contact">hello@appearai.co · appearai.co</p>
+  </div>
+</section>
+
+<!-- 14 SOURCES -->
+<section class="slide">
+  <div class="inner">
+    <p class="eyebrow">Appendix</p>
+    <h2 class="section" style="margin-top:14px">Sources</h2>
+    <p style="margin-top:14px">Graded by how much weight each one carries.
+      <b style="color:var(--ink)">Primary</b> is first-party or independent research.
+      <b style="color:var(--ink)">Industry</b> is vendor or agency measurement, useful and
+      directional, not peer reviewed.</p>
+    <div class="srclist">
+      <div><span class="tier a">Primary</span><b>BrightLocal</b>, Local Consumer Review Survey
+        2026. n=1,002 US adults, SurveyMonkey panel.</div>
+      <div><span class="tier a">Primary</span><b>SparkToro / Similarweb</b>, zero-click study,
+        US, Jan-Apr 2026.</div>
+      <div><span class="tier a">Primary</span><b>Google I/O 2026</b>, AI Overviews and AI Mode
+        user figures.</div>
+      <div><span class="tier a">Primary</span><b>OpenAI</b>, weekly active user figure, Feb 2026.</div>
+      <div><span class="tier a">Primary</span><b>Pew Research Center</b>, AI Overview click
+        behavior.</div>
+      <div><span class="tier b">Industry</span><b>Ahrefs, Semrush, Adobe Analytics, Shopify</b>,
+        AI referral conversion, 2026.</div>
+      <div><span class="tier b">Industry</span><b>Local Falcon, Whitespark</b>, AI and local
+        pack overlap studies, 2026.</div>
+      <div><span class="tier b">Industry</span><b>Statcounter</b> via industry reporting, search
+        engine share, Mar 2026.</div>
+    </div>
+    <div class="footnote">
+      <p class="src">Compiled Sep 2026. Every figure in this deck was checked against its
+        source at build time. Percentages in a market moving this fast go stale quickly, so
+        re-verify before presenting a deck more than a quarter old.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="brandmark">APPEAR<span>·</span>AI</div>
+<div class="counter" id="counter">01 / 14</div>
+<div class="hint" id="hint">← → TO NAVIGATE</div>
+
+<script>
+(function(){
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var counter = document.getElementById('counter');
+  var hint = document.getElementById('hint');
+  var idx = 0;
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+
+  function render(){
+    counter.textContent = pad(idx + 1) + ' / ' + pad(slides.length);
+    var dark = slides[idx].classList.contains('dark');
+    counter.style.background = dark ? 'rgba(15,31,61,.72)' : 'rgba(255,255,255,.82)';
+    counter.style.color = dark ? '#9fb0ca' : '#8a918c';
+    counter.style.borderColor = dark ? '#1a2f52' : '#dcdfdc';
+  }
+
+  function go(n){
+    idx = Math.max(0, Math.min(slides.length - 1, n));
+    slides[idx].scrollIntoView({behavior:'smooth', block:'start'});
+    render();
+  }
+
+  // keep the counter honest when the user scrolls or swipes directly
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting && e.intersectionRatio > 0.55){
+          var i = slides.indexOf(e.target);
+          if (i > -1 && i !== idx){ idx = i; render(); }
+        }
+      });
+    }, {threshold:[0.55]});
+    slides.forEach(function(s){ io.observe(s); });
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' ||
+        (e.key === ' ' && !e.shiftKey)){
+      e.preventDefault(); go(idx + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp' ||
+        (e.key === ' ' && e.shiftKey)){
+      e.preventDefault(); go(idx - 1);
+    } else if (e.key === 'Home'){ e.preventDefault(); go(0); }
+    else if (e.key === 'End'){ e.preventDefault(); go(slides.length - 1); }
+    else if (e.key === 'p' || e.key === 'P'){ window.print(); }
+  });
+
+  // click the right two-thirds to advance, left third to go back
+  deck.addEventListener('click', function(e){
+    if (e.target.closest('a, table, .wide')) return;
+    go(e.clientX < window.innerWidth / 3 ? idx - 1 : idx + 1);
+  });
+
+  setTimeout(function(){ if (hint) hint.style.display = 'none'; }, 6000);
+  render();
+})();
+</script>

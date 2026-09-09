@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Sales collateral — reachable by direct link, kept out of search
+# so it does not compete with the landing page for the same terms.
+Disallow: /pitch-deck-ai-search.html
+
 Sitemap: https://appearai.co/sitemap.xml
