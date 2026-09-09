@@ -5,4 +5,7 @@ Allow: /
 # so it does not compete with the landing page for the same terms.
 Disallow: /pitch-deck-ai-search.html
 
+# Internal report scaffolding, not content for patients or prospects.
+Disallow: /templates/
+
 Sitemap: https://appearai.co/sitemap.xml
