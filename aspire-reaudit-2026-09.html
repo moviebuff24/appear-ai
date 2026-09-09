@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>September Re-Audit — Aspire Orthodontics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1F3D;
+      --navy-mid:   #1a2f52;
+      --orange:     #f97316;
+      --orange-dk:  #ea580c;
+      --red:        #dc2626;
+      --amber:      #d97706;
+      --green:      #16a34a;
+      --gray-50:    #f9fafb;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-500:   #6b7280;
+      --gray-700:   #374151;
+      --gray-900:   #111827;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+      font-size: 0.9375rem;
+    }
+
+    a { color: var(--orange); }
+
+    .report {
+      max-width: 880px;
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(15,31,61,0.08);
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: var(--navy);
+      padding: 28px 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .report-brand { display: flex; flex-direction: column; gap: 8px; }
+    .report-brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      color: #fff; letter-spacing: -0.4px; line-height: 1.2;
+    }
+    .report-brand-title span { color: var(--orange); }
+    .report-brand-logo {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.45);
+    }
+    .report-meta { text-align: right; }
+    .report-meta p { font-size: 0.8125rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .report-meta .practice-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: #fff; margin-bottom: 2px;
+    }
+
+    /* ── SCORE BAND ── */
+    .score-band {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 40px;
+      display: flex; align-items: center; gap: 44px;
+    }
+    .score-move { display: flex; align-items: baseline; gap: 10px; flex-shrink: 0; }
+    .score-old {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 2.25rem; font-weight: 700; line-height: 1;
+      color: rgba(255,255,255,0.28);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+    .score-arrow { color: var(--green); font-size: 1.5rem; line-height: 1; }
+    .score-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 4.5rem; font-weight: 800; line-height: 1;
+      color: var(--green);
+    }
+    .score-denom {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.25);
+    }
+    .score-detail { flex: 1; }
+    .score-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 10px;
+    }
+    .score-bar-track {
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden; margin-bottom: 10px;
+      position: relative;
+    }
+    .score-bar-fill {
+      height: 100%; border-radius: 4px;
+      background: var(--green); width: 80%;
+    }
+    .score-bar-prev {
+      position: absolute; top: 0; left: 70%;
+      width: 2px; height: 100%; background: rgba(255,255,255,0.5);
+    }
+    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .score-context strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: var(--navy);
+      padding: 22px 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+    .stat-nums { display: flex; align-items: baseline; gap: 7px; }
+    .stat-was {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem; color: rgba(255,255,255,0.3);
+    }
+    .stat-now {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.9rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .stat-now.up { color: #4ade80; }
+    .stat-now.flat { color: #fff; }
+    .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); line-height: 1.35; }
+
+    /* ── SECTION LAYOUT ── */
+    .section { padding: 36px 40px; border-bottom: 1px solid var(--gray-200); }
+    .section:last-child { border-bottom: none; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .section-heading h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gray-900);
+    }
+    .section-heading .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .section-intro {
+      font-size: 0.8125rem; color: var(--gray-500);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+    .section-intro strong { color: var(--gray-700); font-weight: 600; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .grid-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .grid-table thead th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--gray-400); padding: 10px 14px;
+      text-align: center; border-bottom: 2px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .grid-table thead th.col-left { text-align: left; width: 30%; }
+    .grid-table tbody tr { border-bottom: 1px solid var(--gray-200); }
+    .grid-table tbody tr:last-child { border-bottom: none; }
+    .grid-table td { padding: 13px 14px; vertical-align: middle; }
+    .query-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; color: var(--gray-700); line-height: 1.5;
+    }
+    .cell { text-align: center; }
+    .cell-inner { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+
+    .rank-badge {
+      display: inline-flex; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .rank-1 { background: rgba(22,163,74,0.1);  color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
+    .rank-2 { background: rgba(217,119,6,0.1);  color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+    .rank-3 { background: rgba(220,38,38,0.08); color: var(--red);   border: 1px solid rgba(220,38,38,0.18); }
+
+    .delta {
+      font-size: 0.67rem; line-height: 1.2;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .delta-up   { color: var(--green); font-weight: 600; }
+    .delta-down { color: var(--red);   font-weight: 600; }
+    .delta-flat { color: var(--gray-400); }
+
+    /* ── SUMMARY ROW ── */
+    .tally {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .tally-item {
+      flex: 1; min-width: 150px;
+      border-radius: 8px; padding: 12px 16px;
+      display: flex; align-items: baseline; gap: 9px;
+    }
+    .tally-up   { background: rgba(22,163,74,0.07);  border: 1px solid rgba(22,163,74,0.18); }
+    .tally-flat { background: var(--gray-50);        border: 1px solid var(--gray-200); }
+    .tally-down { background: rgba(220,38,38,0.05);  border: 1px solid rgba(220,38,38,0.15); }
+    .tally-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800; line-height: 1;
+    }
+    .tally-up .tally-num   { color: var(--green); }
+    .tally-flat .tally-num { color: var(--gray-500); }
+    .tally-down .tally-num { color: var(--red); }
+    .tally-label { font-size: 0.78rem; color: var(--gray-500); }
+
+    /* ── NOTE BOXES ── */
+    .note {
+      margin-top: 16px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: 8px;
+      padding: 15px 18px; font-size: 0.8125rem;
+      color: var(--gray-500); line-height: 1.6;
+    }
+    .note strong { color: var(--gray-700); }
+    .note.win  { border-left: 3px solid var(--green); background: rgba(22,163,74,0.03); }
+    .note.flag { border-left: 3px solid var(--amber); background: rgba(217,119,6,0.04); }
+    .note.alert{ border-left: 3px solid var(--red);   background: rgba(220,38,38,0.03); }
+    .note-title {
+      display: block; font-weight: 700;
+      color: var(--gray-700); font-size: 0.84rem;
+      margin-bottom: 6px;
+    }
+
+    /* ── ATTRIBUTION CHAIN ── */
+    .chain { display: flex; flex-direction: column; gap: 0; margin-top: 6px; }
+    .chain-step {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 12px 0; position: relative;
+    }
+    .chain-step:not(:last-child)::before {
+      content: ''; position: absolute;
+      left: 13px; top: 34px; bottom: -4px;
+      width: 2px; background: var(--gray-200);
+    }
+    .chain-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gray-100); color: var(--gray-500);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 600;
+      flex-shrink: 0; z-index: 1;
+    }
+    .chain-step.final .chain-dot { background: rgba(22,163,74,0.12); color: var(--green); }
+    .chain-body { padding-top: 2px; }
+    .chain-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; color: var(--gray-400);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .chain-text { font-size: 0.85rem; color: var(--gray-700); line-height: 1.55; }
+    .chain-text strong { color: var(--gray-900); font-weight: 600; }
+
+    /* ── QUICK WIN STATUS ── */
+    .status-list { display: flex; flex-direction: column; gap: 12px; }
+    .status-card {
+      border: 1px solid var(--gray-200); border-radius: 10px;
+      padding: 16px 18px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .status-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .icon-done  { background: rgba(22,163,74,0.1);  color: var(--green); }
+    .icon-part  { background: rgba(217,119,6,0.1);  color: var(--amber); }
+    .icon-none  { background: rgba(220,38,38,0.07); color: var(--red); }
+    .status-body h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 700;
+      color: var(--gray-900); margin-bottom: 5px;
+    }
+    .status-body p { font-size: 0.8375rem; color: var(--gray-500); line-height: 1.6; }
+    .status-body p strong { color: var(--gray-700); font-weight: 600; }
+    .status-tag {
+      display: inline-block; margin-top: 9px;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .tag-done { background: rgba(22,163,74,0.1);  color: var(--green); }
+    .tag-part { background: rgba(217,119,6,0.1);  color: var(--amber); }
+    .tag-none { background: rgba(220,38,38,0.07); color: var(--red); }
+
+    /* ── PRIORITY CARDS (navy) ── */
+    .section-navy {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .section-navy .section-heading h2 { color: #fff; }
+    .section-navy .section-num { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
+    .section-navy .section-intro { color: rgba(255,255,255,0.5); }
+    .section-navy .section-intro strong { color: rgba(255,255,255,0.8); }
+    .wins-list { display: flex; flex-direction: column; gap: 16px; }
+    .win-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+    }
+    .win-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--orange); opacity: 0.5;
+      line-height: 1; flex-shrink: 0; min-width: 28px;
+    }
+    .win-content h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9375rem; font-weight: 700;
+      color: #fff; margin-bottom: 6px;
+    }
+    .win-content p { font-size: 0.875rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+    .win-content p strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+    .win-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .tag-high { background: rgba(22,163,74,0.15); color: #4ade80; }
+    .tag-mid  { background: rgba(217,119,6,0.15); color: #fbbf24; }
+
+    /* ── COMPETITOR TABLE ── */
+    .comp-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: var(--gray-900); }
+    .comp-sub { display: block; font-family: 'Inter', sans-serif; font-size: 0.74rem; font-weight: 400; color: var(--gray-400); margin-top: 1px; }
+    .you-row td { background: rgba(249,115,22,0.04); }
+    .you-row .comp-name { color: var(--orange); font-weight: 700; }
+    .num { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+    .new-tag {
+      display: inline-block; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 1px 6px; border-radius: 3px; margin-left: 6px;
+      background: rgba(220,38,38,0.08); color: var(--red);
+      vertical-align: middle;
+    }
+
+    /* ── METHODOLOGY ── */
+    .method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .method-item {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 8px; padding: 14px 16px;
+    }
+    .method-item h4 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8125rem; font-weight: 700;
+      color: var(--gray-900); margin-bottom: 4px;
+    }
+    .method-item p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.55; }
+
+    /* ── CTA ── */
+    .cta-box {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      border-radius: 12px; padding: 28px 32px;
+    }
+    .cta-box h3 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      color: var(--gray-900); margin-bottom: 14px; line-height: 1.35;
+    }
+    .cta-box p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 14px; }
+    .cta-box p:last-of-type { margin-bottom: 20px; }
+    .cta-box p strong { color: var(--gray-700); font-weight: 600; }
+    .cta-btn {
+      display: inline-block; background: var(--orange); color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      padding: 12px 24px; border-radius: 8px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .cta-btn:hover { background: var(--orange-dk); color: white; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--navy); padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .report-footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+    .report-footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .report-footer a:hover { color: #fff; }
+    .report-footer .footer-brand {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .report-footer .footer-brand span { color: var(--orange); }
+
+    @media (max-width: 680px) {
+      .report { margin: 0; border-radius: 0; }
+      .report-header, .score-band, .section, .stat-strip, .report-footer {
+        padding-left: 20px; padding-right: 20px;
+      }
+      .report-header { flex-direction: column; }
+      .report-meta { text-align: left; }
+      .score-band { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .score-value { font-size: 3.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+      .grid-table { min-width: 540px; }
+      .grid-table thead th, .grid-table td { padding: 10px 8px; }
+      .query-text { font-size: 0.67rem; }
+      .rank-badge { font-size: 0.66rem; padding: 2px 7px; }
+      .delta { font-size: 0.6rem; }
+      .method-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 20px; }
+      .cta-btn { display: block; text-align: center; }
+      .report-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .tally-item { min-width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .report { margin: 0; box-shadow: none; border: none; border-radius: 0; }
+      .section { break-inside: avoid; }
+    }
+  
+  /* Section 07 sits on navy; the base sheet only colours `.win-content p strong`,
+     which this markup does not use, so card titles inherit the dark body colour. */
+  .section-navy .win-card strong { color: #fff; }
+  .section-navy .win-card p { color: rgba(255,255,255,0.72); }
+  .section-navy .win-card code { background: rgba(255,255,255,0.12); color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="report">
+
+  <div class="report-header">
+    <div class="report-brand">
+      <div class="report-brand-title">September <span>Re-Audit</span></div>
+      <div class="report-brand-logo">by Appear AI</div>
+    </div>
+    <div class="report-meta">
+      <div class="practice-name">Aspire Orthodontics</div>
+      <p>Farmington Hills, MI &nbsp;&middot;&nbsp; Report date: September 9, 2026</p>
+      <p>Compared against the August 13, 2026 progress report</p>
+    </div>
+  </div>
+
+  <div class="score-band">
+    <div class="score-move">
+      <span class="score-old">8</span>
+      <span class="score-arrow">&rarr;</span>
+      <span class="score-value">8</span>
+      <span class="score-denom">/10</span>
+    </div>
+    <div class="score-detail">
+      <div class="score-label">Overall AI Visibility Score</div>
+      <div class="score-bar-track">
+        <div class="score-bar-fill" style="width:80%;"></div>
+        <div class="score-bar-prev" style="left:80%;"></div>
+      </div>
+      <p class="score-context">
+        <strong>The score holds, but the composition underneath it changed.</strong> First-place finishes
+        went up, Google AI Mode held a perfect line, and the entity-confusion problem that headlined the
+        August report is resolved. Against that, Aspire failed to appear in an AI answer for the first time
+        on record, and a competitor who ranked below it in both prior audits has overtaken it on one
+        platform. The cause of both is the same, it is specific, and it is fixable.
+      </p>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item">
+      <div class="stat-nums">
+        <span class="stat-was">16/16 &rarr;</span>
+        <span class="stat-now" style="color:var(--red);">15/16</span>
+      </div>
+      <span class="stat-label">Appearances<br>first miss ever recorded</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-nums">
+        <span class="stat-was">1.69 &rarr;</span>
+        <span class="stat-now flat">1.73</span>
+      </div>
+      <span class="stat-label">Average ranking<br>effectively unchanged</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-nums">
+        <span class="stat-was">6 &rarr;</span>
+        <span class="stat-now up">7</span>
+      </div>
+      <span class="stat-label">#1 positions<br>out of 16</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-nums">
+        <span class="stat-was">96 &rarr;</span>
+        <span class="stat-now up">162</span>
+      </div>
+      <span class="stat-label">Birdeye reviews<br>gap to Nakisher halved</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>The Scorecard</h2>
+    </div>
+    <p class="section-intro">
+      The same four queries across the same four AI platforms as May and August. Each cell shows Aspire's
+      position in the answer, with the change from August underneath.
+      <strong>Green = #1 recommendation. Amber = #2. Red = #3 or lower.</strong>
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Query</th>
+            <th>ChatGPT</th>
+            <th>Perplexity</th>
+            <th>Google AI</th>
+            <th>Claude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="query-text">"best orthodontist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-2">#2</span><span class="delta delta-flat">held #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-2">#2</span><span class="delta delta-flat">held #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-2">#2</span><span class="delta delta-flat">held #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="delta delta-down">&#9660; from #2</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"best Invisalign provider in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="delta delta-down">&#9660; from #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-flat">held #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-flat">held #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-up">&#9650; from #2</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"orthodontist near Farmington Hills MI accepting new patients"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-2">#2</span><span class="delta delta-up">&#9650; from #3</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-flat">held #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-flat">held #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="delta delta-down">&#9660; from #1</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"recommend an orthodontist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-2">#2</span><span class="delta delta-flat">held #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-up">&#9650; from #2</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="delta delta-flat">held #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3" style="background:var(--red);color:#fff;">&mdash;</span><span class="delta delta-down">&#9660; not named</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tally">
+      <div class="tally-item tally-up">
+        <span class="tally-num">3</span>
+        <span class="tally-label">positions improved</span>
+      </div>
+      <div class="tally-item tally-flat">
+        <span class="tally-num">9</span>
+        <span class="tally-label">positions held</span>
+      </div>
+      <div class="tally-item tally-down">
+        <span class="tally-num">4</span>
+        <span class="tally-label">positions declined</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong class="note-title">Platform Summary</strong>
+      <strong>Google AI Mode held a perfect line</strong> at #2/#1/#1/#1, identical to August, with Aspire
+      leading the answer on three of four queries. <strong>Perplexity gained a third #1</strong> and now
+      matches Google. <strong>ChatGPT is flat</strong>, trading a gain on new patients for a slip on
+      Invisalign. <strong>Claude accounts for every serious loss in this report</strong>, moving from
+      #2/#2/#1/#2 to #3/#1/#3/not-named. Sections 02 and 03 cover why, because the reason is the same in
+      both cases and it is not the website.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>The First Non-Appearance</h2>
+    </div>
+    <p class="section-intro">
+      Across May and August, Aspire appeared in all 16 of 16 answers tested. On September 9, asked
+      <em>"recommend an orthodontist in Farmington Hills Michigan"</em>, Claude returned four practices and
+      Aspire was not among them.
+    </p>
+
+    <div class="status-card" style="border-color:rgba(220,38,38,0.3);background:rgba(220,38,38,0.03);">
+      <div class="status-icon icon-none">&#10007;</div>
+      <div>
+        <strong>The answer ranked: Jusino &rarr; Nakisher &rarr; Reynolds &rarr; TDR Specialists.</strong>
+        <p style="margin-top:8px;">
+          This was not a crawling failure or a site outage. <strong>aspire-ortho.com appears twice in that
+          same answer's citation list.</strong> The engine read the site, considered the practice, and
+          chose four other names to recommend. A ranking drop means being out-argued; a non-appearance
+          means not making the shortlist at all, and it is the single most important number in this report.
+        </p>
+        <p style="margin-top:8px;">
+          Worth keeping in proportion: on the identical question, Google AI Mode and Perplexity both put
+          Aspire <strong>first</strong>. This is one platform behaving differently from the other three,
+          not a broad collapse.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>Why Jusino Overtook Aspire on One Platform</h2>
+    </div>
+    <p class="section-intro">
+      Jusino Orthodontics ranked below Aspire in both the May and August audits. It now leads three of the
+      four Claude answers, including the one Aspire is missing from. The engine states its reasoning
+      directly, which makes this unusually easy to diagnose.
+    </p>
+
+    <div class="note" style="border-left-color:var(--navy);">
+      <strong class="note-title">Claude's stated reason, verbatim</strong>
+      <em>"On Healthgrades, across 730 reviews, likelihood of recommending him to family and friends sits
+      at about 4.9 out of 5. That's an unusually deep review pool for an orthodontic practice, which makes
+      the rating more trustworthy than a handful of glowing reviews."</em>
+    </div>
+
+    <p style="margin:18px 0 14px;">
+      That claim checks out at source. Here is the Healthgrades directory for Farmington Hills
+      orthodontists as it stands today:
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Healthgrades listing</th>
+            <th>Rating</th>
+            <th>Ratings count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left"><span class="comp-name">Dr. Thomas Jusino, DDS</span></td>
+            <td>4.9</td>
+            <td><strong style="color:var(--green);font-size:1.05rem;">730</strong></td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Dr. Jason Sherbel, DDS</span></td>
+            <td>5.0</td>
+            <td><strong style="color:var(--red);">2</strong></td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Dr. Mary Sherbel, DDS</span></td>
+            <td>5.0</td>
+            <td><strong style="color:var(--red);">1</strong></td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Dr. Andrea Nakisher, DDS</span></td>
+            <td>5.0</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Aspire Orthodontics</span> <span style="color:var(--gray-500);">as a practice listing</span></td>
+            <td colspan="2"><strong style="color:var(--red);">Does not exist</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px;">
+      Aspire has no practice-level Healthgrades page. What exists instead are two personal profiles holding
+      one and two reviews. Healthgrades was cited <strong>by all four platforms</strong> in this run &mdash;
+      eleven times by Claude, four by Perplexity, twice by ChatGPT.
+    </p>
+
+    <div class="note" style="border-left-color:var(--amber);background:rgba(217,119,6,0.05);margin-top:18px;">
+      <strong class="note-title" style="color:var(--amber);">The revealing part: this is a directory artefact, not a real gap</strong>
+      On Google, where the review data is verified, the picture reverses entirely. <strong>Aspire holds 5.0
+      across 153 reviews; Jusino holds 4.7 across 119.</strong> Aspire has more reviews and a better rating
+      than the practice that is beating it. The 730 figure exists only on Healthgrades, and it is enough to
+      flip one engine's recommendation on its own.
+    </div>
+
+    <div class="note" style="border-left-color:var(--red);background:rgba(220,38,38,0.04);margin-top:18px;">
+      <strong class="note-title" style="color:var(--red);">This was quick win #3 in the May audit</strong>
+      Claiming the Healthgrades profile was one of three recommendations in the original report, delivered
+      May 22. Three and a half months later it is still unclaimed, and it has moved from a missed
+      opportunity to the measurable cause of a lost recommendation.
+    </div>
+
+    <p style="margin-top:18px;">
+      The same pattern shows up one directory over. <strong>Claude cited Yelp 41 times in this run</strong>,
+      more than any other source including Aspire's own website. Aspire had three Yelp reviews at the time
+      of the May audit. The engine that leans hardest on directories is the engine where Aspire lost the
+      most ground, and that is not a coincidence.
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>What Genuinely Improved</h2>
+    </div>
+    <p class="section-intro">
+      Two real wins this cycle, and the first one closes out the headline problem from the August report.
+    </p>
+
+    <div class="wins-list">
+      <div class="status-card" style="border-color:rgba(22,163,74,0.3);background:rgba(22,163,74,0.03);">
+        <div class="status-icon" style="background:rgba(22,163,74,0.1);color:var(--green);">&#10003;</div>
+        <div>
+          <strong>The entity-fragmentation problem is resolved.</strong>
+          <p style="margin-top:8px;">
+            In August, ChatGPT resolved the practice as <em>"Dr. Mary Sherbel, DDS, MS Orthodontist"</em>
+            with "Aspire Orthodontics" demoted to a trailing qualifier, and Jason appeared in only one of
+            four answers. That has reversed. All four platforms now lead with the practice name, and
+            ChatGPT names it <em>"Aspire Orthodontics (Drs. Mary &amp; Jason Sherbel)"</em> &mdash; brand
+            first, both doctors credited. Jason is named again across the set.
+          </p>
+          <span class="status-tag tag-done">Resolved</span>
+        </div>
+      </div>
+
+      <div class="status-card" style="border-color:rgba(22,163,74,0.3);background:rgba(22,163,74,0.03);">
+        <div class="status-icon" style="background:rgba(22,163,74,0.1);color:var(--green);">&#10003;</div>
+        <div>
+          <strong>Birdeye went from 96 reviews to 162, and the gap to Nakisher halved.</strong>
+          <p style="margin-top:8px;">
+            Nakisher sat flat at 242 over the same period, so the gap on that platform closed from 146 to
+            80. Birdeye is one of the sources ChatGPT leaned on most heavily in August, and it is the most
+            likely driver of the entity fix above. Most recent review posted roughly three weeks ago, so
+            the flow is active.
+          </p>
+          <span class="status-tag tag-done">Improving</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px;">
+      <strong class="note-title">Two numbers worth watching</strong>
+      Claude still cites Aspire at <strong>96 reviews</strong>, the pre-update Birdeye figure. It ranked
+      Aspire #1 on the Invisalign query anyway, so the stale number is not currently costing a position,
+      but it is what the engine is reasoning from. Separately, <strong>Google reviews held flat at 153
+      against Nakisher's 199</strong>, so the 46-review gap there is unchanged since May.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>The Website Has Not Changed Since July</h2>
+    </div>
+    <p class="section-intro">
+      Worth stating plainly, because it shapes how everything above should be read: none of this cycle's
+      movement can be attributed to site work, because there has not been any.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-item">
+        <strong>Last page modified</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">July 10, 2026 &mdash; a month before the August
+        report was delivered. All 50 URLs in the sitemap checked.</p>
+      </div>
+      <div class="method-item">
+        <strong>Schema <code>aggregateRating</code></strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Still absent. This was quick win #2 in the May
+        audit, open 3.5 months.</p>
+      </div>
+      <div class="method-item">
+        <strong>Practice name consistency</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Now aligned. Site, schema and Google Business
+        Profile all read "Aspire Orthodontics". The naming split flagged in May is closed.</p>
+      </div>
+      <div class="method-item">
+        <strong>Published hours are wrong</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Schema advertises Monday 9&ndash;5. Google shows
+        the office closed Mondays. See below.</p>
+      </div>
+    </div>
+
+    <div class="note" style="border-left-color:var(--amber);background:rgba(217,119,6,0.05);margin-top:20px;">
+      <strong class="note-title" style="color:var(--amber);">The hours mismatch is worth fixing this week</strong>
+      The site's structured data publishes <code>Mo 09:00&ndash;17:00</code> and <code>Sa
+      08:30&ndash;13:00</code>. Google AI Mode reports the practice as <strong>closed Sundays and Mondays,
+      with select Saturday hours 8:00&ndash;2:00</strong>. Saturday is roughly right; Monday is not.
+      Structured data is what the AI platforms read first, so the site is actively telling them the office
+      is open on a day it is closed. That is a patient turning up to a locked door, and it is a
+      ten-minute fix.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">06</span>
+      <h2>Status of Prior Recommendations</h2>
+    </div>
+
+    <div class="status-list">
+      <div class="status-card">
+        <div class="status-icon icon-part" style="background:rgba(217,119,6,0.1);color:var(--amber);">&#9679;</div>
+        <div>
+          <strong>May #1 &mdash; Review-ask programme to reach 200 reviews</strong>
+          <p style="margin-top:6px;color:var(--gray-500);">Birdeye reflects 162 and is climbing. Google
+          held flat at 153, so the programme is landing on some platforms and not others.</p>
+          <span class="status-tag tag-part">In progress</span>
+        </div>
+      </div>
+      <div class="status-card">
+        <div class="status-icon icon-none">&#10007;</div>
+        <div>
+          <strong>May #2 &mdash; Add <code>aggregateRating</code> to the site's schema</strong>
+          <p style="margin-top:6px;color:var(--gray-500);">Not started. The <code>Dentist</code> block is
+          unchanged since before the original audit.</p>
+          <span class="status-tag tag-none">Not started</span>
+        </div>
+      </div>
+      <div class="status-card">
+        <div class="status-icon icon-none">&#10007;</div>
+        <div>
+          <strong>May #3 &mdash; Claim the Healthgrades profile</strong>
+          <p style="margin-top:6px;color:var(--gray-500);">Not started, and now the identified cause of the
+          lost recommendation in Section 02. This is the highest-value open item in the file.</p>
+          <span class="status-tag tag-none">Not started</span>
+        </div>
+      </div>
+      <div class="status-card">
+        <div class="status-icon icon-none">&#10007;</div>
+        <div>
+          <strong>August &mdash; Merge the split Birdeye listing</strong>
+          <p style="margin-top:6px;color:var(--gray-500);">Still split. "Dr. Mary Sherbel, DDS, MS
+          Orthodontist" remains a separate 9-review listing, still showing as unclaimed by the business.</p>
+          <span class="status-tag tag-none">Not started</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-navy">
+    <div class="section-heading">
+      <span class="section-num">07</span>
+      <h2>Priorities for the Next 90 Days</h2>
+    </div>
+    <p class="section-intro" style="color:rgba(255,255,255,0.75);">
+      Ordered by measured impact. The first one is worth more than the other three combined, and it is the
+      cheapest.
+    </p>
+
+    <div class="wins-list">
+      <div class="win-card">
+        <span class="win-num">1</span>
+        <div>
+          <strong>Claim and build the Healthgrades presence.</strong>
+          <p style="margin-top:6px;">Create a practice-level listing for Aspire Orthodontics, claim both
+          doctors' profiles, and route the existing review-ask flow to Healthgrades for one quarter. A
+          competitor with a <em>worse</em> Google rating and fewer Google reviews is being called "more
+          trustworthy" by name in an AI answer that omits Aspire entirely, purely on Healthgrades volume.
+          Aspire has three reviews there across two profiles.</p>
+          <span class="win-tag" style="background:rgba(249,115,22,0.15);color:var(--orange);">Highest impact</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">2</span>
+        <div>
+          <strong>Merge the split Birdeye listing and correct the review count.</strong>
+          <p style="margin-top:6px;">The practice listing is at 162 and working. The orphaned 9-review "Dr.
+          Mary Sherbel" listing is unclaimed and splitting authority, and Claude is still quoting the stale
+          96.</p>
+          <span class="win-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);">Quick</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">3</span>
+        <div>
+          <strong>Build the Yelp profile out.</strong>
+          <p style="margin-top:6px;">Claude cited Yelp 41 times in this run, more than any other single
+          source. Aspire had three reviews there at last count. This is the second-largest directory gap
+          after Healthgrades.</p>
+          <span class="win-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);">Medium</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">4</span>
+        <div>
+          <strong>Correct the schema: hours, then <code>aggregateRating</code>.</strong>
+          <p style="margin-top:6px;">Fix the Monday hours the site is publishing incorrectly, then add the
+          <code>aggregateRating</code> field that has been outstanding since May. Both are the same
+          afternoon of work, and structured data is the first thing every one of these platforms reads.</p>
+          <span class="win-tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);">Low effort</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">08</span>
+      <h2>Methodology</h2>
+    </div>
+    <p class="section-intro">
+      Four queries run across four AI platforms on September 9, 2026, sixteen data points total. Each
+      answer was captured in full, along with every source the engine cited and the exact name it used for
+      the practice. Raw responses are retained and available on request.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-item">
+        <strong>ChatGPT</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Live web search enabled</p>
+      </div>
+      <div class="method-item">
+        <strong>Perplexity</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Sonar, the model behind perplexity.ai</p>
+      </div>
+      <div class="method-item">
+        <strong>Google AI Mode</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Collected directly from Google AI Mode</p>
+      </div>
+      <div class="method-item">
+        <strong>Claude</strong>
+        <p style="margin-top:4px;color:var(--gray-500);">Opus, with live web search</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px;">
+      <strong class="note-title">Competitor review data, verified at source</strong>
+      <strong>Google:</strong> Aspire 5.0 (153) &middot; Nakisher 5.0 (199) &middot; Jusino 4.7 (119)
+      &middot; Bright Side Dental 4.8 (973)
+      <br><strong>Healthgrades:</strong> Jusino 730 ratings &middot; Jason Sherbel 2 &middot;
+      Mary Sherbel 1 &middot; Nakisher 1
+      <br><strong>Birdeye:</strong> Aspire 162 &middot; Nakisher 242
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">09</span>
+      <h2>What's Next</h2>
+    </div>
+
+    <div class="cta-box">
+      <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;">The pattern across three audits is consistent.</strong>
+      <p style="margin-top:10px;">
+        Everywhere the AI platforms read Aspire's own website and Google profile, the practice performs
+        well &mdash; Google AI Mode and Perplexity both lead with it on three of four queries. Everywhere
+        they read the wider directory layer, it loses to competitors with weaker credentials and deeper
+        profiles. That has been the finding since May, and this cycle it produced the first non-appearance
+        on record.
+      </p>
+      <p style="margin-top:10px;">
+        The directory work is unglamorous and it is not something a website redesign fixes. It is also
+        roughly a quarter's worth of consistent, boring effort, and the measurable upside is the difference
+        between being the third name in an answer and being the first.
+      </p>
+      <a class="cta-btn" href="https://calendly.com/kazztechholdings/ai-audit-follow-up">Book the follow-up call</a>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <span class="footer-brand">Appear AI</span>
+    <span>AI visibility audit &middot; Aspire Orthodontics &middot; September 9, 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
