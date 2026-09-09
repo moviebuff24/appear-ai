@@ -13,9 +13,10 @@ For Joe's full business context (LLC details, Calendly/Formspree accounts, posit
 ## Key files
 - `index.html` — the landing page. Navy/orange theme, Plus Jakarta Sans + Inter fonts, GA4 wired (`G-HNP161FMD5`)
 - `sample-report.html` — generic sample audit report, publicly linked from the site
-- `aspire-audit-2026.html` — real client deliverable for Jason (Aspire Orthodontics & Airway) — **do not edit casually**, it's a live reference a real client has seen
+- `aspire-reaudit-2026-09.html` — **the current** Jason deliverable (Aspire Orthodontics). Deliberately kept PUBLIC so he can open it at appearai.co. Do not edit casually, it is a live reference a real client has seen
+- `aspire-audit-2026.html` — the superseded May 2026 audit. Moved to the private repo; only the most recent audit stays public
 - `teaser-report-template.html` — canonical template for cold-outreach teaser reports (blurred/locked sections, frosted-glass CTA). Fill `[[TOKENS]]` in the FILL comment block per prospect
-- `teaser-*.html` (DiPilla, Premier Birmingham, Premier Dental Center, Aligned House, TDR, Family Dentistry Royal Oak) — filled prospect teasers. ⚠️ **These are tracked and therefore PUBLIC at appearai.co** — despite older notes claiming they were gitignored, `.gitignore` only ever covered the template and sample draft. Verified Sep 2026, left as-is by Joe. Unsent teasers belong in the private `appear-ai-internal` repo instead
+- `teaser-*.html` — filled prospect teasers plus the canonical template. **All now live in the private `appear-ai-internal` repo** (moved Sep 2026). Six were previously tracked and publicly reachable at appearai.co; they are not any more. Fill `[[TOKENS]]` in the template's FILL block per prospect
 - `templates/` — monthly/quarterly client report templates (Chart.js-based)
 - `ai-visibility-audit.py` — **the audit data collector. Use this, not `tracker.py`.** Lives in the private `appear-ai-internal` repo. Runs a practice's query set against the live answer engines and records rank position, citations, entity name used, and stated rationale per cell. See "Running an audit" below
 - `tracker.py` — the original v1 checker (binary appeared/not-appeared, hardcoded to a sample practice). Superseded by `ai-visibility-audit.py`; kept for reference

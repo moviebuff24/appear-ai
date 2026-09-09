@@ -1,10 +1,11 @@
-
-# Internal Appear AI working files — never publish (expose the teaser mechanism)
-teaser-report-template.html
-teaser-SAMPLE-draft.html
-
 # Client data and internal tooling — these live in the PRIVATE repo
 # github.com/moviebuff24/appear-ai-internal. This repo is public and serves
 # appearai.co, so nothing below may ever be committed here.
 results/
 ai-visibility-audit.py
+teaser-*.html
+aspire-audit-2026.html
+
+# NOTE: aspire-reaudit-2026-09.html deliberately stays public — it is the
+# current deliverable and Jason reads it at appearai.co. Older Aspire work
+# and every prospect teaser are private.
