@@ -259,9 +259,9 @@
     .foot { padding-inline: 22px; }
     .sec { grid-template-columns: 1fr; gap: 14px; padding-block: 28px; }
     .meta { grid-template-columns: 1fr 1fr; }
-    .numbers ul { grid-template-columns: 1fr 1fr; }
-    .numbers li:nth-child(3) { border-left: 0; }
-    .numbers li:nth-child(n+3) { border-top: 1px solid var(--hair); }
+    .numbers ul { grid-template-columns: 1fr; }
+    .numbers li { border-left: 0; }
+    .numbers li + li { border-top: 1px solid var(--hair); }
     .months { grid-template-columns: 1fr; }
     .month + .month { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
     .two { grid-template-columns: 1fr; }
