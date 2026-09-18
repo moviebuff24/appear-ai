@@ -1,0 +1,494 @@
+<title>Farmington Dental Proposal</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --navy:      #0F1F3D;
+    --navy-2:    #1a2f52;
+    --ink:       #14213a;
+    --ink-2:     #4a5670;
+    --ink-3:     #7c869a;
+    --ground:    #eceff4;
+    --sheet:     #ffffff;
+    --field:     #f4f6fa;
+    --hair:      #dde2ea;
+    --hair-2:    #c6cdd8;
+    --orange:    #f97316;
+    --orange-dk: #ea580c;
+    --on-navy:   #ffffff;
+    --on-navy-2: rgba(255,255,255,.74);
+    --on-navy-3: rgba(255,255,255,.5);
+    --on-navy-hair: rgba(255,255,255,.14);
+
+    --disp: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    --body: "Inter", "Segoe UI", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+    /* type scale: seven sizes, no others */
+    --t-micro: .7rem;
+    --t-data: .84rem;
+    --t-body: .95rem;
+    --t-lede: 1.12rem;
+    --t-section: 1.3rem;
+    --t-display: clamp(1.9rem, 4.6vw, 2.55rem);
+    --t-metric: 3rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 40px 16px;
+  }
+  p, ul, ol, dl, dd, h1, h2, h3 { margin: 0; }
+  ul { padding: 0; list-style: none; }
+
+  .sheet {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--sheet);
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 30px rgba(15,31,61,.08);
+  }
+
+  /* ── type roles ── */
+  .eyebrow {
+    font-family: var(--mono); font-size: var(--t-micro);
+    text-transform: uppercase; letter-spacing: .14em; color: var(--ink-3);
+  }
+  .micro { font-family: var(--mono); font-size: var(--t-micro); color: var(--ink-3); }
+  /* :where keeps these at element specificity so role classes (.metric, .eyebrow, .micro) win */
+  :where(.sec) p, :where(.sec) li { font-size: var(--t-body); color: var(--ink-2); line-height: 1.65; }
+  :where(.sec) p { max-width: 68ch; }
+  :where(.sec) p strong, :where(.sec) li strong { color: var(--ink); font-weight: 600; }
+  h2 {
+    font-family: var(--disp); font-size: var(--t-section); font-weight: 700;
+    letter-spacing: -.02em; line-height: 1.2; color: var(--ink); text-wrap: balance;
+  }
+  h3 {
+    font-family: var(--disp); font-size: var(--t-body); font-weight: 700;
+    color: var(--ink); line-height: 1.35; text-wrap: balance;
+  }
+
+  /* ── cover ── */
+  .cover {
+    background: var(--navy);
+    color: var(--on-navy);
+    padding: 30px 44px 34px;
+    display: grid;
+    gap: 14px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .cover-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px; flex-wrap: wrap;
+    padding-bottom: 22px; margin-bottom: 8px;
+    border-bottom: 1px solid var(--on-navy-hair);
+  }
+  .brand {
+    font-family: var(--disp); font-size: var(--t-lede); font-weight: 800;
+    letter-spacing: -.02em; color: var(--on-navy);
+  }
+  .brand span { color: var(--orange); }
+  .cover .micro, .cover .eyebrow { color: var(--on-navy-3); }
+  .display {
+    font-family: var(--disp); font-size: var(--t-display); font-weight: 800;
+    line-height: 1.08; letter-spacing: -.03em; color: var(--on-navy);
+    max-width: 22ch; text-wrap: balance;
+  }
+  .lede {
+    font-size: var(--t-lede); line-height: 1.6; color: var(--on-navy-2); max-width: 62ch;
+  }
+  .meta {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-top: 14px; border-top: 1px solid var(--on-navy-hair);
+  }
+  .meta div { padding: 16px 16px 0 0; display: grid; gap: 2px; }
+  .meta dt { font-family: var(--mono); font-size: var(--t-micro); color: var(--on-navy-3);
+             text-transform: uppercase; letter-spacing: .12em; }
+  .meta dd { font-family: var(--disp); font-size: var(--t-body); font-weight: 700; color: var(--on-navy); }
+
+  /* ── section rail ── */
+  .sec {
+    display: grid; grid-template-columns: 150px 1fr; gap: 32px;
+    padding: 34px 44px;
+    border-top: 1px solid var(--hair);
+  }
+  .cover + .sec { border-top: 0; }
+  .sec-body { display: grid; gap: 16px; min-width: 0; }
+
+  /* ── four numbers ── */
+  .numbers {
+    display: grid; gap: 10px;
+    padding: 16px 0 4px;
+  }
+  .numbers ul {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--hair); border-radius: 8px; overflow: hidden;
+  }
+  .numbers li {
+    display: grid; gap: 2px; padding: 12px 14px;
+    border-left: 1px solid var(--hair);
+  }
+  .numbers li:first-child { border-left: 0; }
+  .numbers .num {
+    font-family: var(--mono); font-size: var(--t-data); font-weight: 500;
+    color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .numbers .where { font-size: var(--t-micro); color: var(--ink-3); line-height: 1.4; }
+  .numbers-goal { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  /* ── goals table ── */
+  .wide { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: var(--t-data); }
+  th {
+    font-family: var(--mono); font-size: var(--t-micro); font-weight: 400;
+    text-transform: uppercase; letter-spacing: .12em; color: var(--ink-3);
+    text-align: left; padding: 0 16px 8px 0; border-bottom: 1px solid var(--hair-2);
+  }
+  td {
+    text-align: left; vertical-align: top; padding: 13px 16px 13px 0;
+    border-bottom: 1px solid var(--hair); color: var(--ink-2); line-height: 1.55;
+  }
+  tr:last-child td { border-bottom: 0; }
+  td:first-child {
+    font-family: var(--disp); font-weight: 700; color: var(--ink);
+    width: 38%; font-size: var(--t-body); line-height: 1.35;
+  }
+
+  /* ── months ── */
+  .months {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 2px solid var(--navy);
+  }
+  .month { display: grid; align-content: start; gap: 8px; padding: 14px 18px 4px 0; }
+  .month + .month { padding-left: 18px; border-left: 1px solid var(--hair); }
+  .month ul { display: grid; gap: 8px; margin-top: 4px; }
+  .sec .month li {
+    font-size: var(--t-data); line-height: 1.5; padding-left: 14px; position: relative;
+  }
+  .month li::before {
+    content: ""; position: absolute; left: 0; top: .62em;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--hair-2);
+  }
+
+  /* ── two columns ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .two > div { display: grid; align-content: start; gap: 10px; }
+  .ticks { display: grid; gap: 8px; }
+  .sec .ticks li { padding-left: 16px; position: relative; }
+  .ticks li::before {
+    content: ""; position: absolute; left: 0; top: .72em;
+    width: 7px; height: 1.5px; background: var(--ink-3);
+  }
+
+  /* ── price ── */
+  .price {
+    display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;
+    background: var(--field); border: 1px solid var(--hair); border-radius: 10px;
+    padding: 24px 28px;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .price-lead { display: grid; gap: 4px; }
+  .metric {
+    font-family: var(--disp); font-size: var(--t-metric); font-weight: 800;
+    line-height: 1; letter-spacing: -.04em; color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .metric small { font-size: var(--t-body); font-weight: 600; letter-spacing: 0; color: var(--ink-2); margin-left: 4px; }
+  .price dl { display: grid; gap: 0; }
+  .price dl div {
+    display: flex; justify-content: space-between; gap: 16px;
+    padding: 8px 0; border-bottom: 1px solid var(--hair); font-size: var(--t-data);
+  }
+  .price dl div:last-child { border-bottom: 0; }
+  .price dt { color: var(--ink-2); }
+  .price dd { color: var(--ink); font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ── options ── */
+  .options { display: grid; border-top: 1px solid var(--hair-2); }
+  .option {
+    display: grid; grid-template-columns: 150px 110px 1fr; gap: 16px; align-items: baseline;
+    padding: 12px 0; border-bottom: 1px solid var(--hair);
+  }
+  .option:last-child { border-bottom: 0; }
+  .option .rate {
+    font-family: var(--mono); font-size: var(--t-data); color: var(--ink);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .sec .option p { font-size: var(--t-data); line-height: 1.5; }
+
+  /* ── close ── */
+  .close { display: grid; gap: 18px; }
+  .cta {
+    display: inline-block; justify-self: start;
+    background: var(--orange); color: #fff;
+    font-family: var(--disp); font-size: var(--t-body); font-weight: 700;
+    padding: 12px 22px; border-radius: 8px; text-decoration: none;
+    transition: background .15s;
+  }
+  .cta:hover { background: var(--orange-dk); }
+  .cta:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+  .print-link { display: none; }
+  .accept {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 28px;
+    margin-top: 10px; padding-top: 6px;
+  }
+  .accept div { display: grid; gap: 6px; }
+  .accept .line { height: 34px; border-bottom: 1px solid var(--hair-2); }
+
+  .foot {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 18px 44px; border-top: 1px solid var(--hair); background: var(--field);
+  }
+
+  @media (max-width: 760px) {
+    body { padding: 0; }
+    .sheet { border-radius: 0; border-inline: 0; }
+    .cover, .sec { padding-inline: 22px; }
+    .foot { padding-inline: 22px; }
+    .sec { grid-template-columns: 1fr; gap: 14px; padding-block: 28px; }
+    .meta { grid-template-columns: 1fr 1fr; }
+    .numbers ul { grid-template-columns: 1fr 1fr; }
+    .numbers li:nth-child(3) { border-left: 0; }
+    .numbers li:nth-child(n+3) { border-top: 1px solid var(--hair); }
+    .months { grid-template-columns: 1fr; }
+    .month + .month { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
+    .two { grid-template-columns: 1fr; }
+    .price { grid-template-columns: 1fr; gap: 18px; }
+    .option { grid-template-columns: 1fr auto; }
+    .option p { grid-column: 1 / -1; }
+    .accept { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .meta { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta { transition: none; }
+  }
+
+  @page { size: letter; margin: .4in; }
+  @media print {
+    html { font-size: 11.5px; }            /* every size is rem, so the root sets print scale */
+    body { background: #fff; padding: 0; }
+    .sheet { border: 0; box-shadow: none; border-radius: 0; max-width: none; }
+    .cover { padding: 18px 22px 20px; gap: 8px; }
+    .cover-top { padding-bottom: 12px; margin-bottom: 2px; }
+    .meta div { padding-top: 10px; }
+    .sec { grid-template-columns: 1fr; gap: 8px; padding: 12px 22px; }
+    .sec-body { gap: 10px; }
+    .numbers { padding-top: 4px; }
+    .numbers li { padding: 8px 10px; }
+    td { padding-block: 7px; }
+    .month { padding-top: 8px; }
+    .price { padding: 14px 20px; }
+    .option { padding: 7px 0; }
+    .month, .price, .option, .accept, .numbers { break-inside: avoid; }
+    h2 { break-after: avoid; }
+    .foot { padding: 8px 22px; }
+    .cta { display: none; }
+    .print-link { display: block; }
+    .accept .line { height: 26px; }
+  }
+</style>
+
+<main class="sheet">
+
+  <header class="cover">
+    <div class="cover-top">
+      <span class="brand">Appear <span>AI</span></span>
+      <span class="micro">Prepared September 11, 2026 &middot; Valid through October 11, 2026</span>
+    </div>
+    <p class="eyebrow">Proposal for Farmington Dental Studio</p>
+    <h1 class="display">One name, one number, everywhere the assistants look.</h1>
+    <p class="lede">Three months of listing work so AI assistants like ChatGPT can tell exactly which practice they're recommending, and connect it to the implant care it already provides.</p>
+    <dl class="meta">
+      <div><dt>Prepared for</dt><dd>Dr. Eiwaz</dd></div>
+      <div><dt>Term</dt><dd>3 months</dd></div>
+      <div><dt>First term</dt><dd>$500 a month</dd></div>
+      <div><dt>Starts</dt><dd>At the kickoff call</dd></div>
+    </dl>
+  </header>
+
+  <section class="sec" aria-labelledby="s-stand">
+    <h2 id="s-stand">Where things stand</h2>
+    <div class="sec-body">
+      <p>The September 11 audit found a practice the AI assistants already think well of. When they read your website and Google profile, you do well, including three #1 recommendations. When they read directories, they find a longer name, an old address, a separate listing for Dr. Eiwaz, an unclaimed profile on Birdeye, and three different phone numbers.</p>
+      <div class="numbers">
+        <p class="eyebrow">Phone numbers pointing to Suite 140 today</p>
+        <ul>
+          <li><span class="num">(248) 919-0952</span><span class="where">Website and structured data</span></li>
+          <li><span class="num">(248) 516-0004</span><span class="where">Healthgrades and directories</span></li>
+          <li><span class="num">(248) 422-1032</span><span class="where">Separate Dr. Eiwaz listing</span></li>
+        </ul>
+      </div>
+      <p>That's the most likely reason ChatGPT doesn't name the practice, and why implant questions go to other offices. None of it needs a new website. It needs careful listing work, done in the right order, and a check each month that the changes are being picked up.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-goals">
+    <h2 id="s-goals">Goals for the three months</h2>
+    <div class="sec-body">
+      <div class="wide">
+        <table>
+          <thead>
+            <tr><th scope="col">Goal</th><th scope="col">Target you can check yourself</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>One name, one number, one address everywhere</td>
+              <td>Every listing found in month 1 matches, including Healthgrades, dentistrydirectories.com and the website's structured data.</td>
+            </tr>
+            <tr>
+              <td>Your implant care connected to the practice</td>
+              <td>Dr. Azimi named in full as a <strong>Board-Certified Periodontist &amp; Implant Specialist</strong> on his own page, on the implant pages and in the site's structured data.</td>
+            </tr>
+            <tr>
+              <td>Listed where ChatGPT looks</td>
+              <td>The Birdeye profile claimed, completed, and carrying the same name as your Google profile.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-plan">
+    <h2 id="s-plan">Month by month</h2>
+    <div class="sec-body">
+      <div class="months">
+        <div class="month">
+          <p class="eyebrow">Month 1</p>
+          <h3>Settle the details</h3>
+          <ul>
+            <li>Kickoff call to decide the main phone line and whether Dr. Eiwaz has a separate Google profile</li>
+            <li>Correct Healthgrades (address and phone) and dentistrydirectories.com</li>
+            <li>Start the Birdeye claim. It's free, and the verification step has lead time</li>
+            <li>Fix the website's structured data: the Google profile link and office hours</li>
+          </ul>
+        </div>
+        <div class="month">
+          <p class="eyebrow">Month 2</p>
+          <h3>Make the implant care visible</h3>
+          <ul>
+            <li>Retitle Dr. Azimi's page to lead with his full name and <strong>Board-Certified Periodontist &amp; Implant Specialist</strong>, in the heading, the page title and the structured data, and carry it onto the implant pages</li>
+            <li>Correct or merge the separate Dr. Eiwaz listing on the directories. If he has his own Google profile it stays, it just needs his name and the right number</li>
+            <li>Sweep other directories for an old number or address</li>
+          </ul>
+        </div>
+        <div class="month">
+          <p class="eyebrow">Month 3</p>
+          <h3>Finish and review</h3>
+          <ul>
+            <li>Complete the Birdeye profile under the settled name, so it matches your Google profile rather than the longer directory version</li>
+            <li>Final sweep, then the quarterly review and a plan for what comes next</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-work">
+    <h2 id="s-work">Working together</h2>
+    <div class="sec-body">
+      <div class="two">
+        <div>
+          <h3>What you get</h3>
+          <ul class="ticks">
+            <li><strong>A short update</strong> at the end of months 1 and 2: what got done, what's next, and anything I need from you.</li>
+            <li><strong>The same four patient questions re-run every month</strong>, so we know whether the changes are landing.</li>
+            <li><strong>A quarterly review</strong> in month 3: how each goal finished, how the assistants describe the practice now, and what a second quarter would cover.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>What I'll need from you</h3>
+          <ul class="ticks">
+            <li>30 minutes for the kickoff call.</li>
+            <li>Access to the listings that need changing, or someone at the front desk who can handle a verification call or postcard.</li>
+            <li>Whoever manages the website, for two small changes.</li>
+            <li>A quick reply when a listing needs an answer only the practice can give.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-scope">
+    <h2 id="s-scope">Scope and honesty</h2>
+    <div class="sec-body">
+      <p><strong>Not included:</strong> website redesign, new content beyond Dr. Azimi's page, Google Business Profile posting, paid ads, social media, and responding to reviews. If you use a call-tracking service, I'll work with it, not remove it.</p>
+      <p><strong>What I can promise:</strong> AI assistants change how they answer from week to week, and nobody controls what they say. I can't guarantee ChatGPT or any other assistant will name the practice by a certain date. I can promise the work above, done in order, with targets you can check, and straight reporting on what it's adding up to.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-price">
+    <h2 id="s-price">Investment</h2>
+    <div class="sec-body">
+      <div class="price">
+        <div class="price-lead">
+          <p class="eyebrow">Founding practice rate</p>
+          <p class="metric">$500<small>/ month</small></p>
+        </div>
+        <dl>
+          <div><dt>Standard rate</dt><dd>$750 / month</dd></div>
+          <div><dt>First term, 3 months</dt><dd>$1,500 total</dd></div>
+          <div><dt>Billing</dt><dd>Invoiced at the start of each month</dd></div>
+          <div><dt>Renewal</dt><dd>Never automatic</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-after">
+    <h2 id="s-after">After month 3</h2>
+    <div class="sec-body">
+      <p>At the quarterly review you choose one of three paths.</p>
+      <div class="options">
+        <div class="option">
+          <h3>Another quarter</h3>
+          <span class="rate">$750 / month</span>
+          <p>Likely covers steady Healthgrades reviews, a stronger implant page, and the other health directories the assistants cite.</p>
+        </div>
+        <div class="option">
+          <h3>Monitoring only</h3>
+          <span class="rate">$200 / month</span>
+          <p>The same questions checked every month, with a heads-up if something slips.</p>
+        </div>
+        <div class="option">
+          <h3>Stop</h3>
+          <span class="rate">$0</span>
+          <p>Everything fixed stays fixed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="s-next">
+    <h2 id="s-next">Next step</h2>
+    <div class="sec-body close">
+      <p>Reply to this email or book the kickoff call. That call settles the two open questions from the audit, and month 1 starts from there.</p>
+      <a class="cta" href="https://calendly.com/kazztechholdings/ai-audit-follow-up">Book the kickoff call</a>
+      <p class="micro print-link">calendly.com/kazztechholdings/ai-audit-follow-up</p>
+      <div class="accept">
+        <div><div class="line"></div><span class="micro">Accepted for Farmington Dental Studio</span></div>
+        <div><div class="line"></div><span class="micro">Date</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span class="micro">Appear AI, a d/b/a of Kazz Tech Holdings LLC</span>
+    <span class="micro">Joe Kasper &middot; hello@appearai.co</span>
+  </footer>
+
+</main>

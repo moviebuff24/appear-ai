@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>AI Visibility Audit — Farmington Dental Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1F3D;
+      --navy-mid:   #1a2f52;
+      --orange:     #f97316;
+      --orange-dk:  #ea580c;
+      --red:        #dc2626;
+      --amber:      #d97706;
+      --green:      #16a34a;
+      --gray-50:    #f9fafb;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-500:   #6b7280;
+      --gray-700:   #374151;
+      --gray-900:   #111827;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+      font-size: 0.9375rem;
+    }
+
+    a { color: var(--orange); }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.8em; background: var(--gray-100); color: var(--gray-900); padding: 1px 5px; border-radius: 3px; }
+    .section-navy code { background: rgba(255,255,255,0.14); color: #fff; }
+
+    .report {
+      max-width: 880px;
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(15,31,61,0.08);
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: var(--navy);
+      padding: 28px 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .report-brand { display: flex; flex-direction: column; gap: 8px; }
+    .report-brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      color: #fff; letter-spacing: -0.4px; line-height: 1.2;
+    }
+    .report-brand-title span { color: var(--orange); }
+    .report-brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.45);
+    }
+    .report-meta { text-align: right; }
+    .report-meta p { font-size: 0.8125rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .report-meta .practice-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: #fff; margin-bottom: 2px;
+    }
+
+    /* ── SCORE BAND ── */
+    .score-band {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 40px;
+      display: flex; align-items: center; gap: 44px;
+    }
+    .score-move { display: flex; align-items: baseline; gap: 10px; flex-shrink: 0; }
+    .score-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 4.5rem; font-weight: 800; line-height: 1;
+      color: var(--amber);
+    }
+    .score-denom {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.25);
+    }
+    .score-detail { flex: 1; }
+    .score-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 10px;
+    }
+    .score-bar-track {
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden; margin-bottom: 10px;
+    }
+    .score-bar-fill { height: 100%; border-radius: 4px; background: var(--amber); }
+    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .score-context strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: var(--navy);
+      padding: 22px 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+    .stat-now {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.9rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .stat-now.up { color: #4ade80; }
+    .stat-now.down { color: #f87171; }
+    .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); line-height: 1.35; }
+
+    /* ── SECTION LAYOUT ── */
+    .section { padding: 36px 40px; border-bottom: 1px solid var(--gray-200); }
+    .section:last-child { border-bottom: none; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .section-heading h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gray-900);
+    }
+    .section-heading .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .section-intro {
+      font-size: 0.8125rem; color: var(--gray-500);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+    .section-intro strong { color: var(--gray-700); font-weight: 600; }
+    .prose { font-size: 0.875rem; color: var(--gray-700); line-height: 1.65; }
+    .prose + .prose { margin-top: 12px; }
+    .prose strong { color: var(--gray-900); font-weight: 600; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .grid-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .grid-table thead th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--gray-400); padding: 10px 14px;
+      text-align: center; border-bottom: 2px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .grid-table thead th.col-left { text-align: left; }
+    .grid-table tbody tr { border-bottom: 1px solid var(--gray-200); }
+    .grid-table tbody tr:last-child { border-bottom: none; }
+    .grid-table td { padding: 13px 14px; vertical-align: middle; }
+    .grid-table td.col-left { text-align: left; }
+    .grid-table td.center { text-align: center; }
+    .query-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; color: var(--gray-700); line-height: 1.5;
+      width: 30%;
+    }
+    .cell { text-align: center; }
+    .cell-inner { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+
+    .rank-badge {
+      display: inline-flex; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .rank-1 { background: rgba(22,163,74,0.1);  color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
+    .rank-2 { background: rgba(217,119,6,0.1);  color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+    .rank-3 { background: rgba(220,38,38,0.08); color: var(--red);   border: 1px solid rgba(220,38,38,0.18); }
+    .rank-none { background: var(--red); color: #fff; border: 1px solid var(--red); }
+    .sub {
+      font-size: 0.67rem; line-height: 1.2;
+      font-family: 'JetBrains Mono', monospace; color: var(--gray-400);
+    }
+    .sub.bad { color: var(--red); font-weight: 600; }
+
+    /* ── TALLY ── */
+    .tally { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .tally-item {
+      flex: 1; min-width: 150px;
+      border-radius: 8px; padding: 12px 16px;
+      display: flex; align-items: baseline; gap: 9px;
+    }
+    .tally-up   { background: rgba(22,163,74,0.07);  border: 1px solid rgba(22,163,74,0.18); }
+    .tally-flat { background: var(--gray-50);        border: 1px solid var(--gray-200); }
+    .tally-down { background: rgba(220,38,38,0.05);  border: 1px solid rgba(220,38,38,0.15); }
+    .tally-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1; }
+    .tally-up .tally-num   { color: var(--green); }
+    .tally-flat .tally-num { color: var(--gray-500); }
+    .tally-down .tally-num { color: var(--red); }
+    .tally-label { font-size: 0.78rem; color: var(--gray-500); }
+
+    /* ── NOTES ── */
+    .note {
+      margin-top: 16px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: 8px;
+      padding: 15px 18px; font-size: 0.8125rem;
+      color: var(--gray-500); line-height: 1.6;
+    }
+    .note strong { color: var(--gray-700); }
+    .note.win   { border-left: 3px solid var(--green); background: rgba(22,163,74,0.03); }
+    .note.flag  { border-left: 3px solid var(--amber); background: rgba(217,119,6,0.04); }
+    .note.alert { border-left: 3px solid var(--red);   background: rgba(220,38,38,0.03); }
+    .note.quote { border-left: 3px solid var(--navy); }
+    .note-title { display: block; font-weight: 700; color: var(--gray-700); font-size: 0.84rem; margin-bottom: 6px; }
+
+    /* ── STATUS CARDS ── */
+    .status-list { display: flex; flex-direction: column; gap: 12px; }
+    .status-card {
+      border: 1px solid var(--gray-200); border-radius: 10px;
+      padding: 16px 18px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .status-card.alert { border-color: rgba(220,38,38,0.3); background: rgba(220,38,38,0.03); }
+    .status-card.win   { border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.03); }
+    .status-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px; font-size: 0.8rem;
+    }
+    .icon-done { background: rgba(22,163,74,0.1);  color: var(--green); }
+    .icon-none { background: rgba(220,38,38,0.07); color: var(--red); }
+    .status-card p { font-size: 0.8375rem; color: var(--gray-500); line-height: 1.6; margin-top: 6px; }
+    .status-card p strong { color: var(--gray-700); font-weight: 600; }
+
+    /* ── COMPETITOR TABLE ── */
+    .comp-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: var(--gray-900); }
+    .comp-sub { display: block; font-size: 0.74rem; font-weight: 400; color: var(--gray-400); margin-top: 1px; }
+    .you-row td { background: rgba(249,115,22,0.05); }
+    .you-row .comp-name { color: var(--orange); font-weight: 700; }
+    .num { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+
+    /* ── PRIORITIES (navy) ── */
+    .section-navy { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .section-navy .section-heading h2 { color: #fff; }
+    .section-navy .section-num { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
+    .section-navy .section-intro { color: rgba(255,255,255,0.72); }
+    .wins-list { display: flex; flex-direction: column; gap: 16px; }
+    .win-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+    }
+    .win-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--orange); opacity: 0.6;
+      line-height: 1; flex-shrink: 0; min-width: 28px;
+    }
+    .win-card strong { color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9375rem; }
+    .win-card p { font-size: 0.875rem; color: rgba(255,255,255,0.72); line-height: 1.65; margin-top: 6px; }
+    .win-card p em { color: rgba(255,255,255,0.9); }
+    .win-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+    }
+    .win-tag.top { background: rgba(249,115,22,0.15); color: var(--orange); }
+
+    /* ── METHODOLOGY ── */
+    .method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .method-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px 16px; }
+    .method-item strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8125rem; color: var(--gray-900); }
+    .method-item p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.55; margin-top: 4px; }
+    .confirm-list { margin: 8px 0 0 18px; }
+    .confirm-list li { margin-top: 6px; }
+
+    /* ── CTA ── */
+    .cta-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 12px; padding: 28px 32px; }
+    .cta-box p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-top: 10px; }
+    .cta-btn {
+      display: inline-block; background: var(--orange); color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      padding: 12px 24px; border-radius: 8px; margin-top: 20px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .cta-btn:hover { background: var(--orange-dk); color: white; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--navy); padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.35);
+    }
+    .footer-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; font-weight: 700; color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 680px) {
+      .report { margin: 0; border-radius: 0; }
+      .report-header, .score-band, .section, .stat-strip, .report-footer { padding-left: 20px; padding-right: 20px; }
+      .report-header { flex-direction: column; }
+      .report-meta { text-align: left; }
+      .score-band { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .score-value { font-size: 3.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+      .grid-table { min-width: 540px; }
+      .grid-table thead th, .grid-table td { padding: 10px 8px; }
+      .query-text { font-size: 0.67rem; }
+      .rank-badge { font-size: 0.66rem; padding: 2px 7px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 20px; }
+      .cta-btn { display: block; text-align: center; }
+      .report-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .tally-item { min-width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .report { margin: 0; box-shadow: none; border: none; border-radius: 0; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="report">
+
+  <div class="report-header">
+    <div class="report-brand">
+      <div class="report-brand-title">AI Visibility <span>Audit</span></div>
+      <div class="report-brand-logo">by Appear AI</div>
+    </div>
+    <div class="report-meta">
+      <div class="practice-name">Farmington Dental Studio</div>
+      <p>Farmington Hills, MI &nbsp;&middot;&nbsp; Report date: September 11, 2026</p>
+      <p>Four patient questions, four AI platforms, sixteen answers</p>
+    </div>
+  </div>
+
+  <div class="score-band">
+    <div class="score-move">
+      <span class="score-value">6</span>
+      <span class="score-denom">/10</span>
+    </div>
+    <div class="score-detail">
+      <div class="score-label">Overall AI Visibility Score</div>
+      <div class="score-bar-track"><div class="score-bar-fill" style="width:60%;"></div></div>
+      <p class="score-context">
+        <strong>Half of the answers name the practice, and three of those put it first. The other half
+        never mention it.</strong> ChatGPT did not name Farmington Dental Studio in any of its four answers.
+        Three of four platforms left it out when asked about dental implants, even with a board-certified
+        periodontist in the building. The website is not what is holding it back: Claude and Perplexity cited it
+        in seven of their eight answers. The problem is that the practice exists online under too many names and phone numbers
+        for them to add up to one strong recommendation.
+      </p>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item">
+      <span class="stat-now">8/16</span>
+      <span class="stat-label">Answers that name<br>the practice</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now down">0/4</span>
+      <span class="stat-label">ChatGPT answers<br>not named once</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now up">3</span>
+      <span class="stat-label">#1 recommendations<br>Perplexity 2, Google 1</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now down">1/4</span>
+      <span class="stat-label">Implant answers<br>that name the practice</span>
+    </div>
+  </div>
+
+  <!-- 01 SCORECARD -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>The Scorecard</h2>
+    </div>
+    <p class="section-intro">
+      Four questions a new patient in Farmington Hills would realistically ask, run across the four AI
+      platforms patients use. Each cell shows where the practice appeared in the answer and how many
+      practices that answer named in total.
+      <strong>Green = #1 recommendation. Amber = #2. Red = #3 or lower, or not named.</strong>
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Query</th>
+            <th>ChatGPT</th>
+            <th>Perplexity</th>
+            <th>Google AI</th>
+            <th>Claude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="query-text">"best dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="sub">of 4</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"best cosmetic dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="sub">of 5</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#4</span><span class="sub">of 5</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="sub">of 8</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"dentist near Farmington Hills MI accepting new patients"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="sub">of 10</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-1">#1</span><span class="sub">of 4</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#4</span><span class="sub">of 5</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"best dental implant dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="sub">of 13</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tally">
+      <div class="tally-item tally-up"><span class="tally-num">3</span><span class="tally-label">#1 recommendations</span></div>
+      <div class="tally-item tally-flat"><span class="tally-num">5</span><span class="tally-label">named, not first</span></div>
+      <div class="tally-item tally-down"><span class="tally-num">8</span><span class="tally-label">not named at all</span></div>
+    </div>
+
+    <div class="note">
+      <strong class="note-title">Platform summary</strong>
+      <strong>Perplexity is the strongest platform</strong>, putting the practice first on both cosmetic
+      dentistry and new patients. <strong>Google AI Mode</strong> named it on three of four questions and
+      made it the top pick for new patients. <strong>Claude</strong> named it three times but never higher
+      than third. <strong>ChatGPT never named it.</strong> And the broadest question of the four,
+      "best dentist in Farmington Hills," names the practice on only one platform.
+    </div>
+  </div>
+
+  <!-- 02 CHATGPT -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>ChatGPT Doesn't Name the Practice</h2>
+    </div>
+    <p class="section-intro">
+      Across its four answers, ChatGPT recommended 19 different practices. Farmington Dental Studio was not
+      one of them, and ChatGPT did not cite farmingtondentalstudio.com as a source even once.
+    </p>
+
+    <p class="prose">
+      In this audit, ChatGPT's answers leaned on review directories rather than practice websites.
+      Its two most-cited sources were <strong>Birdeye (13 citations)</strong> and
+      <strong>dentistrydirectories.com (9 citations)</strong>. Here is how the practice appears on each.
+    </p>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Listing ChatGPT read</th>
+            <th class="col-left">Name shown</th>
+            <th>Phone</th>
+            <th>Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left"><span class="comp-name">dentistrydirectories.com</span><span class="comp-sub">practice listing</span></td>
+            <td class="col-left">Farmington Dental Studio <strong>Family &amp; Emergency Dentistry</strong></td>
+            <td class="center num">248-516-0004</td>
+            <td class="center num">4.9 &middot; 254</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">dentistrydirectories.com</span><span class="comp-sub">separate listing</span></td>
+            <td class="col-left">Dr. Sarmad Eiwaz</td>
+            <td class="center num">248-422-1032</td>
+            <td class="center num">4.8 &middot; 53</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Birdeye</span><span class="comp-sub">practice profile, unclaimed</span></td>
+            <td class="col-left">Farmington Dental Studio <strong>Family &amp; Emergency Dentistry</strong></td>
+            <td class="center num">not shown</td>
+            <td class="center num">4.9 &middot; 301</td>
+          </tr>
+          <tr class="you-row">
+            <td class="col-left"><span class="comp-name">Google Business Profile</span><span class="comp-sub">for comparison, today</span></td>
+            <td class="col-left">Farmington Dental Studio</td>
+            <td class="center num">&mdash;</td>
+            <td class="center num">4.9 &middot; 391</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="prose" style="margin-top:18px;">
+      Both of the directories ChatGPT leans on carry the practice under the same longer name, and neither
+      matches the Google profile. dentistrydirectories.com adds a phone number that doesn't match the website
+      and <strong>a second listing for Dr. Eiwaz under a third phone number</strong>, so instead of one listing
+      with 391 reviews it shows two smaller, out-of-date ones. Its review count trails Google's by 137.
+      Birdeye's trails by 90. Both are working from an older copy of the data, and nothing will update either
+      one unless someone corrects it.
+    </p>
+
+    <div class="note flag">
+      <strong class="note-title">The Birdeye profile exists, but it is unclaimed and on page two</strong>
+      Birdeye's Farmington Hills dental directory runs to ten pages. Page one is where ChatGPT's picks come
+      from: Midwestern Dental, Desai Dental Spa, Center for Implant Dentistry and Oral Surgery, and Richard S.
+      Bernstein DDS were all recommended by ChatGPT. Farmington Dental Studio sits on page two.
+      <strong>Seven of the ten practices on page one have fewer Birdeye reviews than it does</strong>, so
+      review volume is not what is holding it back. The profile itself is live and still collecting reviews,
+      the most recent posted six days ago, and it carries the correct address and website link. But Birdeye
+      shows it as never claimed by the practice, and it is filed under the longer name rather than the one on
+      the Google profile.
+    </div>
+  </div>
+
+  <!-- 03 IMPLANTS -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>Implants: A Specialist the Platforms Can't See</h2>
+    </div>
+    <p class="section-intro">
+      Implants are the highest-value treatment on the menu, and the practice has a board-certified
+      periodontist on the team. Asked for the best implant dentist in Farmington Hills, three of four
+      platforms didn't mention the practice at all.
+    </p>
+
+    <p class="prose" style="margin-top:18px;">
+      The credential is real and it is on the website. The About page presents Dr. Azimi as one of the two
+      doctors and credits him as a <strong>Board-Certified Periodontist</strong> from the American Board of
+      Periodontology. That is precisely the qualification an implant question is looking for.
+    </p>
+    <p class="prose">
+      The problem is how quietly it is said. He is labelled <strong>"Dr. Khash, DDS, MS"</strong>, leading
+      with a nickname rather than his full name and his specialty, so the word "periodontist" never appears
+      where a machine reading the page would attach it to him. At least two other metro Detroit dental
+      websites describe him as a "Board Certified Periodontist &amp; Dental Implant Specialist." Perplexity
+      read the practice's own <code>/implant-dentist/</code> page while answering the implant question and
+      still didn't name the practice.
+    </p>
+
+    <div class="table-wrap" style="margin-top:18px;">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Practice</th>
+            <th>Named in implant answers</th>
+            <th>Google rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left"><span class="comp-name">Periodontic &amp; Implantology Specialists</span><span class="comp-sub">14 Mile Rd</span></td>
+            <td class="center"><strong style="color:var(--green);">4 of 4</strong></td>
+            <td class="center num">4.9 &middot; 521</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Center for Implant Dentistry &amp; Oral Surgery</span><span class="comp-sub">Orchard Lake Rd</span></td>
+            <td class="center"><strong style="color:var(--green);">4 of 4</strong></td>
+            <td class="center num">4.9 &middot; 262</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Roman Shlafer, DDS</span><span class="comp-sub">Grand River Ave</span></td>
+            <td class="center">3 of 4</td>
+            <td class="center num">5.0 &middot; 395</td>
+          </tr>
+          <tr class="you-row">
+            <td class="col-left"><span class="comp-name">Farmington Dental Studio</span><span class="comp-sub">Claude only, at #3</span></td>
+            <td class="center"><strong style="color:var(--red);">1 of 4</strong></td>
+            <td class="center num">4.9 &middot; 391</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note flag">
+      <strong class="note-title">This is not a review problem</strong>
+      Center for Implant Dentistry &amp; Oral Surgery is named in every implant answer with 262 Google
+      reviews. Farmington Dental Studio has 391. The platforms aren't choosing the practices with the most
+      reviews. They're choosing the practices they can clearly connect to implants.
+    </div>
+  </div>
+
+  <!-- 04 PHONE NUMBERS -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>Three Phone Numbers, One Suite</h2>
+    </div>
+    <p class="section-intro">
+      AI platforms confirm who a business is by matching its name, address and phone number across the
+      web. Every mismatch weakens that match. Three different numbers currently point to Suite 140.
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Number</th>
+            <th class="col-left">Where it appears</th>
+            <th>Given to patients by</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left num">(248) 919-0952</td>
+            <td class="col-left">The practice website, contact page and structured data</td>
+            <td class="center">Perplexity</td>
+          </tr>
+          <tr>
+            <td class="col-left num">(248) 516-0004</td>
+            <td class="col-left">Healthgrades, dentistrydirectories.com and other directory listings</td>
+            <td class="center">Claude</td>
+          </tr>
+          <tr>
+            <td class="col-left num">(248) 422-1032</td>
+            <td class="col-left">The separate "Dr. Sarmad Eiwaz" directory listing</td>
+            <td class="center">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="prose" style="margin-top:18px;">
+      Some of these may be call-tracking numbers that all ring the same front desk, which works fine for
+      patients. For AI platforms, each one is a separate claim about who the business is. Today, two AI
+      answers to the same question gave patients two different numbers for the practice.
+    </p>
+
+    <div class="status-list" style="margin-top:18px;">
+      <div class="status-card alert">
+        <div class="status-icon icon-none">&#10007;</div>
+        <div>
+          <strong>Healthgrades has the wrong address and no reviews</strong>
+          <p>The practice listing shows <strong>32910 W 13 Mile Rd, Ste B200</strong>, an old address on
+          a different road, with the 516-0004 number and zero reviews. Dr. Eiwaz's profile also has zero
+          ratings. Claude and Perplexity cited Healthgrades 20 times between them in this audit.</p>
+        </div>
+      </div>
+      <div class="status-card alert">
+        <div class="status-icon icon-none">&#10007;</div>
+        <div>
+          <strong>The website's structured data has a broken link to the Google profile</strong>
+          <p>The site's <code>Dentist</code> markup is supposed to point AI platforms to the Google Business
+          Profile. That entry is <strong>two URLs joined into one string</strong>, so it doesn't resolve.
+          The same markup also doesn't include office hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 WHAT'S WORKING -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>What's Already Working</h2>
+    </div>
+    <p class="section-intro">
+      The foundations are better than the scorecard suggests, which is why the fixes above are
+      listing work rather than a rebuild.
+    </p>
+
+    <div class="status-list">
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>Two of the AI platforms read the website in almost every answer.</strong>
+          <p>Claude and Perplexity cited farmingtondentalstudio.com in <strong>seven of their eight
+          answers</strong>. The site is crawlable, AI crawlers aren't blocked, and structured data is in
+          place. The content is getting through. What's missing is agreement between the site and
+          everything else online.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>Three #1 recommendations, and a strong Google profile behind them.</strong>
+          <p>Google AI Mode made the practice its "Top Pick for Overall Care &amp; Flexibility" for new
+          patients, and describes it as "a highly-rated general and cosmetic dental practice." Perplexity
+          put it first on both cosmetic dentistry and new patients. The Google profile carries
+          <strong>4.9 stars across 391 reviews</strong>, comparable to the implant specialists
+          named in this audit.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note flag" style="margin-top:18px;">
+      <strong class="note-title">The Perplexity wins are more fragile than they look</strong>
+      Perplexity's stated reason for the #1 cosmetic ranking was the site calling itself the
+      <em>"#1 Cosmetic Dental Office."</em> Claude explicitly discounts that kind of claim:
+      <em>"every practice calls itself the best &mdash; Farmington Dental Studio, for instance, bills itself
+      as 'the #1 dental office for dental implants' &mdash; so marketing language shouldn't drive your
+      choice."</em> Rankings built on the practice describing itself can disappear the next time Perplexity
+      changes how it weighs sources. Rankings backed by consistent third-party listings hold up.
+    </div>
+  </div>
+
+  <!-- 06 COMPETITORS -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">06</span>
+      <h2>Who Gets Named Instead</h2>
+    </div>
+    <p class="section-intro">
+      The practices named most often across all sixteen answers.
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Practice</th>
+            <th>Named in</th>
+            <th class="col-left">Where it shows up</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="you-row">
+            <td class="col-left"><span class="comp-name">Farmington Dental Studio</span></td>
+            <td class="center num">8 / 16</td>
+            <td class="col-left">#1 three times; never on ChatGPT</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Roman Shlafer, DDS</span></td>
+            <td class="center num">6 / 16</td>
+            <td class="col-left">Best dentist, cosmetic and implants, on three platforms</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Laurich Dentistry</span></td>
+            <td class="center num">5 / 16</td>
+            <td class="col-left">#1 for "best dentist" on Claude and Google</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Village Family Dentistry</span></td>
+            <td class="center num">4 / 16</td>
+            <td class="col-left">#1 for new patients on Claude and ChatGPT</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Comfort Dental Spa</span></td>
+            <td class="center num">4 / 16</td>
+            <td class="col-left">Cosmetic and new patients, on all four platforms</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Periodontic &amp; Implantology Specialists</span></td>
+            <td class="center num">4 / 16</td>
+            <td class="col-left">Every implant answer</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Center for Implant Dentistry &amp; Oral Surgery</span></td>
+            <td class="center num">4 / 16</td>
+            <td class="col-left">Every implant answer</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong class="note-title">The neighbours in the building</strong>
+      Two other practices share 32905 W 12 Mile Rd: <strong>Smile at Life Dentistry</strong> (Suite 120)
+      and <strong>Gentle Touch Family Dental Care</strong> (Suite 420). They were named five times between
+      them, including in ChatGPT's "best dentist" answer, which named Smile at Life and not Farmington
+      Dental Studio. Google AI Mode pointed out the shared address in two answers. With three practices at
+      one address, clean and consistent listings matter more than usual, because the platforms are
+      already sorting out which business is which.
+    </div>
+  </div>
+
+  <!-- 07 PRIORITIES -->
+  <div class="section section-navy">
+    <div class="section-heading">
+      <span class="section-num">07</span>
+      <h2>Priorities for the Next 90 Days</h2>
+    </div>
+    <p class="section-intro">
+      Ordered by expected impact. None of them involve rebuilding the website.
+    </p>
+
+    <div class="wins-list">
+      <div class="win-card">
+        <span class="win-num">1</span>
+        <div>
+          <strong>Label the periodontist so the platforms can connect him to implants.</strong>
+          <p>Dr. Azimi is a board-certified periodontist and the site already says so, but it leads with
+          <em>"Dr. Khash, DDS, MS."</em> Give him his full name and <em>Board-Certified Periodontist &amp;
+          Implant Specialist</em> in the page title, the visible heading and the structured data, and repeat
+          it on the implant pages. Implants are the most valuable question in this audit, and the practice
+          shows up on one platform out of four while practices with fewer reviews show up on all four.</p>
+          <span class="win-tag top">Highest impact</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">2</span>
+        <div>
+          <strong>One name and one phone number, everywhere.</strong>
+          <p>Choose the main line, then correct Healthgrades (including the old 13 Mile address),
+          dentistrydirectories.com and the other directories carrying 516-0004. Merge or retire the separate
+          Dr. Sarmad Eiwaz listing so the practice stops competing with itself.</p>
+          <span class="win-tag">Medium effort</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">3</span>
+        <div>
+          <strong>Claim the Birdeye profile and correct the name on it.</strong>
+          <p>The profile is already there with 301 reviews, but Birdeye lists it as unclaimed and under the
+          longer name. Claiming it is free and takes minutes, and it is the one thing on this list the
+          practice can do without waiting on anyone. Four practices from page one of that directory were
+          recommended by ChatGPT, the one platform that currently doesn't name the practice at all.</p>
+          <span class="win-tag">Low effort</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">4</span>
+        <div>
+          <strong>Fix the structured data.</strong>
+          <p>Repair the broken Google Business Profile link and add office hours to the site's
+          <code>Dentist</code> markup. This is the first thing every AI platform reads on the site, and it's
+          an afternoon of work.</p>
+          <span class="win-tag">Low effort</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 METHODOLOGY -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">08</span>
+      <h2>Methodology</h2>
+    </div>
+    <p class="section-intro">
+      Four queries across four AI platforms, sixteen answers total. Each answer was captured in full, along
+      with every source the platform cited and the exact name it used for the practice. Raw responses are
+      kept and available on request.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-item">
+        <strong>ChatGPT</strong>
+        <p>Live web search enabled. Collected September 11, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Perplexity</strong>
+        <p>Sonar, the model behind perplexity.ai. Collected September 11, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Google AI Mode</strong>
+        <p>Collected directly from Google AI Mode, September 10, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Claude</strong>
+        <p>Opus, with live web search. Collected September 11, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Score calculation</strong>
+        <p>Weighted across platform appearances (50%), ranking position when named (30%), and review
+        authority (20%). This audit: named in 8 of 16 answers (2.5 of 5). When named, #1 earns full credit,
+        #3 half and #4 a quarter (1.9 of 3). 391 Google reviews against 521 for the most-reviewed practice
+        with a Google rating shown in these answers (1.5 of 2). Total 5.9, shown as 6.</p>
+      </div>
+      <div class="method-item">
+        <strong>Listing data</strong>
+        <p>Google ratings from the Google Business Profile and Google AI Mode place cards. Healthgrades
+        checked September 10; directory listings and the practice website checked September 11. Birdeye
+        re-checked at source September 18, which corrected an earlier reading that the practice had no
+        profile there. AI answers vary from one run to the next, so this is a snapshot.</p>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:20px;">
+      <strong class="note-title">Two things to confirm with the practice</strong>
+      <ol class="confirm-list">
+        <li>Which phone number is the main line: 919-0952, 516-0004, 422-1032, or another?</li>
+        <li>Is there a separate Google Business Profile for Dr. Sarmad Eiwaz?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 09 WHAT'S NEXT -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">09</span>
+      <h2>What's Next</h2>
+    </div>
+
+    <div class="cta-box">
+      <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;">The platforms already know the practice is good. They can't tell which listing is the practice.</strong>
+      <p>
+        Where AI platforms work from the website and the Google profile, Farmington Dental Studio does well:
+        three #1 recommendations, and a website Claude and Perplexity cited in seven of eight answers. Where they work
+        from directories, they find a longer name, three phone numbers, a separate doctor listing, an old
+        address, and an unclaimed profile on page two. That is the most likely reason ChatGPT never names the practice, and
+        why the implant question goes to other practices.
+      </p>
+      <p>
+        None of this requires a new website. It's a quarter of careful, unglamorous listing work, and the
+        answers to the three questions above decide where it starts.
+      </p>
+      <a class="cta-btn" href="https://calendly.com/kazztechholdings/ai-audit-follow-up">Book a call to walk through the findings</a>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <span class="footer-brand">Appear AI</span>
+    <span>AI visibility audit &middot; Farmington Dental Studio &middot; September 11, 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
