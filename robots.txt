@@ -5,6 +5,10 @@ Allow: /
 # so it does not compete with the landing page for the same terms.
 Disallow: /pitch-deck-ai-search.html
 
+# Client proposals — reachable by direct link, kept out of search so
+# the founding rate does not surface to other prospects.
+Disallow: /farmington-dental-proposal-2026-09.html
+
 # Internal report scaffolding, not content for patients or prospects.
 Disallow: /templates/
 
