@@ -241,11 +241,28 @@
   .cta:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
   .print-link { display: none; }
   .accept {
-    display: grid; grid-template-columns: 2fr 1fr; gap: 28px;
+    display: none; grid-template-columns: 2fr 1fr; gap: 28px;
     margin-top: 10px; padding-top: 6px;
   }
   .accept div { display: grid; gap: 6px; }
   .accept .line { height: 34px; border-bottom: 1px solid var(--hair-2); }
+
+  .start {
+    margin-top: 6px; padding: 20px 22px; border-radius: 10px;
+    background: var(--field); border: 1px solid var(--hair);
+    display: grid; gap: 14px;
+  }
+  .start ol { display: grid; gap: 12px; counter-reset: st; }
+  .start li {
+    counter-increment: st; position: relative; padding-left: 30px;
+    font-size: 0.95rem; line-height: 1.6; color: var(--ink-2);
+  }
+  .start li::before {
+    content: counter(st); position: absolute; left: 0; top: 0;
+    font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+    color: var(--orange);
+  }
+  .start li strong { color: var(--ink); }
 
   .foot {
     display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -299,7 +316,9 @@
     .foot { padding: 8px 22px; }
     .cta { display: none; }
     .print-link { display: block; }
+    .accept { display: grid; }
     .accept .line { height: 26px; }
+    .start { display: none; }
   }
 </style>
 
@@ -308,7 +327,7 @@
   <header class="cover">
     <div class="cover-top">
       <span class="brand">Appear <span>AI</span></span>
-      <span class="micro">Prepared September 11, 2026 &middot; Valid through October 11, 2026</span>
+      <span class="micro">Prepared September 11, 2026 &middot; Revised September 23 &middot; Valid through October 11, 2026</span>
     </div>
     <p class="eyebrow">Proposal for Farmington Dental Studio</p>
     <h1 class="display">AI Search Visibility</h1>
@@ -324,16 +343,17 @@
   <section class="sec" aria-labelledby="s-stand">
     <h2 id="s-stand">Where things stand</h2>
     <div class="sec-body">
-      <p>The September 11 audit found a practice the AI assistants already think well of. When they read your website and Google profile, you do well, including three #1 recommendations. When they read directories, they find a longer name, an old address, a separate listing for Dr. Eiwaz, an unclaimed profile on Birdeye, and three different phone numbers.</p>
+      <p>The September 11 audit found a practice the AI assistants already think well of. When they read your website and Google profile, you do well, including three #1 recommendations. Since then I've inventoried all 23 listings that describe the practice online, and the picture there is different: three versions of your name, an old address on six of them, four phone numbers, and the two largest gaps of all &mdash; <strong>305 of your reviews sit on a Birdeye profile nobody at the practice has ever claimed</strong>, and <strong>you don't appear on Zocdoc at all</strong>.</p>
       <div class="numbers">
-        <p class="eyebrow">Phone numbers pointing to Suite 140 today</p>
+        <p class="eyebrow">Phone numbers describing the practice today</p>
         <ul>
-          <li><span class="num">(248) 919-0952</span><span class="where">Website and structured data</span></li>
-          <li><span class="num">(248) 516-0004</span><span class="where">Healthgrades and directories</span></li>
-          <li><span class="num">(248) 422-1032</span><span class="where">Separate Dr. Eiwaz listing</span></li>
+          <li><span class="num">(248) 919-0952</span><span class="where">Google, website, Yelp, Facebook, Apple Maps, Bing</span></li>
+          <li><span class="num">(248) 516-0004</span><span class="where">Federal records, Delta Dental, health directories</span></li>
+          <li><span class="num">(248) 422-1032</span><span class="where">A stale copy on dentistrydirectories.com</span></li>
+          <li><span class="num">(248) 789-8760</span><span class="where">Appears against Dr. Eiwaz; source not yet confirmed</span></li>
         </ul>
       </div>
-      <p>That's the most likely reason ChatGPT doesn't name the practice, and why implant questions go to other offices. None of it needs a new website. It needs careful listing work, done in the right order, and a check each month that the changes are being picked up.</p>
+      <p>That's the most likely reason ChatGPT doesn't name the practice. None of it needs a new website. It needs careful listing work, done in the right order, and a check each month that the changes are being picked up.</p>
     </div>
   </section>
 
@@ -351,8 +371,8 @@
               <td>Every listing found in month 1 matches, including Healthgrades, dentistrydirectories.com and the website's structured data.</td>
             </tr>
             <tr>
-              <td>Your implant care connected to the practice</td>
-              <td>Dr. Azimi named in full as a <strong>Board-Certified Periodontist &amp; Implant Specialist</strong> on his own page, on the implant pages and in the site's structured data.</td>
+              <td>Found in more of the places patients start</td>
+              <td>Vitals, Yellow Pages and Healthgrades claimed and correct, both doctors listed on each, and a decision made on Zocdoc with real numbers in front of you.</td>
             </tr>
             <tr>
               <td>Listed where ChatGPT looks</td>
@@ -370,21 +390,23 @@
       <div class="months">
         <div class="month">
           <p class="eyebrow">Month 1</p>
-          <h3>Settle the details</h3>
+          <h3>Claim what's yours</h3>
           <ul>
-            <li>Kickoff call to decide the main phone line and whether Dr. Eiwaz has a separate Google profile</li>
-            <li>Correct Healthgrades (address and phone) and dentistrydirectories.com</li>
-            <li>Start the Birdeye claim. It's free, and the verification step has lead time</li>
-            <li>Fix the website's structured data: the Google profile link and office hours</li>
+            <li><strong>Start the Birdeye claim first.</strong> It's free, it's the biggest single item, and the verification step has lead time</li>
+            <li>Kickoff call to settle which number is the practice's own line</li>
+            <li>Claim Healthgrades and correct the address, and add Dr. Azimi &mdash; he isn't listed there at all</li>
+            <li>Fix the website's structured data: the broken Google profile link, the missing office hours and the country code Google flags. The corrected markup is already written</li>
+            <li>Price Zocdoc for Farmington Hills so month 2 has a real number to decide on</li>
           </ul>
         </div>
         <div class="month">
           <p class="eyebrow">Month 2</p>
-          <h3>Make the implant care visible</h3>
+          <h3>Widen where you're found</h3>
           <ul>
-            <li>Retitle Dr. Azimi's page to lead with his full name and <strong>Board-Certified Periodontist &amp; Implant Specialist</strong>, in the heading, the page title and the structured data, and carry it onto the implant pages</li>
-            <li>Correct or merge the separate Dr. Eiwaz listing on the directories. If he has his own Google profile it stays, it just needs his name and the right number</li>
-            <li>Sweep other directories for an old number or address</li>
+            <li>Claim Vitals and Yellow Pages, correct the old address and the stale hours, and fix the &ldquo;Dental Labs&rdquo; category Yellow Pages has you under</li>
+            <li>Settle on one name and carry it across Birdeye, dentistrydirectories.com and DentalPlans</li>
+            <li>Publish the agreed phone number across the review and directory sites</li>
+            <li>Your Zocdoc decision, with pricing in hand. Dr. Eiwaz's own Google profile stays &mdash; Google allows a dentist their own &mdash; it just needs the same number as the practice</li>
           </ul>
         </div>
         <div class="month">
@@ -418,8 +440,8 @@
           <ul class="ticks">
             <li>30 minutes for the kickoff call.</li>
             <li>Access to the listings that need changing, or someone at the front desk who can handle a verification call or postcard.</li>
-            <li>Contact details for whoever manages the website, for a few small updates to Dr. Azimi's page and the structured data.</li>
-            <li>Additional practice details as they come up, like which number is the main line, the correct office hours, or whether a listing has already been claimed.</li>
+            <li>An introduction to whoever manages the website, so the corrected structured data can be installed.</li>
+            <li>Additional practice details as they come up &mdash; above all, which of the four numbers is the practice's own line.</li>
           </ul>
         </div>
       </div>
@@ -429,7 +451,8 @@
   <section class="sec" aria-labelledby="s-scope">
     <h2 id="s-scope">Scope and honesty</h2>
     <div class="sec-body">
-      <p><strong>Not included:</strong> website redesign, new content beyond Dr. Azimi's page, Google Business Profile posting, paid ads, social media, and responding to reviews. Your ongoing SEO stays exactly where it is for these three months. If you use a call-tracking service, I'll work with it, not remove it.</p>
+      <p><strong>Not included:</strong> website redesign, new page content, Google Business Profile posting, paid ads, social media, and responding to reviews. Your ongoing SEO stays exactly where it is for these three months. If you use a call-tracking service, I'll work with it, not remove it.</p>
+      <p><strong>On Zocdoc:</strong> setting the listing up and getting it right is included. What Zocdoc charges is not, and it is paid by the practice directly to Zocdoc. There is no subscription and no monthly minimum &mdash; a one-time fee applies only when a new patient actually books, and you set the monthly ceiling. I'll bring you their quote before anything is signed up for.</p>
       <p><strong>What I can promise:</strong> AI assistants change how they answer from week to week, and nobody controls what they say. I can't guarantee ChatGPT or any other assistant will name the practice by a certain date. I can promise the work above, done in order, with targets you can check, and straight reporting on what it's adding up to.</p>
     </div>
   </section>
@@ -481,10 +504,23 @@
     <div class="sec-body close">
       <p>The call is already on the calendar. It runs about thirty minutes and covers three things.</p>
       <ul class="ticks">
-        <li><strong>The audit, start to finish.</strong> What each platform said, why ChatGPT doesn't name the practice, and where the implant answers are going instead. Bring questions on any of it.</li>
-        <li><strong>The two open questions.</strong> Which number is the main line, and whether Dr. Eiwaz has a separate Google profile.</li>
+        <li><strong>The audit and the listings inventory.</strong> What each platform said, why ChatGPT doesn't name the practice, and all 23 listings with what each one gets wrong. Bring questions on any of it.</li>
+        <li><strong>The open question.</strong> Which of the four numbers is the practice's own line &mdash; and whether any of them came from a marketing vendor rather than the office. Everything else follows from that answer.</li>
         <li><strong>The terms in this proposal</strong>, agreed as they stand or adjusted to suit you.</li>
       </ul>
+      <div class="start">
+        <p class="eyebrow">How to start</p>
+        <ol>
+          <li><strong>Say yes on the call</strong>, or reply to this by email. There is nothing to
+          sign here.</li>
+          <li><strong>I send the first invoice</strong> for month 1, payable by bank transfer or
+          card. Paying it is what starts the term.</li>
+          <li><strong>Work begins that week</strong>, starting with the Birdeye claim, since its
+          verification step has the longest lead time.</li>
+        </ol>
+        <p class="micro">Months 2 and 3 are invoiced at the start of each month. Nothing renews
+        automatically at the end of the term.</p>
+      </div>
       <div class="accept">
         <div><div class="line"></div><span class="micro">Accepted for Farmington Dental Studio</span></div>
         <div><div class="line"></div><span class="micro">Date</span></div>
