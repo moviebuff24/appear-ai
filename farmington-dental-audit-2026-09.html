@@ -799,52 +799,88 @@
       <h2>Priorities for the Next 90 Days</h2>
     </div>
     <p class="section-intro">
-      Ordered by expected impact. None of them involve rebuilding the website.
+      Ordered by expected impact. None of them involve rebuilding the website, and the first one is
+      free.
     </p>
 
-    <div class="wins-list">
+    <div class="note" style="background:rgba(255,255,255,0.05);border-left:3px solid var(--orange);color:rgba(255,255,255,0.72);">
+      <span class="note-title" style="color:#fff;">Updated September 23, 2026</span>
+      These priorities were revised after a full inventory of all 23 listings that describe the
+      practice online. The findings in sections 01 to 06 above are unchanged and remain as
+      collected on September 10 and 11.
+    </div>
+
+    <div class="wins-list" style="margin-top:18px;">
       <div class="win-card">
         <span class="win-num">1</span>
         <div>
-          <strong>Label the periodontist so the platforms can connect him to implants.</strong>
-          <p>Dr. Azimi is a board-certified periodontist and the site already says so, but it leads with
-          <em>"Dr. Khash, DDS, MS."</em> Give him his full name and <em>Board-Certified Periodontist &amp;
-          Implant Specialist</em> in the page title, the visible heading and the structured data, and repeat
-          it on the implant pages. Implants are the most valuable question in this audit, and the practice
-          shows up on one platform out of four while practices with fewer reviews show up on all four.</p>
+          <strong>Claim the Birdeye profile.</strong>
+          <p>Birdeye holds <em>305 reviews of the practice on a profile nobody there has ever claimed</em>,
+          and it was ChatGPT's most-cited source in this audit, quoted 13 times. It carries a name Google
+          doesn't use, hours that are two changes out of date, and no phone number at all. Nobody can reply
+          to those reviews or correct a word of it until it is claimed. Claiming is free, there is one
+          verification step, and it is the single highest-value thing on this list.</p>
           <span class="win-tag top">Highest impact</span>
         </div>
       </div>
       <div class="win-card">
         <span class="win-num">2</span>
         <div>
-          <strong>One name and one phone number, everywhere.</strong>
-          <p>Choose the main line, then correct Healthgrades (including the old 13 Mile address),
-          dentistrydirectories.com and the other directories carrying 516-0004. Keep the separate
-          Dr. Sarmad Eiwaz listing. Google allows a dentist their own profile, and his carries 53 reviews,
-          so it is worth having. It just needs to show the same phone number as the practice, which it
-          does not today.</p>
-          <span class="win-tag">Medium effort</span>
+          <strong>Get listed on Zocdoc.</strong>
+          <p>The practice does not appear on Zocdoc at all. Patients who start there rather than on Google
+          see a list of Farmington Hills dentists who take their insurance, pick one and book &mdash; and
+          the practice is not among them. This is the one gap on this list that costs bookings directly
+          rather than through search. There is no subscription and no monthly minimum: a one-time fee
+          applies only when a new patient actually books, and the practice sets the ceiling.</p>
+          <span class="win-tag top">Biggest gap</span>
         </div>
       </div>
       <div class="win-card">
         <span class="win-num">3</span>
         <div>
-          <strong>Claim the Birdeye profile and correct the name on it.</strong>
-          <p>The profile is already there with 301 reviews, but Birdeye lists it as unclaimed and under the
-          longer name. Claiming it is free and takes minutes, and it is the one thing on this list the
-          practice can do without waiting on anyone. Four practices from page one of that directory were
-          recommended by ChatGPT, the one platform that currently doesn't name the practice at all.</p>
+          <strong>Settle on one name, and use it everywhere.</strong>
+          <p>The practice currently goes by three names online. Google says <em>Farmington Dental
+          Studio</em>. Birdeye and dentistrydirectories.com both say <em>Farmington Dental Studio Family
+          &amp; Emergency Dentistry</em>. DentalPlans has it as <em>Farmington Studio Dental</em>, at the
+          old address, in the wrong city. Matching a business across sources is the first thing an AI
+          platform does, and three names make that harder than it needs to be.</p>
           <span class="win-tag">Low effort</span>
         </div>
       </div>
       <div class="win-card">
         <span class="win-num">4</span>
         <div>
+          <strong>Correct the directory listings, and list both doctors on each.</strong>
+          <p>Six listings still show the old 13 Mile Rd suite, including Healthgrades &mdash; which Claude
+          and Perplexity cited 20 times between them, and which does not list Dr. Azimi at all. Vitals and
+          Yellow Pages have never been claimed, and Yellow Pages has the practice filed under
+          <em>Dental Labs</em>. This is the steadiest work on the list and most of it can start
+          immediately.</p>
+          <span class="win-tag">Medium effort</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">5</span>
+        <div>
+          <strong>Decide which number is the practice's own line, then publish only that one.</strong>
+          <p>Four numbers describe the practice online and they split cleanly: everything patient-facing
+          uses 919-0952, while the health, insurance and federal records use 516-0004. Which of the two is
+          the practice's own line is a question worth answering before anything is spread further &mdash;
+          numbers on the patient-facing side are sometimes call-tracking lines set up by a marketing
+          vendor, and a tracking line stops working when that service ends. Once that is settled, the
+          directories follow it.</p>
+          <span class="win-tag">Decision first</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">6</span>
+        <div>
           <strong>Fix the structured data.</strong>
-          <p>Repair the broken Google Business Profile link and add office hours to the site's
-          <code>Dentist</code> markup. This is the first thing every AI platform reads on the site, and it's
-          an afternoon of work.</p>
+          <p>Three lines in the site's <code>Dentist</code> markup, which is the first thing every AI
+          platform reads. The field that links the site to the Google profile holds two web addresses
+          pasted into one, so it resolves to nothing; there are no opening hours anywhere in the block; and
+          the country code is in a format Google's own testing tool flags as unreadable. The corrected
+          markup is already written &mdash; it needs the website provider to install it.</p>
           <span class="win-tag">Low effort</span>
         </div>
       </div>
