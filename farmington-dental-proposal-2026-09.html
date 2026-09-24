@@ -133,14 +133,16 @@
     padding: 16px 0 4px;
   }
   .numbers ul {
-    display: grid; grid-template-columns: repeat(3, 1fr);
+    display: grid; grid-template-columns: repeat(2, 1fr);
     border: 1px solid var(--hair); border-radius: 8px; overflow: hidden;
   }
   .numbers li {
     display: grid; gap: 2px; padding: 12px 14px;
     border-left: 1px solid var(--hair);
+    border-top: 1px solid var(--hair);
   }
-  .numbers li:first-child { border-left: 0; }
+  .numbers li:nth-child(odd)   { border-left: 0; }   /* first column */
+  .numbers li:nth-child(-n+2)  { border-top: 0; }    /* first row */
   .numbers .num {
     font-family: var(--mono); font-size: var(--t-data); font-weight: 500;
     color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap;
@@ -277,8 +279,8 @@
     .sec { grid-template-columns: 1fr; gap: 14px; padding-block: 28px; }
     .meta { grid-template-columns: 1fr 1fr; }
     .numbers ul { grid-template-columns: 1fr; }
-    .numbers li { border-left: 0; }
-    .numbers li + li { border-top: 1px solid var(--hair); }
+    .numbers li { border-left: 0; border-top: 1px solid var(--hair); }
+    .numbers li:first-child { border-top: 0; }
     .months { grid-template-columns: 1fr; }
     .month + .month { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
     .two { grid-template-columns: 1fr; }
@@ -502,7 +504,7 @@
   <section class="sec" aria-labelledby="s-next">
     <h2 id="s-next">On the kickoff call</h2>
     <div class="sec-body close">
-      <p>The call is already on the calendar. It runs about thirty minutes and covers three things.</p>
+      <p>The call takes about thirty minutes. Here's what we'll cover.</p>
       <ul class="ticks">
         <li><strong>The audit and the listings inventory.</strong> What each platform said, why ChatGPT doesn't name the practice, and all 23 listings with what each one gets wrong. Bring questions on any of it.</li>
         <li><strong>The open question.</strong> Which of the four numbers is the practice's own line &mdash; and whether any of them came from a marketing vendor rather than the office. Everything else follows from that answer.</li>
