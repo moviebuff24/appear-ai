@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Farmington Dental Studio · Weekly update · Oct 18, 2026</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --navy:#0F1F3D; --orange:#f97316;
+  --paper:#eef0ec; --sheet:#ffffff; --field:#f1f3ef;
+  --hair:#e1e4df; --hair-2:#c8cdc7;
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#6b736d;
+  --pos:#166534; --pos-soft:#e5f3ea;
+  --neg:#a3261b; --neg-soft:#fbe8e5;
+  --warn:#8a5207; --warn-soft:#fcefd9;
+  --info:#1d4a80; --info-soft:#e5edf7;
+  --disp:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --text:"Inter","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+/* Six type roles, six sizes: .7 micro · .86 data · 1 body · 1.2 lede · 1.4 section · display clamp */
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{background:var(--paper)}
+body{color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;
+     -webkit-font-smoothing:antialiased;padding:32px 16px 56px}
+
+.sample{max-width:900px;margin:0 auto 12px;background:var(--warn-soft);color:var(--warn);
+        font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;
+        text-transform:uppercase;padding:9px 14px;border-radius:6px}
+.report{max-width:900px;margin:0 auto;background:var(--sheet);border:1px solid var(--hair);
+        border-radius:10px;padding:44px 48px 34px}
+
+header.title{padding-bottom:28px;border-bottom:2px solid var(--navy)}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.14em;
+         text-transform:uppercase;color:var(--ink-3)}
+.eyebrow b{color:var(--orange);font-weight:600}
+h1{font-family:var(--disp);font-size:clamp(1.9rem,4.2vw,2.6rem);font-weight:800;color:var(--navy);
+   letter-spacing:-.03em;line-height:1.08;margin-top:10px;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:16px}
+.meta div{display:flex;flex-direction:column;gap:2px}
+.meta span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.meta strong{font-size:.86rem;font-weight:600;color:var(--ink)}
+.lede{font-size:1.2rem;line-height:1.55;color:var(--ink);max-width:62ch;margin-top:22px}
+
+.sec{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--hair)}
+.sec-l{display:flex;flex-direction:column;gap:6px}
+.sec-l .num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink-3)}
+.sec-l h2{font-family:var(--disp);font-size:1.4rem;font-weight:700;color:var(--navy);
+          letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+.sec-r{min-width:0}
+.intro{color:var(--ink-2);max-width:68ch;margin-bottom:16px}
+.note{font-size:.86rem;color:var(--ink-2);margin-top:12px;max-width:68ch}
+.sub{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--ink-3);margin:28px 0 10px}
+.muted{color:var(--ink-3)}
+
+/* Actions, grouped by the goal they lead toward */
+.group{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--hair)}
+.group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.toward{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;
+        font-family:var(--text);font-size:.86rem;font-weight:600;color:var(--navy)}
+.toward span{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;
+             text-transform:uppercase;color:var(--ink-3)}
+
+.log{list-style:none;margin-top:6px}
+.log li{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:10px 0;border-top:1px solid var(--hair)}
+.log li:first-child{border-top:0}
+.log li.warnrow{display:block}
+.log time{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+          color:var(--ink-3);padding-top:4px}
+.log b{display:block;font-weight:600;color:var(--ink)}
+.log p{font-size:.86rem;color:var(--ink-2);max-width:62ch;margin-top:2px}
+.ongoing{margin-top:24px;padding:12px 14px;background:var(--field);border-radius:8px;
+         font-size:.86rem;color:var(--ink-2);max-width:68ch}
+
+.todo{list-style:none;margin-top:6px}
+.todo li{position:relative;padding:8px 0 8px 24px;max-width:66ch;color:var(--ink)}
+.todo li::before{content:"";position:absolute;left:0;top:calc(8px + .42em);width:10px;height:10px;
+                 border:1.5px solid var(--navy);border-radius:2px}
+.todo li.warnrow{padding-left:0}
+.todo li.warnrow::before{display:none}
+
+.plan{list-style:none}
+.plan li{padding:12px 0;border-top:1px solid var(--hair)}
+.plan li:first-child{border-top:0;padding-top:0}
+.plan b{display:block;font-weight:600;color:var(--ink)}
+.plan p{color:var(--ink-2);max-width:66ch;margin-top:2px}
+.later-h{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap}
+
+/* Goals: the impact the actions add up to */
+.wide{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--ink-3);text-align:left;padding:0 16px 8px 0;border-bottom:1px solid var(--hair-2);white-space:nowrap}
+td{padding:14px 16px 14px 0;border-bottom:1px solid var(--hair);color:var(--ink-2);vertical-align:top}
+.goals{min-width:600px}
+.g-title b{display:block;font-size:1rem;font-weight:600;color:var(--ink)}
+.g-title span{display:block;margin-top:4px;max-width:46ch;line-height:1.5}
+td.prog{width:32%}
+.ptext{display:block;color:var(--ink);font-variant-numeric:tabular-nums}
+.pnote{display:block;margin-top:7px;color:var(--ink-2);line-height:1.45}
+.bar{height:6px;max-width:200px;background:var(--field);border-radius:99px;overflow:hidden;margin-top:7px}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:99px}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.05em;
+      text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.st-done{background:var(--pos-soft);color:var(--pos)}
+.st-on{background:var(--info-soft);color:var(--info)}
+.st-needs{background:var(--warn-soft);color:var(--warn)}
+.st-behind{background:var(--neg-soft);color:var(--neg)}
+.st-up{background:var(--field);color:var(--ink-2)}
+.st-hold{background:#fff;color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--hair-2)}
+.st-bad{background:var(--neg);color:#fff}
+
+.needs{list-style:none}
+.needs li{padding:12px 0 12px 22px;border-top:1px solid var(--hair);position:relative;max-width:68ch}
+.needs li:first-child{border-top:0;padding-top:0}
+.needs li::before{content:"";position:absolute;left:0;top:calc(12px + .5em);width:8px;height:8px;
+                  border-radius:2px;background:var(--warn)}
+.needs li:first-child::before{top:.5em}
+.warnrow{color:var(--neg);font-weight:600}
+
+.foot{padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.method{font-size:.86rem;color:var(--ink-3);max-width:76ch}
+.contact{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;font-size:.86rem;color:var(--ink-2)}
+.contact a{color:var(--orange);font-weight:600;text-decoration:none}
+.contact a:hover{text-decoration:underline}
+.contact a:focus-visible{outline:2px solid var(--navy);outline-offset:3px;border-radius:2px}
+
+@media (max-width:720px){
+  body{padding:14px 8px 40px}
+  .report{padding:28px 20px}
+  .sec{grid-template-columns:1fr;gap:12px}
+  .log li{grid-template-columns:1fr;gap:2px}
+}
+@media print{
+  html,body{background:#fff}
+  body{padding:0}
+  .report{border:0;border-radius:0;padding:0;max-width:none}
+  .group,tr,.log li,.plan li{break-inside:avoid}
+  .pill,.sample,.bar,.bar i,.ongoing,.needs li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.needs b{color:var(--ink)}
+.sublist{margin:6px 0 0 18px;color:var(--ink)}
+.needs .sublist li{padding:2px 0;border:0;max-width:none}
+.needs .sublist li::before{display:none}
+.sub:first-of-type{margin-top:4px}
+</style>
+</head>
+<body>
+<article class="report">
+  <header class="title">
+    <p class="eyebrow"><b>Appear AI</b> · Weekly update</p>
+    <h1>Farmington Dental Studio</h1>
+    <div class="meta">
+      <div><span>Prepared for</span><strong>Dr. Sarmad Eiwaz</strong></div>
+      <div><span>Period</span><strong>October 5 – 18, 2026</strong></div>
+      <div><span>Engagement</span><strong>Month 1 of 3</strong></div>
+    </div>
+    <p class="lede">This update summarizes the work completed during the period, the items still in
+      progress, the results of that work so far, the items that require your input, and the plan for
+      the week ahead.</p>
+  </header>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">01</span><h2>Completed tasks</h2></div>
+    <div class="sec-r">
+      <ul class="plan">
+        <li><b>Completed your Healthgrades profile</b>
+          <p>I added your biography, care philosophy, education, professional memberships, the
+            procedures you perform and the conditions you treat, and confirmed that the profile shows
+            you are accepting new patients. These details also appear on Sharecare and the other sites
+            that draw from Healthgrades.</p></li>
+        <li><b>Created the practice's Better Business Bureau profile</b>
+          <p>The business profile is free and lists the practice under the Dentist category with your
+            website and phone number. BBB accreditation is a separate paid membership and has not
+            been purchased.</p></li>
+        <li><b>Added your marketing assets to the claimed listings</b>
+          <p>The logo and images you provided are now on the listings I have claimed.</p></li>
+        <li><b>Directed verification to your mobile number</b>
+          <p>Each pending listing now sends its verification call or code to your mobile, so
+            ownership can be confirmed directly with you.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">02</span><h2>In progress</h2></div>
+    <div class="sec-r">
+      <ul class="plan">
+        <li><b>Vitals</b>
+          <p>I called Vitals to complete the claim on your profile. No one was available, and I am
+            awaiting a callback.</p></li>
+        <li><b>Yellow Pages and WebMD</b>
+          <p>Both claims are awaiting verification. Once they are confirmed, I will correct the
+            category, address, hours and credentials.</p></li>
+        <li><b>Manta</b>
+          <p>The practice's Manta listing has already been claimed by another account, so it cannot
+            be edited until ownership is transferred.</p></li>
+        <li><b>Foursquare</b>
+          <p>Foursquare sends a verification code to your mobile that must be entered within a few
+            minutes. Claiming the listing also carries a $20 fee.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">03</span><h2>Early results</h2></div>
+    <div class="sec-r">
+      <p class="intro">The office correction on Healthgrades has held, and your website provider has
+        begun updating the site's structured data.</p>
+      <ul class="plan">
+        <li><b>Website: phone number now consistent</b>
+          <p>The code that describes the practice to Google now lists (248) 516-0004, matching your
+            listings. The office hours and the corrected link to your Google profile have not yet been
+            added.</p></li>
+        <li><b>Healthgrades: one office, correctly listed</b>
+          <p>Your profile and the practice's Healthgrades listing continue to show only 32905 W 12 Mile
+            Rd, Ste 140, and indicate that you are accepting new patients.</p></li>
+        <li><b>AI assistants: full check at the end of the month</b>
+          <p>I will ask ChatGPT, Perplexity and Claude the same four patient questions before month 1
+            closes, once they have had time to pick up the Birdeye and Healthgrades changes.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">04</span><h2>Items requiring your input</h2></div>
+    <div class="sec-r">
+      <ul class="needs">
+        <li><b>Approval of two paid listing claims.</b> Please let me know which you would like to
+          proceed with. You may pay directly, or I can add the approved amounts to the next invoice.
+          <ul class="sublist">
+            <li>DentistryDirectories.com, $19. Recommended: it is one of the sources ChatGPT cites
+              most often for the practice, and it currently shows an outdated name and number.</li>
+            <li>Foursquare, $20. Optional: no AI assistant has cited it for the practice to date.</li>
+          </ul></li>
+        <li><b>Details for your Healthgrades profile.</b> Your graduation years, the field of your
+          master's degree, the insurance plans the practice accepts (including the specific Delta
+          Dental plans), and any languages other than English that you speak with patients.</li>
+        <li><b>Details for your Better Business Bureau profile.</b> The year the practice was
+          established and the approximate number of employees, including the dentists, hygienists
+          and front office.</li>
+        <li><b>Verification codes.</b> Please let me know which verification calls or codes you have
+          received. For Foursquare, a time when you can relay the code right away would allow me to
+          complete the claim.</li>
+        <li><b>Manta.</b> Do you or a previous marketing vendor hold the Manta login? If not, I will
+          request ownership through Manta's support team.</li>
+        <li><b>Apple Maps.</b> Would you like management access to the listing, or is there a
+          specific change you would like made?</li>
+        <li><b>Website update.</b> Please ask your website provider to complete the remaining two
+          items from the correction I sent: adding the office hours and replacing the Google profile
+          link.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">05</span><h2>Planned for next week</h2></div>
+    <div class="sec-r">
+      <ul class="todo">
+        <li>Re-run the four patient questions with ChatGPT, Perplexity and Claude.</li>
+        <li>Contact Zocdoc regarding pricing.</li>
+        <li>Follow up with Vitals to complete the claim.</li>
+        <li>Correct the practice's name and address on DentalPlans.com and the phone number on
+          US News.</li>
+        <li>Add your education and insurance details to Healthgrades once received.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="method">Directory listings and the website were verified directly on each site. The AI
+      check uses the same four patient questions each time. Individual results vary from run to run,
+      so I look for consistent patterns across several checks rather than drawing conclusions from a
+      single result.</p>
+    <div class="contact">
+      <span>Prepared by Joe Kasper · Appear AI · hello@appearai.co · appearai.co</span>
+      <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up">Book a call</a>
+    </div>
+  </footer>
+</article>
+
+</body>
+</html>
