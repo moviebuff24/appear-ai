@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>AI Visibility Audit, November Update — Farmington Dental Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0F1F3D;
+      --navy-mid:   #1a2f52;
+      --orange:     #f97316;
+      --orange-dk:  #ea580c;
+      --red:        #dc2626;
+      --amber:      #d97706;
+      --green:      #16a34a;
+      --gray-50:    #f9fafb;
+      --gray-100:   #f3f4f6;
+      --gray-200:   #e5e7eb;
+      --gray-400:   #9ca3af;
+      --gray-500:   #6b7280;
+      --gray-700:   #374151;
+      --gray-900:   #111827;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-900);
+      line-height: 1.6;
+      font-size: 0.9375rem;
+    }
+
+    a { color: var(--orange); }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.8em; background: var(--gray-100); color: var(--gray-900); padding: 1px 5px; border-radius: 3px; }
+    .section-navy code { background: rgba(255,255,255,0.14); color: #fff; }
+
+    .report {
+      max-width: 880px;
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 32px rgba(15,31,61,0.08);
+    }
+
+    /* ── HEADER ── */
+    .report-header {
+      background: var(--navy);
+      padding: 28px 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .report-brand { display: flex; flex-direction: column; gap: 8px; }
+    .report-brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem; font-weight: 800;
+      color: #fff; letter-spacing: -0.4px; line-height: 1.2;
+    }
+    .report-brand-title span { color: var(--orange); }
+    .report-brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.45);
+    }
+    .report-meta { text-align: right; }
+    .report-meta p { font-size: 0.8125rem; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .report-meta .practice-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: #fff; margin-bottom: 2px;
+    }
+
+    /* ── SCORE BAND ── */
+    .score-band {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 40px;
+      display: flex; align-items: center; gap: 44px;
+    }
+    .score-move { display: flex; align-items: baseline; gap: 10px; flex-shrink: 0; }
+    .score-value {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 4.5rem; font-weight: 800; line-height: 1;
+      color: var(--amber);
+    }
+    .score-denom {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: rgba(255,255,255,0.25);
+    }
+    .score-detail { flex: 1; }
+    .score-label {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 10px;
+    }
+    .score-bar-track {
+      height: 8px; background: rgba(255,255,255,0.08);
+      border-radius: 4px; overflow: hidden; margin-bottom: 10px;
+    }
+    .score-bar-fill { height: 100%; border-radius: 4px; background: var(--amber); }
+    .score-context { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .score-context strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+    /* ── STAT STRIP ── */
+    .stat-strip {
+      background: var(--navy);
+      padding: 22px 40px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+    .stat-now {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.9rem; font-weight: 800; color: #fff; line-height: 1;
+    }
+    .stat-now.up { color: #4ade80; }
+    .stat-now.down { color: #f87171; }
+    .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.4); line-height: 1.35; }
+
+    /* ── SECTION LAYOUT ── */
+    .section { padding: 36px 40px; border-bottom: 1px solid var(--gray-200); }
+    .section:last-child { border-bottom: none; }
+    .section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .section-heading h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--gray-900);
+    }
+    .section-heading .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 600;
+      color: var(--orange);
+      background: rgba(249,115,22,0.1);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 4px; padding: 2px 7px;
+    }
+    .section-intro {
+      font-size: 0.8125rem; color: var(--gray-500);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+    .section-intro strong { color: var(--gray-700); font-weight: 600; }
+    .prose { font-size: 0.875rem; color: var(--gray-700); line-height: 1.65; }
+    .prose + .prose { margin-top: 12px; }
+    .prose strong { color: var(--gray-900); font-weight: 600; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .grid-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .grid-table thead th {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--gray-400); padding: 10px 14px;
+      text-align: center; border-bottom: 2px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+    .grid-table thead th.col-left { text-align: left; }
+    .grid-table tbody tr { border-bottom: 1px solid var(--gray-200); }
+    .grid-table tbody tr:last-child { border-bottom: none; }
+    .grid-table td { padding: 13px 14px; vertical-align: middle; }
+    .grid-table td.col-left { text-align: left; }
+    .grid-table td.center { text-align: center; }
+    .query-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.73rem; color: var(--gray-700); line-height: 1.5;
+      width: 30%;
+    }
+    .cell { text-align: center; }
+    .cell-inner { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+
+    .rank-badge {
+      display: inline-flex; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+    }
+    .rank-1 { background: rgba(22,163,74,0.1);  color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
+    .rank-2 { background: rgba(217,119,6,0.1);  color: var(--amber); border: 1px solid rgba(217,119,6,0.2); }
+    .rank-3 { background: rgba(220,38,38,0.08); color: var(--red);   border: 1px solid rgba(220,38,38,0.18); }
+    .rank-none { background: var(--red); color: #fff; border: 1px solid var(--red); }
+    .sub {
+      font-size: 0.67rem; line-height: 1.2;
+      font-family: 'JetBrains Mono', monospace; color: var(--gray-400);
+    }
+    .sub.bad { color: var(--red); font-weight: 600; }
+    .sub.up { color: var(--green); font-weight: 600; }
+    .was { display:block; font-size: 0.67rem; font-family: 'JetBrains Mono', monospace; color: var(--gray-400); }
+    .stat-was { font-size: 0.68rem; color: rgba(255,255,255,0.32); font-family: 'JetBrains Mono', monospace; }
+    .bad-cell { color: var(--red); font-weight: 600; }
+    .ok-cell { color: var(--green); font-weight: 600; }
+
+    /* ── TALLY ── */
+    .tally { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .tally-item {
+      flex: 1; min-width: 150px;
+      border-radius: 8px; padding: 12px 16px;
+      display: flex; align-items: baseline; gap: 9px;
+    }
+    .tally-up   { background: rgba(22,163,74,0.07);  border: 1px solid rgba(22,163,74,0.18); }
+    .tally-flat { background: var(--gray-50);        border: 1px solid var(--gray-200); }
+    .tally-down { background: rgba(220,38,38,0.05);  border: 1px solid rgba(220,38,38,0.15); }
+    .tally-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; line-height: 1; }
+    .tally-up .tally-num   { color: var(--green); }
+    .tally-flat .tally-num { color: var(--gray-500); }
+    .tally-down .tally-num { color: var(--red); }
+    .tally-label { font-size: 0.78rem; color: var(--gray-500); }
+
+    /* ── NOTES ── */
+    .note {
+      margin-top: 16px; background: var(--gray-50);
+      border: 1px solid var(--gray-200); border-radius: 8px;
+      padding: 15px 18px; font-size: 0.8125rem;
+      color: var(--gray-500); line-height: 1.6;
+    }
+    .note strong { color: var(--gray-700); }
+    .note.win   { border-left: 3px solid var(--green); background: rgba(22,163,74,0.03); }
+    .note.flag  { border-left: 3px solid var(--amber); background: rgba(217,119,6,0.04); }
+    .note.alert { border-left: 3px solid var(--red);   background: rgba(220,38,38,0.03); }
+    .note.quote { border-left: 3px solid var(--navy); }
+    .note-title { display: block; font-weight: 700; color: var(--gray-700); font-size: 0.84rem; margin-bottom: 6px; }
+
+    /* ── STATUS CARDS ── */
+    .status-list { display: flex; flex-direction: column; gap: 12px; }
+    .status-card {
+      border: 1px solid var(--gray-200); border-radius: 10px;
+      padding: 16px 18px; display: flex; gap: 16px; align-items: flex-start;
+    }
+    .status-card.alert { border-color: rgba(220,38,38,0.3); background: rgba(220,38,38,0.03); }
+    .status-card.win   { border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.03); }
+    .status-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px; font-size: 0.8rem;
+    }
+    .icon-done { background: rgba(22,163,74,0.1);  color: var(--green); }
+    .icon-none { background: rgba(220,38,38,0.07); color: var(--red); }
+    .status-card p { font-size: 0.8375rem; color: var(--gray-500); line-height: 1.6; margin-top: 6px; }
+    .status-card p strong { color: var(--gray-700); font-weight: 600; }
+
+    /* ── COMPETITOR TABLE ── */
+    .comp-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; color: var(--gray-900); }
+    .comp-sub { display: block; font-size: 0.74rem; font-weight: 400; color: var(--gray-400); margin-top: 1px; }
+    .you-row td { background: rgba(249,115,22,0.05); }
+    .you-row .comp-name { color: var(--orange); font-weight: 700; }
+    .num { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+
+    /* ── PRIORITIES (navy) ── */
+    .section-navy { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .section-navy .section-heading h2 { color: #fff; }
+    .section-navy .section-num { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.3); }
+    .section-navy .section-intro { color: rgba(255,255,255,0.72); }
+    .wins-list { display: flex; flex-direction: column; gap: 16px; }
+    .win-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 20px 22px; display: flex; gap: 18px; align-items: flex-start;
+    }
+    .win-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: var(--orange); opacity: 0.6;
+      line-height: 1; flex-shrink: 0; min-width: 28px;
+    }
+    .win-card strong { color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9375rem; }
+    .win-card p { font-size: 0.875rem; color: rgba(255,255,255,0.72); line-height: 1.65; margin-top: 6px; }
+    .win-card p em { color: rgba(255,255,255,0.9); }
+    .win-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+      background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+    }
+    .win-tag.top { background: rgba(249,115,22,0.15); color: var(--orange); }
+
+    /* ── METHODOLOGY ── */
+    .method-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .method-item { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 14px 16px; }
+    .method-item strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.8125rem; color: var(--gray-900); }
+    .method-item p { font-size: 0.78rem; color: var(--gray-500); line-height: 1.55; margin-top: 4px; }
+    .confirm-list { margin: 8px 0 0 18px; }
+    .confirm-list li { margin-top: 6px; }
+
+    /* ── CTA ── */
+    .cta-box { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 12px; padding: 28px 32px; }
+    .cta-box p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-top: 10px; }
+    .cta-btn {
+      display: inline-block; background: var(--orange); color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 700;
+      padding: 12px 24px; border-radius: 8px; margin-top: 20px;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .cta-btn:hover { background: var(--orange-dk); color: white; }
+
+    /* ── FOOTER ── */
+    .report-footer {
+      background: var(--navy); padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.35);
+    }
+    .footer-brand { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; font-weight: 700; color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 680px) {
+      .report { margin: 0; border-radius: 0; }
+      .report-header, .score-band, .section, .stat-strip, .report-footer { padding-left: 20px; padding-right: 20px; }
+      .report-header { flex-direction: column; }
+      .report-meta { text-align: left; }
+      .score-band { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .score-value { font-size: 3.25rem; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; }
+      .grid-table { min-width: 540px; }
+      .grid-table thead th, .grid-table td { padding: 10px 8px; }
+      .query-text { font-size: 0.67rem; }
+      .rank-badge { font-size: 0.66rem; padding: 2px 7px; }
+      .method-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 20px; }
+      .cta-btn { display: block; text-align: center; }
+      .report-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .tally-item { min-width: 100%; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .report { margin: 0; box-shadow: none; border: none; border-radius: 0; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="report">
+
+  <div class="report-header">
+    <div class="report-brand">
+      <div class="report-brand-title">AI Visibility <span>Audit</span></div>
+      <div class="report-brand-logo">by Appear AI &middot; November update</div>
+    </div>
+    <div class="report-meta">
+      <div class="practice-name">Farmington Dental Studio</div>
+      <p>Farmington Hills, MI &nbsp;&middot;&nbsp; Report date: November 2, 2026</p>
+      <p>The same four questions and four AI platforms as the September 11 audit</p>
+    </div>
+  </div>
+
+  <div class="score-band">
+    <div class="score-move">
+      <span class="score-value">6</span>
+      <span class="score-denom">/16</span>
+    </div>
+    <div class="score-detail">
+      <div class="score-label">AI answers that name the practice &middot; 8/16 in September</div>
+      <div class="score-bar-track"><div class="score-bar-fill" style="width:37.5%;"></div></div>
+      <p class="score-context">
+        <strong>The listing corrections are in place at the source. Most of them have not yet reached the
+        AI answers.</strong> The question a patient asks when they are ready to book, a dentist accepting
+        new patients, now names the practice on all four platforms, including ChatGPT for the first time.
+        The broader "best dentist" and cosmetic questions have not moved. ChatGPT has also changed which
+        directories it reads since September, and several of the new ones still show the old address and
+        phone numbers. Correcting those is the main new work in this report.
+      </p>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item">
+      <span class="stat-now up">4/4</span>
+      <span class="stat-label">Platforms naming the practice<br>for new patients</span>
+      <span class="stat-was">September: 3/4</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now up">1/4</span>
+      <span class="stat-label">ChatGPT answers<br>that name the practice</span>
+      <span class="stat-was">September: 0/4</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now up">6</span>
+      <span class="stat-label">Listings claimed,<br>created or corrected</span>
+      <span class="stat-was">since September</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-now down">0</span>
+      <span class="stat-label">#1 recommendations</span>
+      <span class="stat-was">September: 3</span>
+    </div>
+  </div>
+
+  <!-- 01 SCORECARD -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>The Scorecard</h2>
+    </div>
+    <p class="section-intro">
+      Each cell shows where the practice appeared in the answer today, with the September 11 result below it.
+      <strong>Green = #1 recommendation. Amber = #2. Red = #3 or lower, or not named.</strong>
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Query</th>
+            <th>ChatGPT</th>
+            <th>Perplexity</th>
+            <th>Google AI</th>
+            <th>Claude</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="query-text">"best dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#4</span><span class="was">Sep: #3</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"best cosmetic dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: #4</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: #3</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"dentist near Farmington Hills MI accepting new patients"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#7</span><span class="sub up">newly named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#4</span><span class="was">Sep: #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#6</span><span class="was">Sep: #1</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#3</span><span class="was">Sep: #4</span></div></td>
+          </tr>
+          <tr>
+            <td class="query-text">"best dental implant dentist in Farmington Hills Michigan"</td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-3">#4</span><span class="sub up">newly named</span><span class="was">Sep: not named</span></div></td>
+            <td class="cell"><div class="cell-inner"><span class="rank-badge rank-none">&mdash;</span><span class="sub bad">not named</span><span class="was">Sep: #3</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tally">
+      <div class="tally-item tally-up"><span class="tally-num">2</span><span class="tally-label">newly named since September</span></div>
+      <div class="tally-item tally-flat"><span class="tally-num">6</span><span class="tally-label">named today</span></div>
+      <div class="tally-item tally-down"><span class="tally-num">10</span><span class="tally-label">not named today</span></div>
+    </div>
+
+    <div class="note">
+      <strong class="note-title">Platform summary</strong>
+      <strong>ChatGPT named the practice for the first time</strong>, on the new-patient question.
+      <strong>Google AI Mode</strong> named it on three of four questions again, and for implants for the
+      first time, but no longer leads with it for new patients. <strong>Perplexity</strong> lost both of its
+      September #1 rankings. The September audit flagged those two as fragile, because Perplexity's stated
+      reason was the website describing itself as the "#1 Cosmetic Dental Office", and today Perplexity did
+      not cite the practice's website at all. <strong>Claude</strong> moved up on new patients and dropped the
+      cosmetic and implant mentions.
+    </div>
+
+    <div class="note flag">
+      <strong class="note-title">How much weight to give a single run</strong>
+      AI answers vary from one run to the next. A second Perplexity run on the same afternoon placed the
+      practice #3 for new patients rather than #4. Individual cells moving by a place or two are within that
+      normal variation. The shifts worth acting on are the ones that repeat, and the change in where ChatGPT
+      gets its information (section 04) is the clearest of those.
+    </div>
+  </div>
+
+  <!-- 02 PROGRESS -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>Progress Since September</h2>
+    </div>
+
+    <div class="status-list">
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>One phone number, and the AI platforms now use it.</strong>
+          <p>In September, two AI answers to the same question gave patients two different numbers. Today
+          <strong>both Google profiles, the website, its structured data, Healthgrades and
+          DentistryDirectories all show (248) 516-0004</strong>, and Claude, Perplexity and Google AI Mode
+          each gave patients that number, with the correct 12 Mile Rd, Suite 140 address.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>Birdeye is claimed and the practice is first on its Farmington Hills list.</strong>
+          <p>In September the profile had never been claimed and sat 19th of 20 on page two. It is now claimed,
+          carries the practice's logo and cover image, and holds the <strong>#1 position on page one</strong>
+          of Birdeye's Farmington Hills dental directory.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>DentistryDirectories is claimed and verified.</strong>
+          <p>The practice entry now carries <strong>Verified</strong> and <strong>Recommended Dentist</strong>
+          badges and is listed first for Farmington Hills, under the practice's own name, with the correct
+          address and phone number.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>Healthgrades shows the correct office.</strong>
+          <p>The old 32910 W 13 Mile Rd, Suite B200 office is gone from both your profile and the practice entry.
+          Both now show only 32905 W 12 Mile Rd, Suite 140, and your profile shows you as accepting new
+          patients.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>New listings on Foursquare, the Better Business Bureau and Nextdoor.</strong>
+          <p>Foursquare matters beyond its own audience because it supplies location data to many other apps and
+          map services, which is how an old address keeps reappearing on sites nobody updated.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>The website now lists the insurance it accepts.</strong>
+          <p>The "We Accept the Following Insurance" section, empty in October, now names ten carriers, including
+          Delta Dental, MetLife, Aetna, Guardian and GEHA. Insurance is the first filter most patients apply, and
+          Delta Dental's own directory is the source behind the practice's new-patient mentions on Perplexity and
+          Claude.</p>
+        </div>
+      </div>
+      <div class="status-card win">
+        <div class="status-icon icon-done">&#10003;</div>
+        <div>
+          <strong>Google AI Mode now describes the practice the way you want it described.</strong>
+          <p>Its reasons for recommending the practice today are <strong>evening hours until 7 PM on Monday,
+          Tuesday and Thursday</strong>, same-day emergency evaluations, and clear communication. It also named
+          the practice for implants for the first time, as "all-in-one general dental care paired with implant
+          restoration."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 NOT YET -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>What Has Not Moved Yet</h2>
+    </div>
+
+    <p class="prose">
+      <strong>The two broad questions, "best dentist" and "best cosmetic dentist", have not improved.</strong>
+      The practice is named on one of those eight answers, by Google AI Mode at #4. Google AI Mode also no
+      longer names the practice for cosmetic dentistry, and it moved the practice from first to sixth on the
+      new-patient question, below Superior Family Dental, Barone Family Dental and Gentle Touch Family Dental Care.
+    </p>
+    <p class="prose">
+      Two things explain most of this. First, AI platforms re-read directories on their own schedule, and a
+      correction made in October can take several weeks or more to appear in an answer. Second, and more
+      important, <strong>ChatGPT is no longer reading the directories it relied on in September.</strong> The
+      two listings corrected first, Birdeye and DentistryDirectories, were the right targets based on the
+      September data. ChatGPT has since moved most of its attention to other sites, which is the subject of the
+      next section.
+    </p>
+  </div>
+
+  <!-- 04 CHATGPT SOURCES -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>ChatGPT Is Reading Different Directories</h2>
+    </div>
+    <p class="section-intro">
+      In September, Birdeye and DentistryDirectories supplied 22 of ChatGPT's 46 citations. Today they
+      supplied 5 of 41. Four sites it did not cite at all in September now supply 23.
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Site ChatGPT read</th>
+            <th>Citations<br>Sep &rarr; Nov</th>
+            <th class="col-left">What it shows for the practice today</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left"><span class="comp-name">DentistsRanked</span><span class="comp-sub">dentistsranked.com</span></td>
+            <td class="center num">0 &rarr; 7</td>
+            <td class="col-left"><span class="bad-cell">The old 13 Mile Rd, Suite B200 address, (248) 422-1032, and the wrong hours</span>
+            (closed Tuesday and Thursday, open Friday and Saturday). Ranked #8 for both cosmetic dentistry and implants with a score of 15 out of 100.</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">FreeDentalOffice</span><span class="comp-sub">freedentaloffice.com</span></td>
+            <td class="center num">0 &rarr; 7</td>
+            <td class="col-left">Correct address, but the <span class="bad-cell">old (248) 919-0952 number</span>. Your own listing appears separately with 516-0004.</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">RatingsNearMe</span><span class="comp-sub">ratingsnearme.com</span></td>
+            <td class="center num">0 &rarr; 5</td>
+            <td class="col-left">Correct address. Listed 10th under the longer "Family &amp; Emergency Dentistry" name, with an out-of-date count of 260 reviews. Your own listing appears separately, 20th.</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Farmington Hills Guide</span><span class="comp-sub">farmingtonhillsguide.com</span></td>
+            <td class="center num">0 &rarr; 4</td>
+            <td class="col-left">ChatGPT's new-patient answer took the practice from this site and gave patients the <span class="bad-cell">old (248) 919-0952 number</span>.</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Birdeye</span><span class="comp-sub">claimed</span></td>
+            <td class="center num">13 &rarr; 3</td>
+            <td class="col-left"><span class="ok-cell">Correct, and first on the Farmington Hills list</span></td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">DentistryDirectories</span><span class="comp-sub">claimed</span></td>
+            <td class="center num">9 &rarr; 2</td>
+            <td class="col-left"><span class="ok-cell">Correct and verified</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note alert">
+      <strong class="note-title">DentistsRanked gives the practice no credit for its reviews</strong>
+      Half of a DentistsRanked score comes from Google rating, review volume and recent reviews. Because its
+      record for the practice points to the old 13 Mile Rd office, it is not connected to the practice's
+      Google profile, so all three of those factors score zero: 410 Google reviews at 4.9 stars count for
+      nothing. The practice it ranks #1 for cosmetic dentistry has 11 Google reviews, and ChatGPT repeated
+      that ranking word for word: "Topped the DentistsRanked list (#1 out of 42) for cosmetic dentistry."
+      Another 10% of the score is simply whether the practice has claimed its profile, and claiming is free.
+    </div>
+  </div>
+
+  <!-- 05 COMPETITORS -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>Who Gets Named Instead</h2>
+    </div>
+    <p class="section-intro">
+      The practices named most often across all sixteen answers today.
+    </p>
+
+    <div class="table-wrap">
+      <table class="grid-table">
+        <thead>
+          <tr>
+            <th class="col-left">Practice</th>
+            <th>Named in</th>
+            <th class="col-left">Where it shows up</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-left"><span class="comp-name">Laurich Dentistry</span><span class="comp-sub">4.9 &middot; 828 Google reviews</span></td>
+            <td class="center num">9 / 16</td>
+            <td class="col-left">ChatGPT's #1 for "best dentist" and Claude's #1 for new patients; on all three automated platforms</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Barone Family Dental</span><span class="comp-sub">5.0 &middot; 158 Google reviews</span></td>
+            <td class="center num">8 / 16</td>
+            <td class="col-left">#1 for "best dentist" on Perplexity and Google AI Mode</td>
+          </tr>
+          <tr class="you-row">
+            <td class="col-left"><span class="comp-name">Farmington Dental Studio</span><span class="comp-sub">4.9 &middot; 410 Google reviews</span></td>
+            <td class="center num">6 / 16</td>
+            <td class="col-left">New patients on all four platforms; Google AI Mode for "best dentist" and implants</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Smile at Life Dentistry</span><span class="comp-sub">Same building, Suite 120</span></td>
+            <td class="center num">6 / 16</td>
+            <td class="col-left">Three ChatGPT answers, including cosmetic and implants</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Periodontic &amp; Implantology Specialists</span></td>
+            <td class="center num">5 / 16</td>
+            <td class="col-left">Implants, on three platforms</td>
+          </tr>
+          <tr>
+            <td class="col-left"><span class="comp-name">Center for Implant Dentistry &amp; Oral Surgery</span></td>
+            <td class="center num">4 / 16</td>
+            <td class="col-left">#1 for implants on ChatGPT, Perplexity and Google AI Mode</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong class="note-title">What the most-named practice has that this one does not</strong>
+      Laurich Dentistry is on Zocdoc. Zocdoc was the source Perplexity cited most in its new-patient answer
+      today, and Claude quoted Laurich's Zocdoc ratings when ranking it first for new patients. Farmington
+      Dental Studio is not yet listed on Zocdoc.
+    </div>
+  </div>
+
+  <!-- 06 ACTION ITEMS -->
+  <div class="section section-navy">
+    <div class="section-heading">
+      <span class="section-num">06</span>
+      <h2>Action Items</h2>
+    </div>
+    <p class="section-intro">
+      Ordered by expected impact. The first two are new, based on this audit. The rest carry over from the
+      September plan.
+    </p>
+
+    <div class="wins-list">
+      <div class="win-card">
+        <span class="win-num">1</span>
+        <div>
+          <strong>Claim and correct the DentistsRanked profile.</strong>
+          <p>It is now one of ChatGPT's two most-cited sources, and it has the practice at the wrong address,
+          with the wrong phone number and the wrong hours. Correcting the address should connect the profile to
+          the practice's Google reviews, which make up half the score. <em>Claiming is free</em> and adds
+          another 10%.</p>
+          <span class="win-tag top">Highest impact</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">2</span>
+        <div>
+          <strong>Remove the old phone numbers from the remaining sites.</strong>
+          <p>The old 919-0952 number is still on FreeDentalOffice and Farmington Hills Guide, and ChatGPT gave it
+          to patients today. 422-1032 is still on DentistsRanked and on your separate DentistryDirectories
+          listing. These four are the remaining places I have found where the practice's number is wrong.</p>
+          <span class="win-tag top">New</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">3</span>
+        <div>
+          <strong>Add the office hours to the website's structured data.</strong>
+          <p>The evening hours are the clearest thing setting the practice apart, and Google AI Mode already
+          leads with them. The website's structured data, the part of the site written for machines to read,
+          still contains no opening hours. Its link to the Google profile also still holds two web addresses
+          joined into one, so it leads nowhere. Both are small changes for the website provider.</p>
+          <span class="win-tag">Low effort</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">4</span>
+        <div>
+          <strong>Get listed on Zocdoc.</strong>
+          <p>Zocdoc was Perplexity's main source on the new-patient question today, and the most-named practice
+          in this audit is on it. There is no subscription; a fee applies only when a new patient books.</p>
+          <span class="win-tag">Carried over</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">5</span>
+        <div>
+          <strong>Finish the Yellow Pages, WebMD and Vitals verifications.</strong>
+          <p>Claude cited Yellow Pages seven times and WebMD five times in this audit. All three listings are
+          submitted and waiting only on the verification step, which we can complete together on our next call.</p>
+          <span class="win-tag">Carried over</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">6</span>
+        <div>
+          <strong>Use one name everywhere.</strong>
+          <p>Google, the website and DentistryDirectories say <em>Farmington Dental Studio</em>. Birdeye,
+          DentistsRanked and RatingsNearMe still say <em>Farmington Dental Studio Family &amp; Emergency
+          Dentistry</em>. Each of these can be corrected as part of the work above.</p>
+          <span class="win-tag">Carried over</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 METHODOLOGY -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">07</span>
+      <h2>Methodology</h2>
+    </div>
+    <p class="section-intro">
+      The same four questions as the September 11 audit, across the same four platforms. Each answer was
+      captured in full, along with every source the platform cited and the name it used for the practice.
+      Raw responses are kept and available on request.
+    </p>
+
+    <div class="method-grid">
+      <div class="method-item">
+        <strong>ChatGPT</strong>
+        <p>Live web search enabled. Collected November 2, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Perplexity</strong>
+        <p>Sonar, the model behind perplexity.ai. Collected November 2, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Google AI Mode</strong>
+        <p>Collected directly from Google AI Mode, November 2, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Claude</strong>
+        <p>Opus, with live web search. Collected November 2, 2026.</p>
+      </div>
+      <div class="method-item">
+        <strong>Listing data</strong>
+        <p>Google rating, review count and phone numbers from the Google Business Profile. The website, Birdeye,
+        DentistryDirectories, Healthgrades, DentistsRanked, FreeDentalOffice and RatingsNearMe were checked at
+        source on November 2. The Farmington Hills Guide entry is as quoted in ChatGPT's answer.</p>
+      </div>
+      <div class="method-item">
+        <strong>Comparison</strong>
+        <p>September figures are from the September 11 audit. This update reports answer counts and positions
+        rather than the 0&ndash;10 score used in September, because with one run per question that score moves
+        more with normal answer-to-answer variation than with the work itself.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 WHAT'S NEXT -->
+  <div class="section">
+    <div class="section-heading">
+      <span class="section-num">08</span>
+      <h2>What's Next</h2>
+    </div>
+
+    <div class="cta-box">
+      <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;">The listings corrected so far are right. The next step is the sites ChatGPT reads now.</strong>
+      <p>
+        Every listing corrected since September shows the right address and phone number, and the platforms
+        that rely on those listings are giving patients the right details. The broader questions will take
+        longer. ChatGPT in particular has moved to a new set of directories, and the most-cited of them shows the
+        practice at its old office with no credit for its reviews.
+      </p>
+      <p>
+        My plan for this month is to claim and correct DentistsRanked, remove the last of the old phone numbers,
+        complete the pending verifications, and re-run this audit in early December to measure the effect.
+      </p>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <span class="footer-brand">Appear AI</span>
+    <span>AI visibility audit, November update &middot; Farmington Dental Studio &middot; November 2, 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
