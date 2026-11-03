@@ -365,12 +365,13 @@
       <div class="score-label">AI answers that name the practice &middot; 8/16 in September</div>
       <div class="score-bar-track"><div class="score-bar-fill" style="width:37.5%;"></div></div>
       <p class="score-context">
-        <strong>The listing corrections are in place at the source. Most of them have not yet reached the
-        AI answers.</strong> The question a patient asks when they are ready to book, a dentist accepting
-        new patients, now names the practice on all four platforms, including ChatGPT for the first time.
-        The broader "best dentist" and cosmetic questions have not moved. ChatGPT has also changed which
-        directories it reads since September, and several of the new ones still show the old address and
-        phone numbers. Correcting those is the main new work in this report.
+        <strong>The listings corrected since September are right, but the practice is named in fewer answers,
+        and the causes are now clear.</strong> The question a patient asks when they are ready to book, a
+        dentist accepting new patients, names the practice on all four platforms, including ChatGPT for the
+        first time. The losses trace mainly to the practice's website, which was restructured: pages the AI
+        platforms relied on in September now return "page not found", and the new service pages never say who
+        does the work. ChatGPT has also moved to directories that still show the old address and phone numbers.
+        Each cause has a specific fix, set out in sections 03 and 06.
       </p>
     </div>
   </div>
@@ -474,8 +475,8 @@
       <strong class="note-title">How much weight to give a single run</strong>
       AI answers vary from one run to the next. A second Perplexity run on the same afternoon placed the
       practice #3 for new patients rather than #4. Individual cells moving by a place or two are within that
-      normal variation. The shifts worth acting on are the ones that repeat, and the change in where ChatGPT
-      gets its information (section 04) is the clearest of those.
+      normal variation. The shifts worth acting on are the ones with a cause that can be seen at the source,
+      and section 03 sets those out.
     </div>
   </div>
 
@@ -535,16 +536,6 @@
       <div class="status-card win">
         <div class="status-icon icon-done">&#10003;</div>
         <div>
-          <strong>The website now lists the insurance it accepts.</strong>
-          <p>The "We Accept the Following Insurance" section, empty in October, now names ten carriers, including
-          Delta Dental, MetLife, Aetna, Guardian and GEHA. Insurance is the first filter most patients apply, and
-          Delta Dental's own directory is the source behind the practice's new-patient mentions on Perplexity and
-          Claude.</p>
-        </div>
-      </div>
-      <div class="status-card win">
-        <div class="status-icon icon-done">&#10003;</div>
-        <div>
           <strong>Google AI Mode now describes the practice the way you want it described.</strong>
           <p>Its reasons for recommending the practice today are <strong>evening hours until 7 PM on Monday,
           Tuesday and Thursday</strong>, same-day emergency evaluations, and clear communication. It also named
@@ -559,23 +550,75 @@
   <div class="section">
     <div class="section-heading">
       <span class="section-num">03</span>
-      <h2>What Has Not Moved Yet</h2>
+      <h2>Why the Practice Dropped</h2>
+    </div>
+    <p class="section-intro">
+      In September, every ChatGPT, Perplexity and Claude answer that named the practice cited its own website.
+      That is where most of the change since then has come from.
+    </p>
+
+    <div class="status-list">
+      <div class="status-card alert">
+        <div class="status-icon icon-none">1</div>
+        <div>
+          <strong>The website was restructured, and the pages behind September's best results no longer work.</strong>
+          <p>In September, Perplexity read the practice's website in all four of its answers, and both of its #1
+          rankings came from it. <strong>Today it did not read the website once.</strong> Four web addresses the AI
+          platforms had been citing now return "page not found", including the cosmetic dentistry, dental implant
+          and emergency dentist pages. Newer versions of those pages exist at different addresses, but the old
+          addresses do not point to them, so a platform following the link it saved finds a dead end. The
+          "#1 Cosmetic Dental Office" line Perplexity quoted in September is also no longer on the site.</p>
+          <p><strong>What fixes it:</strong> the website provider redirects each old address to its new page. This
+          is a small technical change.</p>
+        </div>
+      </div>
+      <div class="status-card alert">
+        <div class="status-icon icon-none">2</div>
+        <div>
+          <strong>The service pages don't say who does the work.</strong>
+          <p>The new cosmetic dentistry page runs to about 2,800 words and <strong>never mentions you by
+          name</strong>. It reads as a general article ("In most cases, patients are referred to a cosmetic dentist
+          by their primary dentist") and shows no before-and-after cases. The implant page does not name a dentist
+          either, and the site now has four similar cosmetic pages rather than one strong one. Claude read the
+          cosmetic and implant pages today and recommended other practices. Its advice to patients was to look for
+          before-and-after photos of the dentist's own patients and for cosmetic credentials, and neither is on
+          these pages.</p>
+          <p><strong>What fixes it:</strong> one page per service, built around you: your training and
+          certifications, your own cases, and what a visit includes, such as the $49 new-patient emergency exam
+          that Claude quoted when it did recommend the practice.</p>
+        </div>
+      </div>
+      <div class="status-card alert">
+        <div class="status-icon icon-none">3</div>
+        <div>
+          <strong>ChatGPT moved to directories that still carry the old details.</strong>
+          <p>The two directories corrected first, Birdeye and DentistryDirectories, were the right targets based on
+          the September data, and both are now correct. ChatGPT has since moved most of its attention to four
+          other sites, and three of them still show an old phone number, the old address, or both. Section 04
+          has the detail.</p>
+          <p><strong>What fixes it:</strong> claiming and correcting those listings, starting with DentistsRanked.</p>
+        </div>
+      </div>
+      <div class="status-card alert">
+        <div class="status-icon icon-none">4</div>
+        <div>
+          <strong>The practices named ahead of it have more reviews.</strong>
+          <p>The AI answers now lead with review counts: "800+ reviews", "600-plus reviews". The practice's 410
+          Google reviews at 4.9 stars are strong, but Laurich Dentistry has 828, Drakeshire Dental 668, Pesis
+          Dental Group 644, and Periodontic &amp; Implantology Specialists 534. The practice has added about ten
+          reviews a month since September.</p>
+          <p><strong>What fixes it:</strong> a steady flow of new reviews on Google and Healthgrades. This is the
+          slowest of the four levers, and the one that compounds.</p>
+        </div>
+      </div>
     </div>
 
-    <p class="prose">
-      <strong>The two broad questions, "best dentist" and "best cosmetic dentist", have not improved.</strong>
-      The practice is named on one of those eight answers, by Google AI Mode at #4. Google AI Mode also no
-      longer names the practice for cosmetic dentistry, and it moved the practice from first to sixth on the
-      new-patient question, below Superior Family Dental, Barone Family Dental and Gentle Touch Family Dental Care.
-    </p>
-    <p class="prose">
-      Two things explain most of this. First, AI platforms re-read directories on their own schedule, and a
-      correction made in October can take several weeks or more to appear in an answer. Second, and more
-      important, <strong>ChatGPT is no longer reading the directories it relied on in September.</strong> The
-      two listings corrected first, Birdeye and DentistryDirectories, were the right targets based on the
-      September data. ChatGPT has since moved most of its attention to other sites, which is the subject of the
-      next section.
-    </p>
+    <div class="note flag">
+      <strong class="note-title">Not every change has a single cause</strong>
+      Google AI Mode moved the practice from first to sixth on the new-patient question. The data does not point
+      to one reason. Google's answers draw first on the practice's own website and Google profile, so the website
+      fixes above are the most likely to help, but part of that change is normal variation between runs.
+    </div>
   </div>
 
   <!-- 04 CHATGPT SOURCES -->
@@ -714,13 +757,23 @@
       <h2>Action Items</h2>
     </div>
     <p class="section-intro">
-      Ordered by expected impact. The first two are new, based on this audit. The rest carry over from the
+      Ordered by expected impact. Items 1 to 4 are new, based on this audit. The rest carry over from the
       September plan.
     </p>
 
     <div class="wins-list">
       <div class="win-card">
         <span class="win-num">1</span>
+        <div>
+          <strong>Redirect the website pages that now return "page not found".</strong>
+          <p>The cosmetic dentistry, dental implant and emergency dentist pages the AI platforms had saved now lead
+          to dead ends. Pointing each old address to its new page is a small change for the website provider, and
+          it reconnects the platforms to the pages that earned the September results.</p>
+          <span class="win-tag top">Quick fix</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">2</span>
         <div>
           <strong>Claim and correct the DentistsRanked profile.</strong>
           <p>It is now one of ChatGPT's two most-cited sources, and it has the practice at the wrong address,
@@ -731,17 +784,29 @@
         </div>
       </div>
       <div class="win-card">
-        <span class="win-num">2</span>
+        <span class="win-num">3</span>
         <div>
-          <strong>Remove the old phone numbers from the remaining sites.</strong>
+          <strong>Rebuild the cosmetic, implant and emergency pages around you.</strong>
+          <p>One page per service that names you, states your training and certifications, shows your own
+          before-and-after cases, and says plainly what a visit includes and costs. This is what the platforms
+          looked for in the practices they chose instead, and it replaces four similar cosmetic pages with one
+          strong one.</p>
+          <span class="win-tag">Larger effort</span>
+        </div>
+      </div>
+      <div class="win-card">
+        <span class="win-num">4</span>
+        <div>
+          <strong>Correct the remaining directory listings.</strong>
           <p>The old 919-0952 number is still on FreeDentalOffice and Farmington Hills Guide, and ChatGPT gave it
           to patients today. 422-1032 is still on DentistsRanked and on your separate DentistryDirectories
-          listing. These four are the remaining places I have found where the practice's number is wrong.</p>
+          listing. Birdeye, DentistsRanked and RatingsNearMe also still use the longer <em>Family &amp; Emergency
+          Dentistry</em> name rather than <em>Farmington Dental Studio</em>.</p>
           <span class="win-tag top">New</span>
         </div>
       </div>
       <div class="win-card">
-        <span class="win-num">3</span>
+        <span class="win-num">5</span>
         <div>
           <strong>Add the office hours to the website's structured data.</strong>
           <p>The evening hours are the clearest thing setting the practice apart, and Google AI Mode already
@@ -752,7 +817,7 @@
         </div>
       </div>
       <div class="win-card">
-        <span class="win-num">4</span>
+        <span class="win-num">6</span>
         <div>
           <strong>Get listed on Zocdoc.</strong>
           <p>Zocdoc was Perplexity's main source on the new-patient question today, and the most-named practice
@@ -761,7 +826,7 @@
         </div>
       </div>
       <div class="win-card">
-        <span class="win-num">5</span>
+        <span class="win-num">7</span>
         <div>
           <strong>Finish the Yellow Pages, WebMD and Vitals verifications.</strong>
           <p>Claude cited Yellow Pages seven times and WebMD five times in this audit. All three listings are
@@ -770,13 +835,12 @@
         </div>
       </div>
       <div class="win-card">
-        <span class="win-num">6</span>
+        <span class="win-num">8</span>
         <div>
-          <strong>Use one name everywhere.</strong>
-          <p>Google, the website and DentistryDirectories say <em>Farmington Dental Studio</em>. Birdeye,
-          DentistsRanked and RatingsNearMe still say <em>Farmington Dental Studio Family &amp; Emergency
-          Dentistry</em>. Each of these can be corrected as part of the work above.</p>
-          <span class="win-tag">Carried over</span>
+          <strong>Keep new reviews coming steadily.</strong>
+          <p>About ten new Google reviews a month today. A simple, consistent ask after each visit, on Google and
+          Healthgrades, narrows the gap with the most-reviewed practices over the coming quarters.</p>
+          <span class="win-tag">Ongoing</span>
         </div>
       </div>
     </div>
@@ -834,16 +898,18 @@
     </div>
 
     <div class="cta-box">
-      <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;">The listings corrected so far are right. The next step is the sites ChatGPT reads now.</strong>
+      <strong style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;">The listings are fixed. The website is now the biggest opportunity.</strong>
       <p>
         Every listing corrected since September shows the right address and phone number, and the platforms
-        that rely on those listings are giving patients the right details. The broader questions will take
-        longer. ChatGPT in particular has moved to a new set of directories, and the most-cited of them shows the
-        practice at its old office with no credit for its reviews.
+        that rely on those listings are giving patients the right details. Most of the ground lost since
+        September traces to the website: pages the platforms relied on no longer load, and the pages that
+        replaced them don't tell a patient, or a machine, who does the work.
       </p>
       <p>
-        My plan for this month is to claim and correct DentistsRanked, remove the last of the old phone numbers,
-        complete the pending verifications, and re-run this audit in early December to measure the effect.
+        My plan for this month is to have the broken pages redirected, claim and correct DentistsRanked, correct
+        the remaining directory listings, and complete the pending verifications, then re-run this audit in early
+        December to measure the effect. The service pages are the larger project, and I would like to agree an
+        approach with you on our next call.
       </p>
     </div>
   </div>
