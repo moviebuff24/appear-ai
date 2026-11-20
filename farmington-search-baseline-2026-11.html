@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Farmington Dental Studio · Search performance baseline · November 2026</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --navy:#0F1F3D; --orange:#f97316;
+  --paper:#eef0ec; --sheet:#ffffff; --field:#f1f3ef;
+  --hair:#e1e4df; --hair-2:#c8cdc7;
+  --ink:#111827; --ink-2:#4b5563; --ink-3:#6b736d;
+  --pos:#166534; --pos-soft:#e5f3ea;
+  --neg:#a3261b; --neg-soft:#fbe8e5;
+  --warn:#8a5207; --warn-soft:#fcefd9;
+  --info:#1d4a80; --info-soft:#e5edf7;
+  --disp:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif;
+  --text:"Inter","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper)}
+body{color:var(--ink);font-family:var(--text);font-size:1rem;line-height:1.55;
+     -webkit-font-smoothing:antialiased;padding:32px 16px 56px}
+.sample{max-width:900px;margin:0 auto 12px;background:var(--warn-soft);color:var(--warn);
+        font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;
+        text-transform:uppercase;padding:9px 14px;border-radius:6px}
+.report{max-width:900px;margin:0 auto;background:var(--sheet);border:1px solid var(--hair);
+        border-radius:10px;padding:44px 48px 34px}
+header.title{padding-bottom:28px;border-bottom:2px solid var(--navy)}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.14em;
+         text-transform:uppercase;color:var(--ink-3)}
+.eyebrow b{color:var(--orange);font-weight:600}
+h1{font-family:var(--disp);font-size:clamp(1.9rem,4.2vw,2.6rem);font-weight:800;color:var(--navy);
+   letter-spacing:-.03em;line-height:1.08;margin-top:10px;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:16px}
+.meta div{display:flex;flex-direction:column;gap:2px}
+.meta span{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.meta strong{font-size:.86rem;font-weight:600;color:var(--ink)}
+.lede{font-size:1.2rem;line-height:1.55;color:var(--ink);max-width:62ch;margin-top:22px}
+
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+.tile{background:var(--field);border-radius:8px;padding:14px 14px 12px}
+.tile .v{font-family:var(--disp);font-size:1.4rem;font-weight:800;color:var(--navy);
+         letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.tile .l{font-size:.86rem;color:var(--ink-2);margin-top:4px;line-height:1.35}
+
+.sec{display:grid;grid-template-columns:170px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--hair)}
+.sec-l{display:flex;flex-direction:column;gap:6px}
+.sec-l .num{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink-3)}
+.sec-l h2{font-family:var(--disp);font-size:1.4rem;font-weight:700;color:var(--navy);
+          letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+.sec-r{min-width:0}
+.read{max-width:68ch;color:var(--ink)}
+.read + .read{margin-top:10px}
+.note{font-size:.86rem;color:var(--ink-2);margin-top:12px;max-width:68ch}
+.sub{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+     color:var(--ink-3);margin:26px 0 10px}
+
+.chart{position:relative;height:240px;margin-top:18px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.86rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+.wide{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+   color:var(--ink-3);text-align:left;padding:0 14px 8px 0;border-bottom:1px solid var(--hair-2);white-space:nowrap}
+td{padding:10px 14px 10px 0;border-bottom:1px solid var(--hair);color:var(--ink-2);vertical-align:top;
+   font-variant-numeric:tabular-nums}
+td:first-child{color:var(--ink)}
+th.n,td.n{text-align:right}
+tr.hl td{background:#fff7ed}
+.miss{color:var(--neg);font-weight:600}
+
+.plan{list-style:none}
+.plan li{padding:12px 0;border-top:1px solid var(--hair)}
+.plan li:first-child{border-top:0;padding-top:0}
+.plan b{display:block;font-weight:600;color:var(--ink)}
+.plan p{color:var(--ink-2);max-width:66ch;margin-top:2px}
+
+.needs{list-style:none}
+.needs li{padding:12px 0 12px 22px;border-top:1px solid var(--hair);position:relative;max-width:68ch}
+.needs li:first-child{border-top:0;padding-top:0}
+.needs li::before{content:"";position:absolute;left:0;top:calc(12px + .5em);width:8px;height:8px;
+                  border-radius:2px;background:var(--warn)}
+.needs li:first-child::before{top:.5em}
+.needs b{color:var(--ink)}
+
+.flag{margin-top:16px;padding:12px 14px;background:var(--warn-soft);border-radius:8px;
+      font-size:.86rem;color:var(--warn);max-width:68ch}
+.flag b{color:var(--warn)}
+
+.foot{padding-top:22px;display:flex;flex-direction:column;gap:14px}
+.method{font-size:.86rem;color:var(--ink-3);max-width:76ch}
+.contact{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;font-size:.86rem;color:var(--ink-2)}
+.contact a{color:var(--orange);font-weight:600;text-decoration:none}
+.contact a:hover{text-decoration:underline}
+
+@media (max-width:720px){
+  body{padding:14px 8px 40px}
+  .report{padding:28px 20px}
+  .sec{grid-template-columns:1fr;gap:12px}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  html,body{background:#fff}
+  body{padding:0}
+  .report{border:0;border-radius:0;padding:0;max-width:none}
+  .sec,tr,.plan li{break-inside:avoid}
+  .sample,.tile,.flag,tr.hl td{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<article class="report">
+  <header class="title">
+    <p class="eyebrow"><b>Appear AI</b> · Search performance baseline</p>
+    <h1>Farmington Dental Studio</h1>
+    <div class="meta">
+      <div><span>Prepared for</span><strong>Dr. Sarmad Eiwaz</strong></div>
+      <div><span>Period</span><strong>August 1 – November 20, 2026</strong></div>
+      <div><span>Sources</span><strong>Search Console · Analytics · Business Profile</strong></div>
+    </div>
+    <p class="lede">This report sets the starting point for monthly reporting. It shows how patients
+      currently find the practice through Google, how the move to the new website affected search
+      traffic, and what we will measure each month going forward.</p>
+    <div class="tiles">
+      <div class="tile"><div class="v">238</div><div class="l">Calls from your Google Business Profile</div></div>
+      <div class="tile"><div class="v">328</div><div class="l">Website visits from your Google Business Profile</div></div>
+      <div class="tile"><div class="v">929</div><div class="l">Website visits from Google search</div></div>
+      <div class="tile"><div class="v">2,482</div><div class="l">Appearances in Google's AI answers</div></div>
+    </div>
+  </header>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">01</span><h2>Completed in November</h2></div>
+    <div class="sec-r">
+      <ul class="plan">
+        <li><b>Website move and redirects</b>
+          <p>The practice's domain now runs through a Cloudflare account owned by the practice. All
+            296 addresses from the previous website redirect to the matching page on the new site,
+            so patients and search engines following old links reach the right content.</p></li>
+        <li><b>Faster image loading</b>
+          <p>Website images are now cached, and the largest photos were compressed. The homepage
+            photo of Dr. Eiwaz went from 531 KB to 58 KB.</p></li>
+        <li><b>Email delivery record</b>
+          <p>I added a missing email authentication record (SPF), which helps keep practice email
+            out of patients' spam folders.</p></li>
+        <li><b>Previous vendor access removed</b>
+          <p>As requested, the previous website vendor's administrator access has been removed
+            from Google Analytics. Two other accounts still need your confirmation before I remove
+            them: lseoproduction@localseosites.com, which has full access to Google Search Console,
+            and a pending administrator invitation for lseoproduction@gmail.com in Google Tag
+            Manager.</p></li>
+        <li><b>Conversion tracking</b>
+          <p>Phone taps and form submissions on the website are now recorded as conversions in
+            Google Analytics. Previously, nothing on the site was counted as a conversion.</p></li>
+        <li><b>Google Maps ranking baseline</b>
+          <p>I recorded where the practice ranks in Google Maps for the proposed keywords, at 25
+            locations across Farmington Hills and the surrounding cities (section 05).</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">02</span><h2>The website switch</h2></div>
+    <div class="sec-r">
+      <p class="read">Search traffic held steady through the move to the new website on November 9.
+        In its first full week, the new site received 41 clicks from Google search, within the
+        practice's usual range of 26 to 64 clicks a week since August.</p>
+      <div class="chart"><canvas id="weekly" aria-label="Weekly clicks from Google search"></canvas></div>
+      <div class="legend"><span><i style="background:#9aa3ad"></i>Previous website</span>
+        <span><i style="background:#f97316"></i>New website</span></div>
+      <p class="note">Clicks from Google search by week, from Search Console. Search Console data
+        for the practice begins on July 26, so earlier weeks are not available.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">03</span><h2>Google Business Profile</h2></div>
+    <div class="sec-r">
+      <p class="read">Calls from the profile held steady at 60 to 76 a month, and website visits from
+        the profile reached their highest level in October. Direction requests fell from an
+        unusually high level in August, when they outnumbered calls by roughly nine to one.</p>
+      <div class="chart"><canvas id="gbp" aria-label="Monthly calls and website visits from the Business Profile"></canvas></div>
+      <div class="legend"><span><i style="background:#0F1F3D"></i>Calls</span>
+        <span><i style="background:#f97316"></i>Website visits</span></div>
+      <div class="wide" style="margin-top:18px">
+        <table>
+          <thead><tr><th>Month</th><th class="n">Calls</th><th class="n">Website visits</th><th class="n">Direction requests</th></tr></thead>
+          <tbody>
+            <tr><td>August</td><td class="n">76</td><td class="n">67</td><td class="n">725</td></tr>
+            <tr><td>September</td><td class="n">66</td><td class="n">69</td><td class="n">374</td></tr>
+            <tr><td>October</td><td class="n">61</td><td class="n">121</td><td class="n">102</td></tr>
+            <tr><td>November (to date)</td><td class="n">35</td><td class="n">71</td><td class="n">98</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">Searches that showed your profile</p>
+      <p class="read">The profile appears most often when patients search for other practices by
+        name, and for general searches such as "dentist" and "dentist near me." Searches for
+        "delta dental" showed the profile 94 times, which supports giving the insurance plans you
+        accept their own page.</p>
+      <div class="wide" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Search</th><th class="n">Times shown</th></tr></thead>
+          <tbody>
+            <tr><td>laurich dentistry</td><td class="n">473</td></tr>
+            <tr><td>dentist</td><td class="n">357</td></tr>
+            <tr><td>dentist near me</td><td class="n">306</td></tr>
+            <tr><td>dentist farmington hills</td><td class="n">296</td></tr>
+            <tr><td>superior family dental</td><td class="n">193</td></tr>
+            <tr><td>delta dental</td><td class="n">94</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">04</span><h2>How patients reach the website</h2></div>
+    <div class="sec-r">
+      <p class="read">Google search brings the most engaged visitors. Visitors from AI assistants
+        such as ChatGPT are still few, but they spend the most time on the site.</p>
+      <div class="wide" style="margin-top:16px">
+        <table>
+          <thead><tr><th>Source</th><th class="n">Visits</th><th class="n">Engaged</th><th class="n">Avg. time</th></tr></thead>
+          <tbody>
+            <tr><td>Google and other search engines</td><td class="n">929</td><td class="n">62%</td><td class="n">58 sec</td></tr>
+            <tr><td>Paid search ads</td><td class="n">254</td><td class="n">54%</td><td class="n">58 sec</td></tr>
+            <tr><td>Social media</td><td class="n">185</td><td class="n">47%</td><td class="n">18 sec</td></tr>
+            <tr><td>Links from other websites</td><td class="n">174</td><td class="n">57%</td><td class="n">49 sec</td></tr>
+            <tr><td>Paid social ads</td><td class="n">35</td><td class="n">49%</td><td class="n">31 sec</td></tr>
+            <tr class="hl"><td>AI assistants</td><td class="n">30</td><td class="n">63%</td><td class="n">95 sec</td></tr>
+            <tr><td>Direct (typed address or unknown)</td><td class="n">1,656</td><td class="n">26%</td><td class="n">11 sec</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Google Analytics, August 1 to November 20. "Direct" visits are mostly very short
+        and likely include automated traffic, so I do not use them to judge performance.</p>
+
+      <p class="sub">Google searches that lead to the website</p>
+      <p class="read">Most search clicks come from patients who already know the practice by name.
+        For the general search "dentist farmington hills," the website averages position 12, which
+        is the top of Google's second page.</p>
+      <div class="wide" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Search</th><th class="n">Clicks</th><th class="n">Avg. position</th></tr></thead>
+          <tbody>
+            <tr><td>farmington dental studio</td><td class="n">194</td><td class="n">1.2</td></tr>
+            <tr><td>dentist farmington hills</td><td class="n">15</td><td class="n">12.0</td></tr>
+            <tr><td>farmington hills dentist</td><td class="n">5</td><td class="n">23.2</td></tr>
+            <tr><td>emergency dentist farmington hills</td><td class="n">4</td><td class="n">16.6</td></tr>
+            <tr><td>dentist near me</td><td class="n">5</td><td class="n">65.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Search Console, July 26 to November 16.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">05</span><h2>Google Maps rankings</h2></div>
+    <div class="sec-r">
+      <p class="read">For most service keywords, the practice ranks well near the office but drops
+        out of the top 20 within about two and a half miles. Searches by insurance plan and for new
+        patients reach much further, returning the practice at 7 to 10 of the 25 locations.
+        "Invisalign" and "dentist open late" did not return the practice at any location, including
+        the office.</p>
+
+      <p class="sub">Services</p>
+      <div class="wide">
+        <table>
+          <thead><tr><th>Keyword</th><th class="n">Rank at the office</th><th class="n">Locations in top 20 (of 25)</th></tr></thead>
+          <tbody>
+            <tr><td>tooth extraction</td><td class="n">1</td><td class="n">8</td></tr>
+            <tr><td>dentist</td><td class="n">2</td><td class="n">1</td></tr>
+            <tr><td>family dentistry</td><td class="n">5</td><td class="n">1</td></tr>
+            <tr><td>cosmetic dentist</td><td class="n">5</td><td class="n">1</td></tr>
+            <tr><td>dental implants</td><td class="n">8</td><td class="n">1</td></tr>
+            <tr><td>root canal</td><td class="n">8</td><td class="n">1</td></tr>
+            <tr><td>emergency dentist</td><td class="n">11</td><td class="n">1</td></tr>
+            <tr><td>invisalign</td><td class="n miss">Not found</td><td class="n">0</td></tr>
+            <tr><td>dentist open late</td><td class="n miss">Not found</td><td class="n">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="sub">Insurance and new patients</p>
+      <div class="wide">
+        <table>
+          <thead><tr><th>Keyword</th><th class="n">Rank at the office</th><th class="n">Locations in top 20 (of 25)</th></tr></thead>
+          <tbody>
+            <tr><td>dentist accepting new patients</td><td class="n">1</td><td class="n">8</td></tr>
+            <tr><td>dentist that accepts Aetna</td><td class="n">4</td><td class="n">10</td></tr>
+            <tr><td>dentist that accepts Blue Cross Blue Shield</td><td class="n">4</td><td class="n">10</td></tr>
+            <tr><td>dentist that accepts UnitedHealthcare</td><td class="n">6</td><td class="n">9</td></tr>
+            <tr><td>dentist that accepts Delta Dental</td><td class="n">9</td><td class="n">7</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Each keyword uses the phrasing patients search most often, based on the
+        practice's own Search Console data and Google's search suggestions. For example, "family
+        dentistry" is searched more than "family dentist," and "dentist open late" more than
+        "dentist open evenings." The insurance plans shown are the four most searched among the plans
+        listed on your website. Recorded November 13 and 20 on a grid of 25 points, two and a half
+        miles apart, covering Farmington Hills, Farmington, Novi, West Bloomfield, Livonia and
+        Southfield. I will repeat this check monthly.</p>
+
+      <p class="sub">Other searches to discuss</p>
+      <p class="read">These topics came up often in Google searches. Before adding any of them to the
+        keyword list, I would like to confirm which services you want to promote.</p>
+      <div class="wide" style="margin-top:12px">
+        <table>
+          <thead><tr><th>Topic</th><th class="n">Times your site appeared</th><th>To confirm</th></tr></thead>
+          <tbody>
+            <tr><td>Dentures</td><td class="n">2,700</td><td>Your site has a dentures page. Should dentures be a tracked keyword?</td></tr>
+            <tr><td>Pediatric dentistry</td><td class="n">424</td><td>Your site has a children's dentist page. Should it be a tracked keyword?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Search Console, July 26 to November 16.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">06</span><h2>Google's AI answers</h2></div>
+    <div class="sec-r">
+      <p class="read">The website appears in Google's AI-generated answers more than twice as often
+        as it did in September, rising from about 19 times a day to about 46. The increase began in
+        early October, before the new website launched.</p>
+      <div class="chart"><canvas id="ai" aria-label="Average daily appearances in Google AI answers by month"></canvas></div>
+      <p class="note">Search Console's Generative AI report, average appearances per day. Google
+        began reporting this data on August 19, and November runs through the 18th.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">07</span><h2>Tracking notes</h2></div>
+    <div class="sec-r">
+      <p class="read">The website recorded 113 phone taps between August 1 and November 8.</p>
+      <div class="flag"><b>Phone tap tracking stopped when the new website launched.</b> No phone
+        taps have been recorded since November 9, while calls from the Google profile continued
+        normally, so the gap is in the tracking, not in patient calls. I have identified the likely
+        cause and, with your approval, will correct it so phone taps are counted again.</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-l"><span class="num">08</span><h2>Items for your input</h2></div>
+    <div class="sec-r">
+      <ul class="needs">
+        <li><b>Mobile call and booking bar.</b> On a phone, the Book Online button currently
+          appears well below the first screen. I recommend a bar fixed to the bottom of the screen
+          with Call and Book Online buttons.</li>
+        <li><b>Two new pages.</b> An evening hours page, since the website currently shows the
+          practice's hours only in the footer and on the contact page. And a single insurance and
+          payment page that brings together the plans you accept, the Perks Membership Plan and
+          financing, which currently appear in separate sections of the homepage and the Patient
+          Information page. I will write the content for your review before anything is published.</li>
+        <li><b>The keyword list.</b> Your confirmation of the updated keyword list in section 05, and whether dentures or children's dentistry should be added. The list
+          will be tracked each month.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="method">Figures come directly from the practice's Google Search Console, Google
+      Analytics and Google Business Profile accounts. November figures are partial. Because the new
+      website launched on November 9, month-over-month comparisons will begin with the December
+      report.</p>
+    <div class="contact">
+      <span>Prepared by Joe Kasper · Appear AI · hello@appearai.co · appearai.co</span>
+      <a href="https://calendly.com/kazztechholdings/ai-audit-follow-up">Book a call</a>
+    </div>
+  </footer>
+</article>
+
+<script>
+Chart.defaults.font.family = "Inter, 'Segoe UI', system-ui, sans-serif";
+Chart.defaults.color = '#6b736d';
+const grid = {color:'#e1e4df'};
+
+const weeks = ['Jul 27','Aug 3','Aug 10','Aug 17','Aug 24','Aug 31','Sep 7','Sep 14','Sep 21','Sep 28','Oct 5','Oct 12','Oct 19','Oct 26','Nov 2','Nov 9'];
+const clicks = [40,37,39,29,35,26,41,39,48,40,64,56,41,35,47,41];
+new Chart(document.getElementById('weekly'), {
+  type:'bar',
+  data:{labels:weeks, datasets:[{data:clicks, borderRadius:3,
+    backgroundColor:weeks.map((w,i)=> i===weeks.length-1 ? '#f97316' : '#9aa3ad')}]},
+  options:{maintainAspectRatio:false, plugins:{legend:{display:false},
+    tooltip:{callbacks:{title:c=>'Week of '+c[0].label, label:c=>c.raw+' clicks'}}},
+    scales:{x:{grid:{display:false}}, y:{beginAtZero:true, grid, ticks:{precision:0}}}}
+});
+
+new Chart(document.getElementById('gbp'), {
+  type:'bar',
+  data:{labels:['Aug','Sep','Oct','Nov (to date)'], datasets:[
+    {label:'Calls', data:[76,66,61,35], backgroundColor:'#0F1F3D', borderRadius:3},
+    {label:'Website visits', data:[67,69,121,71], backgroundColor:'#f97316', borderRadius:3}]},
+  options:{maintainAspectRatio:false, plugins:{legend:{display:false}},
+    scales:{x:{grid:{display:false}}, y:{beginAtZero:true, grid, ticks:{precision:0}}}}
+});
+
+new Chart(document.getElementById('ai'), {
+  type:'bar',
+  data:{labels:['Aug (from 19th)','Sep','Oct','Nov (to 18th)'], datasets:[
+    {data:[15.6,18.6,28.7,46.2], backgroundColor:['#9aa3ad','#9aa3ad','#0F1F3D','#0F1F3D'], borderRadius:3}]},
+  options:{maintainAspectRatio:false, plugins:{legend:{display:false},
+    tooltip:{callbacks:{label:c=>c.raw+' per day'}}},
+    scales:{x:{grid:{display:false}}, y:{beginAtZero:true, grid}}}
+});
+</script>
+</body>
+</html>
