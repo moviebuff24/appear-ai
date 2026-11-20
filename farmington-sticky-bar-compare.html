@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow, noarchive"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sticky Bar Comparison</title>
+<style>
+:root{--ink:#1c1917;--muted:#6b6560;--bg:#f5f5f4;--frame:#1c1917}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e7e5e4;--muted:#a8a29e;--bg:#1c1917;--frame:#000}}
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
+h1{font-size:20px;margin:0 0 4px;text-align:center}
+p.sub{margin:0 0 20px;color:var(--muted);text-align:center;font-size:14px}
+.row{display:flex;gap:40px;justify-content:center;flex-wrap:wrap}
+figure{margin:0;text-align:center}
+figcaption{font-weight:700;margin-bottom:10px}
+.phone{width:390px;height:780px;border:12px solid var(--frame);border-radius:36px;overflow:hidden;background:#fff;max-width:calc(100vw - 56px)}
+iframe{width:390px;height:780px;border:0;display:block}
+</style></head><body>
+<h1>Mobile homepage: today vs. with a sticky Call / Book bar</h1>
+<p class="sub">Scroll inside either phone. The bar stays pinned on every page and only appears on phones.</p>
+<div class="row">
+<figure><figcaption>Today</figcaption><div class="phone"><iframe src="farmington-sticky-bar-today.html"></iframe></div></figure>
+<figure><figcaption>With sticky bar</figcaption><div class="phone"><iframe src="farmington-sticky-bar-with-bar.html"></iframe></div></figure>
+</div></body></html>
